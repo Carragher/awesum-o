@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>background.jpg</file>
+        <file>gamename.png</file>
+        <file>logo.jpeg</file>
+        <file>teamname.png</file>
+        <file>tile-1-center.gif</file>
+        <file>tile-1-corner-left-bottom.gif</file>
+        <file>tile-1-corner-left-top.gif</file>
+        <file>tile-1-corner-right-bottom.gif</file>
+        <file>tile-1-corner-right-top.gif</file>
+        <file>tile-1-horizontal.gif</file>
+        <file>tile-1-vertical.gif</file>
+        <file>turret-1-base.gif</file>
+        <file>turret-1-cannon.gif</file>
+        <file>turret-2-base.gif</file>
+        <file>turret-2-cannon.gif</file>
+        <file>turret-3-base.gif</file>
+        <file>turret-3-cannon.gif</file>
+        <file>turret-4-base.gif</file>
+        <file>turret-4-cannon.gif</file>
+        <file>turret-5-base.gif</file>
+        <file>turret-5-cannon.gif</file>
+        <file>turret-6-base.gif</file>
+        <file>turret-6-cannon.gif</file>
+        <file>turret-7-base.gif</file>
+        <file>turret-7-cannon.gif</file>
+    </qresource>
+</RCC>
