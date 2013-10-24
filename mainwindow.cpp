@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
         scene->addLine(0,y,500,y, QPen(Qt::green));*/
     enemy = new Entity;
     scene->addItem(enemy);
+
+    // timer for updating the game
     QTimer *timer = new QTimer(this);
     timer->setInterval(100);
     connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
@@ -36,8 +38,10 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::timerHit()
-{
+void MainWindow::timerHit() {
+
+    // update the model and such
+
     int amountX = random() % 10 - 5;
     int amountY = random() % 10 - 5;
     enemy->setX(amountX);
