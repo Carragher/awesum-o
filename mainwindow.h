@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "Entity.h"
+
+#include "entity.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QTimer>
