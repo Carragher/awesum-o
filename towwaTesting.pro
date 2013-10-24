@@ -14,16 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp\
-        Entity.cpp \
     tile.cpp \
     entities.cpp \
-    world.cpp
+    world.cpp \
+    entity.cpp
 
 HEADERS  += mainwindow.h\
-            Entity.h \
     tile.h \
     entities.h \
-    world.h
+    world.h \
+    entity.h
 
 FORMS    += mainwindow.ui
 
