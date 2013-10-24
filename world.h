@@ -10,26 +10,23 @@
 using namespace std;
 
 class World {
-    vector<tile*> tiles;
-    vector<enemy*> enemys;
+    vector<Tile*> tiles;
+    vector<Enemy*> enemies;
 
 public:
     World() { }
 
     // Creates and returns a tile based on the <type>
-    tile *createObject(const string& type);
+    Tile *createObject(const string& type);
 
     // adds <obj> to tiles in world
-    void add(tile*);
+    void add(Tile*);
 
     // returns tile with <id>, or NULL if none
-    tile *getById(int id);
+    Tile *getById(int id);
 
     // returns the vector of tiles
-    vector<tile*>& getTiles() { return tiles; }
-
-    // Removes object with <id> from objects and returns it, or returns NULL if not found
-    tile *destroy(int id);
+    vector<Tile*>& getTiles() { return tiles; }
 
     // Resets world
     void reset();

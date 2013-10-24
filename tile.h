@@ -1,7 +1,7 @@
-#ifndef TILE_H
-#define TILE_H
+#ifndef Tile_H
+#define Tile_H
 
-class tile {
+class Tile {
     int id;
     int x;
     int y;
@@ -9,16 +9,22 @@ class tile {
     int height;
     bool placable;
 
+    static int nextId;
 public:
-    explicit tile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
+    explicit Tile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         x(newX),
         y(newY),
         width(newWidth),
         height(newHeight),
         placable(newPlacable) {
 
-        // set the id
+        id = nextId;
+        nextId++;
+    }
 
+    //set nextId to 0
+    static void resetNextId() {
+        nextId = 0;
     }
 
     void setId(int id) { this->id = id; }
@@ -36,12 +42,12 @@ public:
 };
 
 
-class pathTile : public tile {
+class pathTile : public Tile {
     int nextTile;
 
 public:
     explicit pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
-        tile(newX, newY, newWidth, newHeight, newPlacable) {
+        Tile(newX, newY, newWidth, newHeight, newPlacable) {
 
         nextTile = newNextTile;
 
@@ -52,7 +58,7 @@ public:
 
 };
 
-class towerTile : public tile {
+class towerTile : public Tile {
     int health;
     int fireSpeed;
     int damage;
@@ -71,4 +77,4 @@ public:
 };
 
 
-#endif // TILE_H
+#endif // Tile_H

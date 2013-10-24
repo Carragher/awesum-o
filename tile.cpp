@@ -1,8 +1,3 @@
 #include "tile.h"
 
-//tile::tile() {
-
-//}
-
-
-
+int Tile::nextId = 0;

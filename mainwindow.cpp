@@ -3,8 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     scene = new QGraphicsScene(this);
@@ -17,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // Now add the horizontal lines, paint them green
     for (int y=0; y<=500; y+=50)
         scene->addLine(0,y,500,y, QPen(Qt::green));*/
-    enemy = new Entity;
-    scene->addItem(enemy);
+//    enemy = new Entity;
+//    scene->addItem(Enemy);
 
     // timer for updating the game
     QTimer *timer = new QTimer(this);
@@ -50,5 +49,5 @@ void MainWindow::timerHit() {
 
 void MainWindow::on_spawnBtn_clicked()
 {
-    Entity e = new Entity();
+//    Entity e = new Entity();
 }

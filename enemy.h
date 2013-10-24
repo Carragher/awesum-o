@@ -1,14 +1,28 @@
-#ifndef ENTITIES_H
-#define ENTITIES_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
-class enemy {
+class Enemy {
 private:
     int hp;
     int moveSpeed;
     int x;
     int y;
 
+    static int nextId;
+
 public:
+    // creates a new enemy and sets the important info for it
+    explicit Enemy(int newHp, int newMoveSpeed, int newX, int newY):
+        hp(newHp),
+        moveSpeed(newMoveSpeed),
+        x(newX),
+        y(newY) { }
+
+    //set nextId to 0
+    static void resetNextId() {
+        nextId = 0;
+    }
+
     void setHp(int hp) { this->hp = hp; }
     int getHp() { return this->hp; }
     void setMoveSpeed(int moveSpeed) { this->moveSpeed = moveSpeed; }
@@ -23,4 +37,4 @@ public:
 
 
 
-#endif // ENTITIES_H
+#endif // ENEMY_H
