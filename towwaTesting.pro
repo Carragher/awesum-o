@@ -15,15 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp\
     tile.cpp \
-    entities.cpp \
     world.cpp \
-    entity.cpp
+    entity.cpp \
+    enemy.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
-    entities.h \
     world.h \
-    entity.h
+    entity.h \
+    enemy.h
 
 FORMS    += mainwindow.ui
 

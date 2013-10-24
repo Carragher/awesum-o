@@ -5,13 +5,13 @@
 #include <vector>
 
 #include "tile.h"
-
-// conflict!!!
+#include "enemy.h"
 
 using namespace std;
 
 class World {
     vector<tile*> tiles;
+    vector<enemy*> enemys;
 
 public:
     World() { }

@@ -1,7 +1,7 @@
 #ifndef ENTITIES_H
 #define ENTITIES_H
 
-class entities {
+class enemy {
 private:
     int hp;
     int moveSpeed;
