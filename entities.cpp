@@ -1,5 +1,4 @@
 #include "entities.h"
 
-entities::entities()
-{
-}
+//entities::entities(){
+//}
