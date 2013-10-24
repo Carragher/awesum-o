@@ -47,3 +47,8 @@ void MainWindow::timerHit() {
     enemy->setX(amountX);
     enemy->setY(amountY);
 }
+
+void MainWindow::on_spawnBtn_clicked()
+{
+    Entity e = new Entity();
+}

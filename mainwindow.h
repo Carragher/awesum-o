@@ -19,6 +19,9 @@ public:
     ~MainWindow();
     void timerHit();
     
+private slots:
+    void on_spawnBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;

@@ -36,7 +36,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/gamename.png</pixmap>
+     <pixmap resource="images/images.qrc">:/gamename.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -55,7 +55,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/teamname.png</pixmap>
+     <pixmap resource="images/images.qrc">:/teamname.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -83,6 +83,19 @@
     <property name="title">
      <string>GroupBox</string>
     </property>
+    <widget class="QPushButton" name="spawnBtn">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>40</y>
+       <width>96</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>spawn test</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="logoLabel">
     <property name="geometry">
@@ -97,7 +110,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/logo.jpeg</pixmap>
+     <pixmap resource="images/images.qrc">:/logo.jpeg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -141,6 +154,8 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>
