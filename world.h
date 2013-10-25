@@ -12,9 +12,18 @@ using namespace std;
 class World {
     vector<Tile*> tiles;
     vector<Enemy*> enemies;
+    int score;
 
 public:
     World() { }
+
+    //is the method that adds score when an enemy is killed
+    void enemyDeath();
+
+    // allows the user to buy a tower and returns a bool to determine if succeessfull
+    bool towerBuy(int);
+
+    int getScore() { return score;}
 
     // Creates and returns a tile based on the <type>
     Tile *createObject(const string& type);

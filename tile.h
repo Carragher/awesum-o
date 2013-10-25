@@ -47,7 +47,7 @@ class pathTile : public Tile {
     int nextTile;
 
 public:
-    void pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
+     pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
         Tile(newX, newY, newWidth, newHeight, newPlacable) {
 
         nextTile = newNextTile;
@@ -68,7 +68,7 @@ class towerTile : public Tile { // parent class for towers
 public:
     void deathUpdate();// this method will destroy a tower when it dies
 
-    void towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
+     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         Tile(newX, newY, newWidth, newHeight, newPlacable) { }
 
     void setHealth(int health) { this->health = health; }

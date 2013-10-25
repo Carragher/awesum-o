@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "world.h"
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -50,4 +52,8 @@ void MainWindow::timerHit() {
 void MainWindow::on_spawnBtn_clicked()
 {
     //    Entity e = new Entity();
+
+    int test = World::getInstance().getScore();
+    QString q = QString::number(test);
+    ui->scoreLbl->setText(q);
 }

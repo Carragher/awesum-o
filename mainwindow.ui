@@ -132,6 +132,19 @@
      <string notr="true">background-color:white</string>
     </property>
    </widget>
+   <widget class="QLabel" name="scoreLbl">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>140</y>
+      <width>66</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SCORE</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

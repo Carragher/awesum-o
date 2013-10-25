@@ -18,6 +18,17 @@ void World::reset() {
     Enemy::resetNextId();
 }
 
+void World::enemyDeath() {score += 25;}
+
+bool World::towerBuy(int amount) {
+    if (amount <= score){
+        score  -= amount;
+        return true;
+    }
+    return false;
+
+}
+
 
 
 // destructor
