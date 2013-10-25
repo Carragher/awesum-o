@@ -10,7 +10,7 @@ class Entity : public QGraphicsItem
     public:
         Entity();
         QRectF boundingRect() const;
-    void paint(QPainter *painter,
+        void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget);
         void setX (int);

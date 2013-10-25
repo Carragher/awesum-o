@@ -23,6 +23,10 @@ public:
         nextId = 0;
     }
 
+    virtual void deathUpdate();
+
+
+
     void setHp(int hp) { this->hp = hp; }
     int getHp() { return this->hp; }
     void setMoveSpeed(int moveSpeed) { this->moveSpeed = moveSpeed; }
@@ -40,18 +44,19 @@ class Walker: public Enemy {
 public:
     Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
 
+    void deathUpdate();
     void updatePosition(); // updatets the position
 };
 
 class Sergeant: public Enemy {
     Sergeant(int newX, int newY): Enemy(100, 5, newX, newY) { }
-
+    void deathUpdate();
     void updatePosition(); // updatets the position
 };
 
 class YOLO: public Enemy {
     YOLO(int newX, int newY): Enemy(25, 20, newX, newY) { }
-
+    void deathUpdate();
     void updatePosition(); // updatets the position
 };
 

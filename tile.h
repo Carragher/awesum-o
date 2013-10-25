@@ -26,7 +26,7 @@ public:
     static void resetNextId() {
         nextId = 0;
     }
-
+    // getters and setters
     void setId(int id) { this->id = id; }
     int getId() { return this->id; }
     void setX(int x) { this->x = x; }
@@ -43,6 +43,7 @@ public:
 
 
 class pathTile : public Tile {
+
     int nextTile;
 
 public:
@@ -65,6 +66,8 @@ class towerTile : public Tile { // parent class for towers
     int range;
 
 public:
+    void deathUpdate();// this method will destroy a tower when it dies
+
     void towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         Tile(newX, newY, newWidth, newHeight, newPlacable) { }
 
