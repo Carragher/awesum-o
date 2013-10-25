@@ -46,7 +46,7 @@ class pathTile : public Tile {
     int nextTile;
 
 public:
-    explicit pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
+    void pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
         Tile(newX, newY, newWidth, newHeight, newPlacable) {
 
         nextTile = newNextTile;
@@ -58,13 +58,16 @@ public:
 
 };
 
-class towerTile : public Tile {
+class towerTile : public Tile { // parent class for towers
     int health;
     int fireSpeed;
     int damage;
     int range;
 
 public:
+    void towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
+        Tile(newX, newY, newWidth, newHeight, newPlacable) { }
+
     void setHealth(int health) { this->health = health; }
     int getHealth() { return this->health; }
     void setFireSpeed(int fireSpeed) { this->fireSpeed = fireSpeed; }
@@ -73,6 +76,8 @@ public:
     int getDamage() { return this->damage; }
     void setRange(int range) { this->range = range; }
     int getRange() { return this->range; }
+
+    virtual void updateInfo();
 
 };
 

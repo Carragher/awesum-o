@@ -27,6 +27,7 @@ public:
 
     // returns the vector of tiles
     vector<Tile*>& getTiles() { return tiles; }
+    vector<Enemy*>& getEnemies() { return enemies; }
 
     // Resets world
     void reset();

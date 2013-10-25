@@ -35,6 +35,25 @@ public:
     virtual void updatePosition() { }
 };
 
+class Walker: public Enemy {
+
+public:
+    Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
+
+    void updatePosition(); // updatets the position
+};
+
+class Sergeant: public Enemy {
+    Sergeant(int newX, int newY): Enemy(100, 5, newX, newY) { }
+
+    void updatePosition(); // updatets the position
+};
+
+class YOLO: public Enemy {
+    YOLO(int newX, int newY): Enemy(25, 20, newX, newY) { }
+
+    void updatePosition(); // updatets the position
+};
 
 
 #endif // ENEMY_H
