@@ -13,11 +13,16 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    bool play;
     
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void timerHit();
+
+    void setPlay(bool newPlay) { play = newPlay; }
+
+    bool getPlay() { return play; }
     
 private slots:
     void on_spawnBtn_clicked();

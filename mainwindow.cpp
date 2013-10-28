@@ -41,11 +41,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::timerHit() {
 
-    // get a collection of tiles and enemies
+    // get a collection of tiles
+    //and enemies
     // run the update method on each object
-
-
-
 
 }
 
