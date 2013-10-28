@@ -29,7 +29,8 @@ public:
     Tile *createObject(const string& type);
 
     // adds <obj> to tiles in world
-    void add(Tile*);
+    void addTile(Tile*);
+    void addEnemy(Enemy*);
 
     // returns tile with <id>, or NULL if none
     Tile *getById(int id);

@@ -16,16 +16,14 @@ public:
         hp(newHp),
         moveSpeed(newMoveSpeed),
         x(newX),
-        y(newY) { }
+        y(newY) {}
 
     //set nextId to 0
     static void resetNextId() {
         nextId = 0;
     }
 
-    virtual void deathUpdate();
-
-
+    virtual void deathUpdate(){}
 
     void setHp(int hp) { this->hp = hp; }
     int getHp() { return this->hp; }
@@ -44,19 +42,23 @@ class Walker: public Enemy {
 public:
     Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
 
-    void deathUpdate();
+    void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
 };
 
 class Sergeant: public Enemy {
+
+public:
     Sergeant(int newX, int newY): Enemy(100, 5, newX, newY) { }
-    void deathUpdate();
+    void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
 };
 
 class YOLO: public Enemy {
+
+public:
     YOLO(int newX, int newY): Enemy(25, 20, newX, newY) { }
-    void deathUpdate();
+    void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
 };
 

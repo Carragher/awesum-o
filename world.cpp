@@ -3,6 +3,12 @@
 // work some singleton magic
 World World::instance;
 
+//Adds enemy to enemy vector
+void World::addEnemy(Enemy* enemy)
+{
+    enemies.push_back(enemy);
+}
+
 void World::reset() {
     for (size_t c = 0; c < tiles.size(); c = c ) {
         delete tiles.at(c);
