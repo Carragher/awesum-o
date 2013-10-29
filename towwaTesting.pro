@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     world.cpp \
     entity.cpp \
     enemy.cpp \
-    highscore.cpp
+    highscore.cpp \
+    command.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
     world.h \
     entity.h \
     enemy.h \
-    highscore.h
+    highscore.h \
+    command.h
 
 FORMS    += mainwindow.ui
 

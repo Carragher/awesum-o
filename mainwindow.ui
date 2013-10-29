@@ -116,22 +116,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>160</y>
-      <width>791</width>
-      <height>481</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:white</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="scoreLbl">
     <property name="geometry">
      <rect>
@@ -143,6 +127,19 @@
     </property>
     <property name="text">
      <string>SCORE</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="graphicsView" native="true">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>160</y>
+      <width>800</width>
+      <height>500</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>

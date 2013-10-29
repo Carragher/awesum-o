@@ -7,6 +7,7 @@ private:
     int moveSpeed;
     int x;
     int y;
+    int id;
 
     static int nextId;
 
@@ -17,6 +18,11 @@ public:
         moveSpeed(newMoveSpeed),
         x(newX),
         y(newY) {}
+
+    // for the command classes
+    Enemy(): x(0), y(0) {
+        id = ++nextId;
+    }
 
     //set nextId to 0
     static void resetNextId() {
@@ -33,6 +39,8 @@ public:
     int getX() { return this->x; }
     void setY(int y) { this->y = y; }
     int getY() { return this->y; }
+    void setId(int id) { this->id = id; }
+    int getId() { return this->id; }
 
     virtual void updatePosition() { }
 };
@@ -41,6 +49,7 @@ class Walker: public Enemy {
 
 public:
     Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
+    Walker(): Enemy(50, 10, 0, 0) { }
 
     void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
@@ -50,6 +59,7 @@ class Sergeant: public Enemy {
 
 public:
     Sergeant(int newX, int newY): Enemy(100, 5, newX, newY) { }
+    Sergeant(): Enemy(50, 10, 0, 0) { }
     void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
 };
@@ -58,6 +68,7 @@ class YOLO: public Enemy {
 
 public:
     YOLO(int newX, int newY): Enemy(25, 20, newX, newY) { }
+    YOLO(): Enemy(25, 20, 0, 0) { }
     void deathUpdate(); //destroys enemy when hp reaches 0
     void updatePosition(); // updatets the position
 };

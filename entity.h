@@ -1,14 +1,24 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <QPainter>
+#include <QLabel>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
+#include "mainwindow.h"
+#include "tile.h"
+
 using namespace std;
 
-class Entity : public QGraphicsItem
-{
+class MainWindow;
+
+class Entity: public QLabel {
+        MainWindow *win;
+        Tile *tile;
+
+
     public:
-        Entity();
+        explicit Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld): QLabel(newWorld), win(parent), tile(newTile) { }
+
         QRectF boundingRect() const;
         void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,

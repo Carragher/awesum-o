@@ -4,9 +4,13 @@
 World World::instance;
 
 //Adds enemy to enemy vector
-void World::addEnemy(Enemy* enemy)
-{
+void World::addEnemy(Enemy* enemy) {
     enemies.push_back(enemy);
+}
+
+//Adds tile to tile vector
+void World::addTile(Tile* tile) {
+    tiles.push_back(tile);
 }
 
 void World::reset() {
@@ -35,7 +39,29 @@ bool World::towerBuy(int amount) {
 
 }
 
+Tile *World::createTile(const string &type) {
+    if (type.find("tile") == 0)
+        return new Tile;
+    else if (type.find("path") == 0)
+        return new pathTile;
+    else if (type.find("tower") == 0)
+        return NULL;
+//        return new towerTile;
+    else
+        return NULL;
+}
 
+
+Enemy *World::createEnemy(const string &type) {
+    if (type.find("walker") == 0)
+        return new Walker;
+    else if (type.find("sergeant") == 0)
+        return new Sergeant;
+    else if (type.find("yolo") == 0)
+        return new YOLO;
+    else
+        return NULL;
+}
 
 // destructor
 World::~World() {

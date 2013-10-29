@@ -9,18 +9,22 @@ class Tile {
     int height;
     bool placable;
 
-    static int nextId;
 public:
-    explicit Tile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
+    Tile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         x(newX),
         y(newY),
         width(newWidth),
         height(newHeight),
         placable(newPlacable) {
 
-        id = nextId;
-        nextId++;
+        id = ++nextId;
     }
+
+    Tile(): x(0), y(0) {
+        id = ++nextId;
+    }
+
+    static int nextId; // not sure if this is the right way to do this....
 
     //set nextId to 0
     static void resetNextId() {
@@ -49,27 +53,29 @@ class pathTile : public Tile {
 public:
      pathTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable, int newNextTile):
         Tile(newX, newY, newWidth, newHeight, newPlacable) {
-
         nextTile = newNextTile;
-
     }
+
+    pathTile(): Tile() { }
 
     void setNextTile(int nextTile) { this->nextTile = nextTile; }
     int getNextTile() { return this->nextTile; }
 
 };
 
-class towerTile : public Tile { // parent class for towers
+class towerTile : public Tile {
     int health;
     int fireSpeed;
     int damage;
     int range;
 
 public:
-    void deathUpdate();// this method will destroy a tower when it dies
-
-     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
+    towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         Tile(newX, newY, newWidth, newHeight, newPlacable) { }
+
+//    towerTile(): Tile() { }
+
+    void deathUpdate();// this method will destroy a tower when it dies
 
     void setHealth(int health) { this->health = health; }
     int getHealth() { return this->health; }

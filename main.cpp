@@ -44,10 +44,9 @@ void unitTest()
 int main(int argc, char *argv[])
 {
     vector<string> args(argv, argv + argc);
-    if (args.at(1) == "-test")
-    {
-        unitTest();
-    }
+//    if (args.at(1) == "-test")     {
+//        unitTest();
+//    }
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

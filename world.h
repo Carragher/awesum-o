@@ -26,7 +26,8 @@ public:
     int getScore() { return score;}
 
     // Creates and returns a tile based on the <type>
-    Tile *createObject(const string& type);
+    Tile *createTile(const string& type);
+    Enemy *createEnemy(const string& type);
 
     // adds <obj> to tiles in world
     void addTile(Tile*);

@@ -1,11 +1,11 @@
 #include "entity.h"
 
-Entity::Entity()
-{
-    posX = 0;
-    posY = 0;
-    enemy.load(":/images/logo.jpeg");
-}
+//Entity::Entity()
+//{
+//    posX = 0;
+//    posY = 0;
+//    enemy.load(":/images/logo.jpeg");
+//}
 
 QRectF Entity::boundingRect() const
 {

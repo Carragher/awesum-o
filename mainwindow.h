@@ -20,6 +20,8 @@ public:
     ~MainWindow();
     void timerHit();
 
+    void initWorld();
+
     void setPlay(bool newPlay) { play = newPlay; }
 
     bool getPlay() { return play; }
@@ -29,7 +31,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *scene;
+//    QGraphicsScene *scene;
 };
 
 #endif // MAINWINDOW_H
