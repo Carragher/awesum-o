@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     enemy.cpp \
     highscore.cpp \
     command.cpp \
-    enemygui.cpp
+    enemygui.cpp \
+    storage.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h\
     enemy.h \
     highscore.h \
     command.h \
-    enemygui.h
+    enemygui.h \
+    storage.h
 
 FORMS    += mainwindow.ui
 

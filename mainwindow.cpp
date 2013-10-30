@@ -4,6 +4,7 @@
 #include "command.h"
 #include "tile.h"
 #include "enemygui.h"
+#include "storage.h"
 #include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -33,39 +34,43 @@ void MainWindow::on_spawnBtn_clicked() {
     // run the POC test:
     // move objects around
 
-    //generate enemy GUI
+    //create enemy command
     CreateCommand *createEn = new CreateCommand("walker", "walker");
     createEn->execute();
-    Enemy *texas = World::getInstance().getEnemies().back();
 
-
-
+    //test display score
     int test = World::getInstance().getScore();
     QString q = QString::number(test);
     World::getInstance().enemyDeath();
     ui->scoreLbl->setText(q);
+
+    Enemy *texas = World::getInstance().getEnemies().back();
+
+    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
+    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
+    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
+    storage::getInstance().addEngui(ranger);
+    ranger->show();
+
     //trying to animate on button click
     QTimer *timer = new QTimer(this);
     timer->setInterval(100);
     connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
     timer->start();
 
-    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
-    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
-    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
-    ranger->show();
-
     delete createEn;
+
 }
 
 void MainWindow::timerHit() {
-
 
     // get a collection of tiles
     //and enemies
     Enemy *frenemy = World::getInstance().getEnemies().back();
     frenemy->updatePosition();
-    //delete frenemy;
+
+    EnemyGUI *en = storage::getInstance().getEngui().back();
+    en->move(frenemy->getX(), frenemy->getY());
     // run the update method on each object
 
 }
