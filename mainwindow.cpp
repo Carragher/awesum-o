@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
     timer->start();*/
 
-
+    TIMER = new QTimer(this);
     this->initWorld();
     this->loadPath("1\n2\n25\n160\n");
 }
@@ -53,10 +53,8 @@ void MainWindow::on_spawnBtn_clicked() {
     ranger->show();
 
     //trying to animate on button click
-    QTimer *timer = new QTimer(this);
-    timer->setInterval(100);
-    connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
-    timer->start();
+
+    TIMER->start();
 
     delete createEn;
 
@@ -75,6 +73,13 @@ void MainWindow::timerHit() {
 
 }
 void MainWindow::initWorld() {
+
+    TIMER->setInterval(100);
+    connect(TIMER, &QTimer::timeout, this, &MainWindow::timerHit);
+
+
+
+
     // 16 x 10
     int x = 0;
     int y = 0;

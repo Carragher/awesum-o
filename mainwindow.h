@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
     bool play;
+    QTimer *TIMER;
     
 public:
     explicit MainWindow(QWidget *parent = 0);
