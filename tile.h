@@ -9,6 +9,8 @@ class Tile {
     int height;
     bool placable;
 
+    static int nextId; // not sure if this is the right way to do this....
+
 public:
     Tile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         x(newX),
@@ -24,7 +26,7 @@ public:
         id = ++nextId;
     }
 
-    static int nextId; // not sure if this is the right way to do this....
+
 
     //set nextId to 0
     static void resetNextId() {
@@ -44,8 +46,15 @@ public:
     int getHeight() { return this->height; }
     void setPlacable(bool placable) { this->placable = placable; }
     bool getPlacable() { return this->placable; }
+
+    virtual void updatePos() { }
 };
 
+class normalTile : public Tile {
+public:
+    void updatePos() { }
+
+};
 
 class pathTile : public Tile {
 
@@ -61,6 +70,8 @@ public:
 
     void setNextTile(int nextTile) { this->nextTile = nextTile; }
     int getNextTile() { return this->nextTile; }
+
+    void updatePos() { }
 
 };
 
@@ -86,6 +97,8 @@ public:
     int getDamage() { return this->damage; }
     void setRange(int range) { this->range = range; }
     int getRange() { return this->range; }
+
+    void updatePos() { }
 
 //    virtual void updateInfo();
 

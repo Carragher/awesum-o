@@ -27,10 +27,16 @@ void Entity::setY(int y) {posY = y; }
 
 // if the mouse enters the Entity change the color - these methods can be used for tower placement!
 void Entity::enterEvent(QEvent *ev) {
-    this->setStyleSheet("QLabel { background-color : red; border-style:dotted; border-width:1px; border-color: black; }");
+
+    if (!dynamic_cast<pathTile*>(tile) && !dynamic_cast<towerTile*>(tile)) {
+        this->setStyleSheet("QLabel { background-color : red; border-style:dotted; border-width:1px; border-color: black; }");
+    }
 }
 
 // if the mouse leaves the Entity, change the color
 void Entity::leaveEvent(QEvent *ev) {
-    this->setStyleSheet("QLabel { background-color : grey; border-style:dotted; border-width:1px; border-color: black; }");
+    if (!dynamic_cast<pathTile*>(tile) && !dynamic_cast<towerTile*>(tile)) {
+        this->setStyleSheet("QLabel { background-color : grey; border-style:dotted; border-width:1px; border-color: black; }");
+    }
+
 }

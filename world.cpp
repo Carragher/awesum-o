@@ -15,8 +15,10 @@ void World::addTile(Tile* tile) {
 
 void World::reset() {
     for (size_t c = 0; c < tiles.size(); c = c ) {
-        delete tiles.at(c);
+        Tile *tile = tiles.at(c);
+//        delete tiles.at(c);
         tiles.erase(tiles.begin()+c);
+        delete tile;
     }
 
     for (size_t d = 0; d < enemies.size(); d = d ) {
@@ -41,11 +43,10 @@ bool World::towerBuy(int amount) {
 
 Tile *World::createTile(const string &type) {
     if (type.find("tile") == 0)
-        return new Tile;
+        return new normalTile;
     else if (type.find("path") == 0)
         return new pathTile;
     else if (type.find("tower") == 0)
-//        return NULL;
         return new towerTile;
     else
         return NULL;
