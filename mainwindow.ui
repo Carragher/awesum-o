@@ -96,6 +96,32 @@
       <string>POC Start</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="buyBtn">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>90</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buy Test</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="createBtn">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>140</y>
+       <width>98</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create BTN</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="logoLabel">
     <property name="geometry">

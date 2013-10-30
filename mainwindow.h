@@ -34,6 +34,8 @@ public:
 private slots:
     void on_spawnBtn_clicked();
 
+    void on_buyBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 //    QGraphicsScene *scene;

@@ -46,6 +46,7 @@ void MainWindow::on_spawnBtn_clicked() {
 
     int test = World::getInstance().getScore();
     QString q = QString::number(test);
+    World::getInstance().enemyDeath();
     ui->scoreLbl->setText(q);
 }
 
@@ -152,5 +153,17 @@ void MainWindow::createPath(string cmd) {
 
             delete createPath;
         }
+    }
+}
+
+void MainWindow::on_buyBtn_clicked()
+{
+    int ifScore = World::getInstance().getScore();
+    if (ifScore > 43){
+    World::getInstance().towerBuy(43);
+    int test = World::getInstance().getScore();
+    QString q = QString::number(test);
+
+    ui->scoreLbl->setText(q);
     }
 }
