@@ -25,6 +25,9 @@ class Entity: public QLabel {
                QWidget *widget);
         void setX (int);
         void setY (int);
+
+        void enterEvent(QEvent *);
+        void leaveEvent(QEvent *);
     
         QPixmap enemy;
         int posX, posY;

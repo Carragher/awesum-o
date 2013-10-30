@@ -30,6 +30,7 @@ public:
     static void resetNextId() {
         nextId = 0;
     }
+
     // getters and setters
     void setId(int id) { this->id = id; }
     int getId() { return this->id; }
@@ -70,10 +71,10 @@ class towerTile : public Tile {
     int range;
 
 public:
+    towerTile(): Tile() { }
+
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
         Tile(newX, newY, newWidth, newHeight, newPlacable) { }
-
-//    towerTile(): Tile() { }
 
     void deathUpdate();// this method will destroy a tower when it dies
 
@@ -86,7 +87,7 @@ public:
     void setRange(int range) { this->range = range; }
     int getRange() { return this->range; }
 
-    virtual void updateInfo();
+//    virtual void updateInfo();
 
 };
 

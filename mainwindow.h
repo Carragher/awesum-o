@@ -4,8 +4,11 @@
 #include "entity.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QMouseEvent>
 #include <QTimer>
 #include <QGraphicsItem>
+#include <sstream>
+#include <string>
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +24,8 @@ public:
     void timerHit();
 
     void initWorld();
+    void loadPath(std::string pathString);
+    void createPath(std::string cmd);
 
     void setPlay(bool newPlay) { play = newPlay; }
 

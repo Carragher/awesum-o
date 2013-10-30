@@ -1,3 +1,4 @@
+#include <iostream>
 #include "entity.h"
 
 //Entity::Entity()
@@ -22,3 +23,14 @@ void Entity::paint(QPainter *painter,
 void Entity::setX(int x) {posX = x; }
 
 void Entity::setY(int y) {posY = y; }
+
+
+// if the mouse enters the Entity change the color - these methods can be used for tower placement!
+void Entity::enterEvent(QEvent *ev) {
+    this->setStyleSheet("QLabel { background-color : red; border-style:dotted; border-width:1px; border-color: black; }");
+}
+
+// if the mouse leaves the Entity, change the color
+void Entity::leaveEvent(QEvent *ev) {
+    this->setStyleSheet("QLabel { background-color : grey; border-style:dotted; border-width:1px; border-color: black; }");
+}

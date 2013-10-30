@@ -45,8 +45,8 @@ Tile *World::createTile(const string &type) {
     else if (type.find("path") == 0)
         return new pathTile;
     else if (type.find("tower") == 0)
-        return NULL;
-//        return new towerTile;
+//        return NULL;
+        return new towerTile;
     else
         return NULL;
 }
