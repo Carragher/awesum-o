@@ -10,7 +10,7 @@ private:
     int id;
 
     static int nextId;
-
+// branch check
 public:
     // creates a new enemy and sets the important info for it
     explicit Enemy(int newHp, int newMoveSpeed, int newX, int newY):
