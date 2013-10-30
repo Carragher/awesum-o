@@ -8,7 +8,7 @@
 //    enemy.load(":/images/logo.jpeg");
 //}
 
-QRectF Entity::boundingRect() const
+/*QRectF Entity::boundingRect() const
 {
     return QRect(posX-15, posY-15, 20, 20);
 }
@@ -18,7 +18,7 @@ void Entity::paint(QPainter *painter,
                   QWidget *widget)
 {
     painter->drawPixmap(posX-15, posY-15, 0, 0, enemy);
-}
+}*/
 
 void Entity::setX(int x) {posX = x; }
 

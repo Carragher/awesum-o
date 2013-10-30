@@ -17,12 +17,13 @@ class Entity: public QLabel {
 
 
     public:
-        explicit Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld): QLabel(newWorld), win(parent), tile(newTile) { }
+        explicit Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld):
+                        QLabel(newWorld), win(parent), tile(newTile) { }
 
-        QRectF boundingRect() const;
+        /*QRectF boundingRect() const;
         void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
+               QWidget *widget);*/
         void setX (int);
         void setY (int);
 

@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     entity.cpp \
     enemy.cpp \
     highscore.cpp \
-    command.cpp
+    command.cpp \
+    enemygui.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h\
     entity.h \
     enemy.h \
     highscore.h \
-    command.h
+    command.h \
+    enemygui.h
 
 FORMS    += mainwindow.ui
 

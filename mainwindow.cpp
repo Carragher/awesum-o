@@ -3,6 +3,7 @@
 #include "world.h"
 #include "command.h"
 #include "tile.h"
+#include "enemygui.h"
 #include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -11,10 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
-    QTimer *timer = new QTimer(this);
+   /* QTimer *timer = new QTimer(this);
     timer->setInterval(100);
     connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
-    timer->start();
+    timer->start();*/
 
 
     this->initWorld();
@@ -28,28 +29,46 @@ MainWindow::~MainWindow()
 //    delete enemy;
 }
 
+void MainWindow::on_spawnBtn_clicked() {
+    // run the POC test:
+    // move objects around
+
+    //generate enemy GUI
+    CreateCommand *createEn = new CreateCommand("walker", "walker");
+    createEn->execute();
+    Enemy *texas = World::getInstance().getEnemies().back();
+
+
+
+    int test = World::getInstance().getScore();
+    QString q = QString::number(test);
+    World::getInstance().enemyDeath();
+    ui->scoreLbl->setText(q);
+    //trying to animate on button click
+    QTimer *timer = new QTimer(this);
+    timer->setInterval(100);
+    connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
+    timer->start();
+
+    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
+    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
+    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
+    ranger->show();
+
+    delete createEn;
+}
 
 void MainWindow::timerHit() {
 
 
     // get a collection of tiles
     //and enemies
+    Enemy *frenemy = World::getInstance().getEnemies().back();
+    frenemy->updatePosition();
+    //delete frenemy;
     // run the update method on each object
 
 }
-
-void MainWindow::on_spawnBtn_clicked() {
-    // run the POC test:
-    // move objects around
-
-    //    Entity e = new Entity();
-
-    int test = World::getInstance().getScore();
-    QString q = QString::number(test);
-    World::getInstance().enemyDeath();
-    ui->scoreLbl->setText(q);
-}
-
 void MainWindow::initWorld() {
     // 16 x 10
     int x = 0;
