@@ -27,8 +27,8 @@ class Entity: public QLabel {
         void setX (int);
         void setY (int);
 
-        //void enterEvent(QEvent *);
-       // void leaveEvent(QEvent *);
+        void enterEvent(QEvent *);
+        void leaveEvent(QEvent *);
         void mouseReleaseEvent(QMouseEvent *);
     
         QPixmap enemy;

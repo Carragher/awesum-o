@@ -31,11 +31,17 @@ public:
     void setPlay(bool newPlay) { play = newPlay; }
 
     bool getPlay() { return play; }
+
+    void createTower(int x, int y);
+
+    bool getCanCreateTower();
     
 private slots:
-    void on_spawnBtn_clicked();
+    void on_btnLoadLevel_clicked();
 
-    void on_buyBtn_clicked();
+    void on_btnStartLevel_clicked();
+
+    void on_btnAddTower_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -12,47 +12,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    ui->btnAddTower->setCheckable(true);
+
     TIMER = new QTimer(this);
-    this->initWorld();
-    this->loadPath("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n32\n48\n47\n46\n45\n44\n43\n42\n41\n40\n39\n38\n37\n36\n35\n34\n33\n47\n49\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n141\n142\n143\n144\n160");
 }
 
 MainWindow::~MainWindow() {
     delete ui;
-
     World::getInstance().reset();
 //    delete scene;
 //    delete enemy;
-}
-
-void MainWindow::on_spawnBtn_clicked() {
-    // run the POC test:
-    // move objects around
-
-    //create enemy command
-    CreateCommand *createEn = new CreateCommand("walker", "walker");
-    createEn->execute();
-
-    //test display score
-    int test = World::getInstance().getScore();
-    QString q = QString::number(test);
-    World::getInstance().enemyDeath();
-    ui->scoreLbl->setText(q);
-
-    Enemy *texas = World::getInstance().getEnemies().back();
-
-    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
-    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
-    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
-    storage::getInstance().addEngui(ranger);
-    ranger->show();
-
-    //trying to animate on button click
-
-//    TIMER->start();
-
-    delete createEn;
-
 }
 
 void MainWindow::timerHit() {
@@ -187,7 +156,7 @@ void MainWindow::createPath(string cmd) {
             // set the location!
             pathEntity->setScaledContents(true);
             pathEntity->setGeometry(path->getX(), path->getY(), 50, 50);
-            pathEntity->setStyleSheet("QLabel { background-color : brown; border-style:dotted; border-width:1px; border-color: black; }");
+            pathEntity->setStyleSheet("QLabel { background-color : SaddleBrown; border-style:dotted; border-width:1px; border-color: black; }");
             pathEntity->show();
 
             pathEntity->setMouseTracking(true);
@@ -197,8 +166,46 @@ void MainWindow::createPath(string cmd) {
     }
 }
 
-void MainWindow::on_buyBtn_clicked()
-{
+void MainWindow::on_btnLoadLevel_clicked() {
+    this->initWorld();
+    this->loadPath("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n32\n48\n47\n46\n45\n44\n43\n42\n41\n40\n39\n38\n37\n36\n35\n34\n33\n47\n49\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n96\n97\n98\n99\n100\n101\n102\n103\n104\n105\n106\n107\n108\n109\n110\n111\n112\n113\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n141\n142\n143\n144\n160");
+
+    ui->btnLoadLevel->setEnabled(false);
+}
+
+void MainWindow::on_btnStartLevel_clicked() {
+
+    ui->btnStartLevel->setEnabled(false); // disable the button s othe user can't start more things!
+    // run the POC test:
+    // move objects around
+
+    //create enemy command
+    CreateCommand *createEn = new CreateCommand("walker", "walker");
+    createEn->execute();
+
+    //test display score
+    int test = World::getInstance().getScore();
+    QString q = QString::number(test);
+    World::getInstance().enemyDeath();
+    ui->scoreLbl->setText(q);
+
+    Enemy *texas = World::getInstance().getEnemies().back();
+
+    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
+    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
+    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
+    storage::getInstance().addEngui(ranger);
+    ranger->show();
+
+    //trying to animate on button click
+
+//    TIMER->start();
+
+    delete createEn;
+
+}
+
+void MainWindow::on_btnAddTower_clicked() {    
     int ifScore = World::getInstance().getScore();
     if (ifScore > 43){
     World::getInstance().towerBuy(43);
@@ -208,4 +215,31 @@ void MainWindow::on_buyBtn_clicked()
     }
     World::getInstance().towerBuy(10);
 
+}
+
+void MainWindow::createTower(int x, int y) {
+    // add the new tile!
+    CreateCommand *createTower = new CreateCommand("tower", "tower");
+    createTower->execute();
+
+    Tile *tower = World::getInstance().getTiles().back();
+    tower->setX(x);
+    tower->setY(y);
+
+    // create the entity for it
+    Entity *towerEntity = new Entity(this, tower, ui->graphicsView);
+    // set the location!
+    towerEntity->setScaledContents(true);
+    towerEntity->setGeometry(tower->getX(), tower->getY(), 50, 50);
+    towerEntity->setStyleSheet("QLabel { background-color : black; border-style:dotted; border-width:1px; border-color: black; }");
+    towerEntity->show();
+
+    towerEntity->setMouseTracking(true);
+
+    delete createTower;
+
+}
+
+bool MainWindow::getCanCreateTower() {
+    return ui->btnAddTower->isChecked();
 }
