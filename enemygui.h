@@ -13,6 +13,8 @@ class EnemyGUI : public QLabel
 public:
     explicit EnemyGUI(MainWindow* parent, Enemy* newEn,QWidget *newWorld):
         QLabel(newWorld), win(parent), enemy(newEn){}
+
+    Enemy *getEnemyObj() { return enemy; }
     
 signals:
     
