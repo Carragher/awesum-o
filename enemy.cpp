@@ -1,9 +1,49 @@
 #include "enemy.h"
 
 int Enemy::nextId = 0;
-
-void Walker::deathUpdate()
+void Enemy::updatePosition()
 {
+    // 750
+    int update = this->getMoveSpeed();
+    int newX = this->getX();
+    int newY = this->getY();
+    bool state0 = false;//right
+    bool state1 = false;//right down
+    bool state2 = false;//left
+    bool state3 = false;//left down
+    if (newX != 750 && (newY % 200 == 0 || newY == 0)){
+        state0 = true;
+    }
+    else if (newX ==750 && (newY % 100 != 0 || newY == 0)){
+        state1 = true;
+    } else if (newX != 0 && (newY % 100 == 0 && newY % 200 !=0)){
+        state2 = true;
+    } else
+        state3 = true;
+
+    if (state0){
+
+    newX+=update;
+    //newY+=update;
+    this->setX(newX);
+   // this->setY(newY);
+}
+    if (state1){
+        newY+=update;
+        this->setY(newY);
+
+    }
+    if (state2){
+        newX-=update;
+        this->setX(newX);
+    }
+    if (state3){
+        newY+=update;
+        this->setY(newY);
+    }
+}
+
+void Enemy::deathUpdate(){
     int checkHP = this->getHp();
     if (checkHP <= 0)
     {
@@ -11,60 +51,7 @@ void Walker::deathUpdate()
     }
 }
 
-void Walker::updatePosition()
-{
-    int update = this->getMoveSpeed();
-    int newX = this->getX();
-    int newY = this->getY();
 
-    newX+=update;
-    newY+=update;
 
-    this->setX(newX);
-    this->setY(newY);
 
-}
 
-void Sergeant::deathUpdate()
-{
-    int checkHP = this->getHp();
-    if (checkHP <= 0)
-    {
-        delete this;
-    }
-}
-
-void Sergeant::updatePosition()
-{
-    int update = this->getMoveSpeed();
-    int newX = this->getX();
-    int newY = this->getY();
-
-    newX+=update;
-    newY+=update;
-
-    this->setX(newX);
-    this->setY(newY);
-}
-
-void YOLO::deathUpdate()
-{
-    int checkHP = this->getHp();
-    if (checkHP <= 0)
-    {
-        delete this;
-    }
-}
-
-void YOLO::updatePosition()
-{
-    int update = this->getMoveSpeed();
-    int newX = this->getX();
-    int newY = this->getY();
-
-    newX+=update;
-    newY+=update;
-
-    this->setX(newX);
-    this->setY(newY);
-}
