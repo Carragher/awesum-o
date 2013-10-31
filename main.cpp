@@ -12,7 +12,7 @@ void unitTest()
     assert(texas->getY() == 0);
     texas->updatePosition();
     assert(texas->getX() == 10);
-    assert(texas->getY() == 10);
+    assert(texas->getY() == 0);
     texas->setHp(0);
     texas->deathUpdate();
    // assert(texas == 0);
@@ -24,7 +24,7 @@ void unitTest()
     assert(bilko->getY() == 0);
     bilko->updatePosition();
     assert(bilko->getX() == 5);
-    assert(bilko->getY() == 5);
+    assert(bilko->getY() == 0);
     bilko->setHp(0);
     bilko->deathUpdate();
    // assert(bilko == NULL);
@@ -36,7 +36,7 @@ void unitTest()
     assert(folo->getY() == 0);
     folo->updatePosition();
     assert(folo->getX() == 20);
-    assert(folo->getY() == 20);
+    assert(folo->getY() == 0);
     folo->setHp(0);
     folo->deathUpdate();
   //  assert(folo == NULL);

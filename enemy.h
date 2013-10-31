@@ -49,7 +49,7 @@ class Walker: public Enemy {
 
 public:
     Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
-    Walker(): Enemy(50, 25, 0, 0) { }//was 10
+    Walker(): Enemy(50, 10, 0, 0) { }//was 10
 
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
