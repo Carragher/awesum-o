@@ -12,20 +12,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-
-   /* QTimer *timer = new QTimer(this);
-    timer->setInterval(100);
-    connect(timer, &QTimer::timeout, this, &MainWindow::timerHit);
-    timer->start();*/
-
     TIMER = new QTimer(this);
     this->initWorld();
     this->loadPath("1\n2\n25\n160\n");
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
+
+    World::getInstance().reset();
 //    delete scene;
 //    delete enemy;
 }
@@ -54,7 +49,7 @@ void MainWindow::on_spawnBtn_clicked() {
 
     //trying to animate on button click
 
-    TIMER->start();
+//    TIMER->start();
 
     delete createEn;
 
@@ -64,11 +59,28 @@ void MainWindow::timerHit() {
 
     // get a collection of tiles
     //and enemies
-    Enemy *frenemy = World::getInstance().getEnemies().back();
-    frenemy->updatePosition();
 
-    EnemyGUI *en = storage::getInstance().getEngui().back();
-    en->move(frenemy->getX(), frenemy->getY());
+    // move hte enemies
+
+    // check and see if there are any enemies
+
+    vector<Enemy*> toUpdate = World::getInstance().getEnemies();
+
+    if (toUpdate.size() > 0) {
+//        for (int a = 0; a < toUpdate.size(); ++a) {
+//            toUpdate.at(a)->updatePosition();
+//        }
+        for (EnemyGUI* curEnemy : storage::getInstance().getEngui()) {
+            curEnemy->getEnemyObj()->updatePosition();
+            curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
+        }
+    }
+
+//    Enemy *frenemy = World::getInstance().getEnemies().back();
+//    frenemy->updatePosition();
+
+//    EnemyGUI *en = storage::getInstance().getEngui().back();
+//    en->move(frenemy->getX(), frenemy->getY());
     // run the update method on each object
 
 }
@@ -76,9 +88,6 @@ void MainWindow::initWorld() {
 
     TIMER->setInterval(100);
     connect(TIMER, &QTimer::timeout, this, &MainWindow::timerHit);
-
-
-
 
     // 16 x 10
     int x = 0;
@@ -113,6 +122,9 @@ void MainWindow::initWorld() {
         tile->setMouseTracking(true);
 
         delete createObj;
+
+        // start the timer here...like you would add the beginning of a level.
+        TIMER->start();
     }
 }
 
