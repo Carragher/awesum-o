@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->btnAddTower->setCheckable(true);
+    ui->btnAddTower->setEnabled(false);
+    ui->btnStartLevel->setEnabled(false);
 
     TIMER = new QTimer(this);
 }
@@ -94,6 +96,10 @@ void MainWindow::initWorld() {
 
         // start the timer here...like you would add the beginning of a level.
         TIMER->start();
+
+        // enable the buttons
+        ui->btnAddTower->setEnabled(true);
+        ui->btnStartLevel->setEnabled(true);
     }
 }
 

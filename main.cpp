@@ -2,6 +2,7 @@
 #include "enemy.h"
 #include <QApplication>
 #include <cassert>
+#include <iostream>
 void unitTest()
 {
     //Enemy unit tests
@@ -40,6 +41,8 @@ void unitTest()
     folo->setHp(0);
     folo->deathUpdate();
   //  assert(folo == NULL);
+
+    cout << "Build tests passed!" << endl;
 }
 int main(int argc, char *argv[])
 {
