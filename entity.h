@@ -14,11 +14,11 @@ class MainWindow;
 class Entity: public QLabel {
         MainWindow *win;
         Tile *tile;
-
+        bool mouseclick;
 
     public:
         explicit Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld):
-                        QLabel(newWorld), win(parent), tile(newTile) { }
+                        QLabel(newWorld), win(parent), tile(newTile) {mouseclick = false; }
 
         /*QRectF boundingRect() const;
         void paint(QPainter *painter,
@@ -27,8 +27,9 @@ class Entity: public QLabel {
         void setX (int);
         void setY (int);
 
-        void enterEvent(QEvent *);
-        void leaveEvent(QEvent *);
+        //void enterEvent(QEvent *);
+       // void leaveEvent(QEvent *);
+        void mouseReleaseEvent(QMouseEvent *);
     
         QPixmap enemy;
         int posX, posY;

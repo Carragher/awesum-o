@@ -192,7 +192,8 @@ void MainWindow::on_buyBtn_clicked()
     World::getInstance().towerBuy(43);
     int test = World::getInstance().getScore();
     QString q = QString::number(test);
-
     ui->scoreLbl->setText(q);
     }
+    World::getInstance().towerBuy(10);
+
 }
