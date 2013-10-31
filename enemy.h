@@ -10,7 +10,7 @@ private:
     int id;
 
     static int nextId;
-// branch check
+
 public:
     // creates a new enemy and sets the important info for it
     explicit Enemy(int newHp, int newMoveSpeed, int newX, int newY):
@@ -29,7 +29,7 @@ public:
         nextId = 0;
     }
 
-    virtual void deathUpdate(){}
+    void deathUpdate();
 
     void setHp(int hp) { this->hp = hp; }
     int getHp() { return this->hp; }
@@ -42,17 +42,17 @@ public:
     void setId(int id) { this->id = id; }
     int getId() { return this->id; }
 
-    virtual void updatePosition() { }
+    void updatePosition();
 };
 
 class Walker: public Enemy {
 
 public:
     Walker(int newX, int newY): Enemy(50, 10, newX, newY) { }
-    Walker(): Enemy(50, 10, 0, 0) { }
+    Walker(): Enemy(50, 25, 0, 0) { }//was 10
 
-    void deathUpdate(); //destroys enemy when hp reaches 0
-    void updatePosition(); // updatets the position
+     //destroys enemy when hp reaches 0
+   // void updatePosition(); // updatets the position
 };
 
 class Sergeant: public Enemy {
@@ -60,8 +60,8 @@ class Sergeant: public Enemy {
 public:
     Sergeant(int newX, int newY): Enemy(100, 5, newX, newY) { }
     Sergeant(): Enemy(50, 10, 0, 0) { }
-    void deathUpdate(); //destroys enemy when hp reaches 0
-    void updatePosition(); // updatets the position
+     //destroys enemy when hp reaches 0
+    //void updatePosition(); // updatets the position
 };
 
 class YOLO: public Enemy {
@@ -69,8 +69,8 @@ class YOLO: public Enemy {
 public:
     YOLO(int newX, int newY): Enemy(25, 20, newX, newY) { }
     YOLO(): Enemy(25, 20, 0, 0) { }
-    void deathUpdate(); //destroys enemy when hp reaches 0
-    void updatePosition(); // updatets the position
+     //destroys enemy when hp reaches 0
+   // void updatePosition(); // updatets the position
 };
 
 
