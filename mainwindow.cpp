@@ -77,7 +77,7 @@ void MainWindow::initWorld() {
         y = getSlotCoord(i, "y");
 
         stringstream forCreate;
-        forCreate << string("tile tile green ") << to_string(x) << string(" ") << to_string(y) << endl;
+        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tile green") << endl;
 
         doCreate(forCreate);
 
@@ -131,7 +131,7 @@ void MainWindow::createPath(string cmd) {
             tiles.erase(tiles.begin()+j);
 
             stringstream forCreate;
-            forCreate << string("tile path SaddleBrown ") << to_string(x) << string(" ") << to_string(y) << endl;
+            forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile path SaddleBrown") << endl;
             doCreate(forCreate);
         }
     }
@@ -151,7 +151,7 @@ void MainWindow::on_btnStartLevel_clicked() {
     // load the enemy's here!!
 
     stringstream forCreate;
-    forCreate << string("enemy walker blue 0 0") << endl;
+    forCreate << string("0 0 enemy walker blue") << endl;
     doCreate(forCreate);
 
 
@@ -172,7 +172,7 @@ void MainWindow::on_btnAddTower_clicked() {
 void MainWindow::createTower(int x, int y) {
 
     stringstream forCreate;
-    forCreate << string("tile tower black ") << to_string(x) << string(" ") << to_string(y) << endl;
+    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tower black") << endl;
     doCreate(forCreate);
 }
 
@@ -204,6 +204,7 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             obj->setX(x);
             obj->setY(y);
+            obj->setImage(image);
 
             // create the GUI component
             Entity *tile = new Entity(this, obj, ui->graphicsView);
@@ -239,8 +240,9 @@ void MainWindow::doCreate(stringstream& cmd) {
             storage::getInstance().addEngui(ranger);
 
         }
-
     }
+}
 
+void MainWindow::load() {
 
 }

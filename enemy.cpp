@@ -11,6 +11,7 @@ void Enemy::updatePosition()
     bool state1 = false;//right down
     bool state2 = false;//left
     bool state3 = false;//left down
+
     if (newX != 750 && (newY % 200 == 0 || newY == 0)){
         state0 = true;
     }
@@ -23,11 +24,11 @@ void Enemy::updatePosition()
 
     if (state0){
 
-    newX+=update;
-    //newY+=update;
-    this->setX(newX);
-   // this->setY(newY);
-}
+        newX+=update;
+        //newY+=update;
+        this->setX(newX);
+       // this->setY(newY);
+    }
     if (state1){
         newY+=update;
         this->setY(newY);

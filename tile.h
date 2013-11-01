@@ -1,6 +1,8 @@
 #ifndef Tile_H
 #define Tile_H
 
+#include <string>
+
 class Tile {
     int id;
     int x;
@@ -8,6 +10,7 @@ class Tile {
     int width;
     int height;
     bool placable;
+    std::string image;
 
     static int nextId; // not sure if this is the right way to do this....
 
@@ -46,6 +49,10 @@ public:
     int getHeight() { return this->height; }
     void setPlacable(bool placable) { this->placable = placable; }
     bool getPlacable() { return this->placable; }
+    void setImage(std::string image) { this->image = image; }
+    std::string getImage() { return this->image; }
+
+    virtual std::string save() { return (std::to_string(x) + " " + std::to_string(y) + " tile"); }
 
     virtual void updatePos() { }
 };
@@ -53,6 +60,8 @@ public:
 class normalTile : public Tile {
 public:
     void updatePos() { }
+
+    std::string save() { return Tile::save() + " path " + std::string(image); }
 
 };
 
@@ -72,6 +81,8 @@ public:
     int getNextTile() { return this->nextTile; }
 
     void updatePos() { }
+
+    std::string save() { return Tile::save() + " path " + std::string(image); }
 
 };
 
@@ -100,8 +111,7 @@ public:
 
     void updatePos() { }
 
-//    virtual void updateInfo();
-
+    std::string save() { return Tile::save() + " tower " + std::string(image); }
 };
 
 
