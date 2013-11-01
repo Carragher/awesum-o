@@ -27,72 +27,59 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::timerHit() {
-
-    // get a collection of tiles
-    //and enemies
-
-    // move hte enemies
-
-    // check and see if there are any enemies
-
+    // get a collection of enemies
     vector<Enemy*> toUpdate = World::getInstance().getEnemies();
 
+    // see if there are any enemies
     if (toUpdate.size() > 0) {
-//        for (int a = 0; a < toUpdate.size(); ++a) {
-//            toUpdate.at(a)->updatePosition();
-//        }
+        // for each enemy, update it's position
         for (EnemyGUI* curEnemy : storage::getInstance().getEngui()) {
             curEnemy->getEnemyObj()->updatePosition();
             curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
         }
     }
-
-//    Enemy *frenemy = World::getInstance().getEnemies().back();
-//    frenemy->updatePosition();
-
-//    EnemyGUI *en = storage::getInstance().getEngui().back();
-//    en->move(frenemy->getX(), frenemy->getY());
-    // run the update method on each object
-
 }
-void MainWindow::initWorld() {
 
-    TIMER->setInterval(100);
-    connect(TIMER, &QTimer::timeout, this, &MainWindow::timerHit);
-
-    // 16 x 10
+// return the correct coordinates for the specified slot
+int MainWindow::getSlotCoord(int slotNum, string coordType) {
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < 160; ++i) {
+    for (int i = 0; i < slotNum; ++i) {
         if(i == 16 || i == 32 || i == 48 || i == 64 || i == 80 || i == 96 || i == 112 || i == 128 || i == 144) {
             y += 50;
             x = 0;
         } else if (i != 0) {
             x += 50;
         }
+    }
 
-        // create the object in the model and name it obj
+    if (coordType == "y") {
+        return y;
+    } else if (coordType == "x") {
+        return x;
+    }
 
+    return 0;
+}
 
-        CreateCommand *createObj = new CreateCommand("tile", "tile");
-        createObj->execute();
-        Tile *obj = World::getInstance().getTiles().back();
+// initialize the world by loading all the normal tiles and setting up the timers.
+void MainWindow::initWorld() {
 
-        obj->setX(x);
-        obj->setY(y);
+    TIMER->setInterval(100);
+    connect(TIMER, &QTimer::timeout, this, &MainWindow::timerHit);
 
-        // create the entity labels
-        Entity *tile = new Entity(this, obj, ui->graphicsView);
-        // set the location of the entity
-        tile->setScaledContents(true);
-        tile->setGeometry(obj->getX(), obj->getY(), 50, 50);
-        tile->setStyleSheet("QLabel { background-color : green; border-style:dotted; border-width:1px; border-color: black; }");
-        tile->show();
+    int x = 0;
+    int y = 0;
 
-        tile->setMouseTracking(true);
+    for (int i = 0; i <= 160; ++i) {
+        x = getSlotCoord(i, "x");
+        y = getSlotCoord(i, "y");
 
-        delete createObj;
+        stringstream forCreate;
+        forCreate << string("tile tile green ") << to_string(x) << string(" ") << to_string(y) << endl;
+
+        doCreate(forCreate);
 
         // start the timer here...like you would add the beginning of a level.
         TIMER->start();
@@ -130,14 +117,8 @@ void MainWindow::createPath(string cmd) {
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < slot; ++i) {
-        if(i == 16 || i == 32 || i == 48 || i == 64 || i == 80 || i == 96 || i == 112 || i == 128 || i == 144) {
-            y += 50;
-            x = 0;
-        } else if (i != 0) {
-            x += 50;
-        }
-    }
+    x = getSlotCoord(slot, "x");
+    y = getSlotCoord(slot, "y");
 
     vector<Tile*> tiles = World::getInstance().getTiles();
 
@@ -149,25 +130,9 @@ void MainWindow::createPath(string cmd) {
             delete tile;
             tiles.erase(tiles.begin()+j);
 
-            // add the new tile!
-            CreateCommand *createPath = new CreateCommand("path", "path");
-            createPath->execute();
-
-            Tile *path = World::getInstance().getTiles().back();
-            path->setX(x);
-            path->setY(y);
-
-            // create the entity for it
-            Entity *pathEntity = new Entity(this, path, ui->graphicsView);
-            // set the location!
-            pathEntity->setScaledContents(true);
-            pathEntity->setGeometry(path->getX(), path->getY(), 50, 50);
-            pathEntity->setStyleSheet("QLabel { background-color : SaddleBrown; border-style:dotted; border-width:1px; border-color: black; }");
-            pathEntity->show();
-
-            pathEntity->setMouseTracking(true);
-
-            delete createPath;
+            stringstream forCreate;
+            forCreate << string("tile path SaddleBrown ") << to_string(x) << string(" ") << to_string(y) << endl;
+            doCreate(forCreate);
         }
     }
 }
@@ -180,34 +145,15 @@ void MainWindow::on_btnLoadLevel_clicked() {
 }
 
 void MainWindow::on_btnStartLevel_clicked() {
+    ui->btnStartLevel->setEnabled(false); // disable the buttons othe user can't start more things!
 
-    ui->btnStartLevel->setEnabled(false); // disable the button s othe user can't start more things!
-    // run the POC test:
-    // move objects around
 
-    //create enemy command
-    CreateCommand *createEn = new CreateCommand("walker", "walker");
-    createEn->execute();
+    // load the enemy's here!!
 
-    //test display score
-    int test = World::getInstance().getScore();
-    QString q = QString::number(test);
-    World::getInstance().enemyDeath();
-    ui->scoreLbl->setText(q);
+    stringstream forCreate;
+    forCreate << string("enemy walker blue 0 0") << endl;
+    doCreate(forCreate);
 
-    Enemy *texas = World::getInstance().getEnemies().back();
-
-    EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
-    ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
-    ranger->setStyleSheet("QLabel { background-color : blue; border-style:dotted; border-width:1px; border-color: black; }");
-    storage::getInstance().addEngui(ranger);
-    ranger->show();
-
-    //trying to animate on button click
-
-//    TIMER->start();
-
-    delete createEn;
 
 }
 
@@ -224,28 +170,77 @@ void MainWindow::on_btnAddTower_clicked() {
 }
 
 void MainWindow::createTower(int x, int y) {
-    // add the new tile!
-    CreateCommand *createTower = new CreateCommand("tower", "tower");
-    createTower->execute();
 
-    Tile *tower = World::getInstance().getTiles().back();
-    tower->setX(x);
-    tower->setY(y);
-
-    // create the entity for it
-    Entity *towerEntity = new Entity(this, tower, ui->graphicsView);
-    // set the location!
-    towerEntity->setScaledContents(true);
-    towerEntity->setGeometry(tower->getX(), tower->getY(), 50, 50);
-    towerEntity->setStyleSheet("QLabel { background-color : black; border-style:dotted; border-width:1px; border-color: black; }");
-    towerEntity->show();
-
-    towerEntity->setMouseTracking(true);
-
-    delete createTower;
-
+    stringstream forCreate;
+    forCreate << string("tile tower black ") << to_string(x) << string(" ") << to_string(y) << endl;
+    doCreate(forCreate);
 }
 
 bool MainWindow::getCanCreateTower() {
     return ui->btnAddTower->isChecked();
+}
+
+void MainWindow::doCreate(stringstream& cmd) {
+    string type, specific, image;
+    int x, y;
+    cmd >> type;
+    cmd >> specific;
+    cmd >> image;
+    cmd >> x;
+    cmd >> y;
+
+    if (cmd) {
+
+        // create the object in the model
+        CreateCommand *createObj = new CreateCommand(specific, image);
+        createObj->execute();
+
+        // build the string for the style
+        string style("QLabel { background-color : " + image + "; border-style:dotted; border-width:1px; border-color: black; }");
+        QString forStyle(style.c_str()); // convert it so the method will accept the variable
+
+        if (type == "tile") {
+            Tile *obj = World::getInstance().getTiles().back();
+
+            obj->setX(x);
+            obj->setY(y);
+
+            // create the GUI component
+            Entity *tile = new Entity(this, obj, ui->graphicsView);
+            tile->setScaledContents(true);
+            tile->setGeometry(obj->getX(), obj->getY(), 50, 50);
+            tile->setStyleSheet(forStyle);
+            tile->show();
+
+            tile->setMouseTracking(true); // turn mouse tracking on for mouse over stuff
+
+            delete createObj;
+
+        } else if (type == "enemy") {
+
+            Enemy *texas = World::getInstance().getEnemies().back();
+
+            //test display score
+            int test = World::getInstance().getScore();
+            QString q = QString::number(test);
+            World::getInstance().enemyDeath();
+            ui->scoreLbl->setText(q);
+
+            // no need to set x or y since they start at 0
+
+
+            // create the GUI component
+            EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
+            ranger->setScaledContents(true);
+            ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
+            ranger->setStyleSheet(forStyle);
+            ranger->show();
+
+            storage::getInstance().addEngui(ranger);
+
+        }
+
+    }
+
+
 }

@@ -9,6 +9,7 @@
 #include <QGraphicsItem>
 #include <sstream>
 #include <string>
+#include <iostream>
 namespace Ui {
 class MainWindow;
 }
@@ -35,6 +36,14 @@ public:
     void createTower(int x, int y);
 
     bool getCanCreateTower();
+
+    int getSlotCoord(int slotNum, std::string coordType);
+
+    void doCreate(std::stringstream& cmd);
+
+    // save and load functinoality
+    void save();
+    void load();
     
 private slots:
     void on_btnLoadLevel_clicked();

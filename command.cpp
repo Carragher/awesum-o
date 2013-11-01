@@ -4,8 +4,6 @@
 
 // creates an object using data in instance variables and returns true or false based on success
 bool CreateCommand::execute() {
-
-
     if(type == "tile" || type == "path" || type == "tower") {
         Tile *obj = World::getInstance().createTile(type);
 

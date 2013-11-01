@@ -34,7 +34,7 @@ public:
     void addEnemy(Enemy*);
 
     // returns tile with <id>, or NULL if none
-    Tile *getById(int id);
+//    Tile *getById(int id);
 
     // returns the vector of tiles
     vector<Tile*>& getTiles() { return tiles; }
