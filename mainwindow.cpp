@@ -77,7 +77,7 @@ void MainWindow::initWorld() {
         y = getSlotCoord(i, "y");
 
         stringstream forCreate;
-        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tile green") << endl;
+        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile green tile") << endl;
 
         doCreate(forCreate);
 
@@ -131,7 +131,7 @@ void MainWindow::createPath(string cmd) {
             tiles.erase(tiles.begin()+j);
 
             stringstream forCreate;
-            forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile path SaddleBrown") << endl;
+            forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile SaddleBrown path") << endl;
             doCreate(forCreate);
         }
     }
@@ -151,7 +151,7 @@ void MainWindow::on_btnStartLevel_clicked() {
     // load the enemy's here!!
 
     stringstream forCreate;
-    forCreate << string("0 0 enemy walker blue") << endl;
+    forCreate << string("0 0 enemy blue walker") << endl;
     doCreate(forCreate);
 
 
@@ -172,7 +172,7 @@ void MainWindow::on_btnAddTower_clicked() {
 void MainWindow::createTower(int x, int y) {
 
     stringstream forCreate;
-    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tower black") << endl;
+    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile black tower") << endl;
     doCreate(forCreate);
 }
 
@@ -183,11 +183,11 @@ bool MainWindow::getCanCreateTower() {
 void MainWindow::doCreate(stringstream& cmd) {
     string type, specific, image;
     int x, y;
-    cmd >> type;
-    cmd >> specific;
-    cmd >> image;
     cmd >> x;
     cmd >> y;
+    cmd >> type;
+    cmd >> image;
+    cmd >> specific;
 
     if (cmd) {
 

@@ -52,7 +52,7 @@ public:
     void setImage(std::string image) { this->image = image; }
     std::string getImage() { return this->image; }
 
-    virtual std::string save() { return (std::to_string(x) + " " + std::to_string(y) + " tile"); }
+    virtual std::string save() { return (std::to_string(x) + " " + std::to_string(y) + std::string(image) + " tile"); }
 
     virtual void updatePos() { }
 };
@@ -61,7 +61,7 @@ class normalTile : public Tile {
 public:
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " path " + std::string(image); }
+    std::string save() { return Tile::save() + " path"; }
 
 };
 
@@ -82,7 +82,7 @@ public:
 
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " path " + std::string(image); }
+    std::string save() { return Tile::save() + " path"; }
 
 };
 
@@ -111,7 +111,7 @@ public:
 
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " tower " + std::string(image); }
+    std::string save() { return Tile::save() + " tower"; }
 };
 
 

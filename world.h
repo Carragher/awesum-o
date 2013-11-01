@@ -40,6 +40,9 @@ public:
     vector<Tile*>& getTiles() { return tiles; }
     vector<Enemy*>& getEnemies() { return enemies; }
 
+    //general create method?
+
+
     // Resets world
     void reset();
 
