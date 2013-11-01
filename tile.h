@@ -1,6 +1,7 @@
 #ifndef Tile_H
 #define Tile_H
 
+#include <fstream>
 #include <string>
 
 class Tile {
@@ -29,30 +30,31 @@ public:
         id = ++nextId;
     }
 
-
-
     //set nextId to 0
     static void resetNextId() {
         nextId = 0;
     }
 
-    // getters and setters
-    void setId(int id) { this->id = id; }
+    // setters
+    void setId(int id) { this->id = id; }    
+    void setX(int x) { this->x = x; }    
+    void setY(int y) { this->y = y; }    
+    void setWidth(int width) { this->width = width; }    
+    void setHeight(int height) { this->height = height; }    
+    void setPlacable(bool placable) { this->placable = placable; }    
+    void setImage(std::string image) { this->image = image; }    
+
+    // setters
     int getId() { return this->id; }
-    void setX(int x) { this->x = x; }
     int getX() { return this->x; }
-    void setY(int y) { this->y = y; }
     int getY() { return this->y; }
-    void setWidth(int width) { this->width = width; }
     int getWidth() { return this->width; }
-    void setHeight(int height) { this->height = height; }
     int getHeight() { return this->height; }
-    void setPlacable(bool placable) { this->placable = placable; }
     bool getPlacable() { return this->placable; }
-    void setImage(std::string image) { this->image = image; }
     std::string getImage() { return this->image; }
 
-    virtual std::string save() { return (std::to_string(x) + " " + std::to_string(y) + std::string(image) + " tile"); }
+    // save the object to a file
+    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " " << std::string(image) << " tile"; }
 
     virtual void updatePos() { }
 };
@@ -61,7 +63,10 @@ class normalTile : public Tile {
 public:
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " path"; }
+    void save(std::ofstream& saveFile) {
+        Tile::save(saveFile);
+        saveFile << " tile";
+    }
 
 };
 
@@ -82,7 +87,10 @@ public:
 
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " path"; }
+    void save(std::ofstream& saveFile) {
+        Tile::save(saveFile);
+        saveFile << " path";
+    }
 
 };
 
@@ -111,7 +119,10 @@ public:
 
     void updatePos() { }
 
-    std::string save() { return Tile::save() + " tower"; }
+    void save(std::ofstream& saveFile) {
+        Tile::save(saveFile);
+        saveFile << " tower";
+    }
 };
 
 

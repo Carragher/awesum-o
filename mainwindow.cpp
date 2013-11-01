@@ -6,6 +6,7 @@
 #include "enemygui.h"
 #include "storage.h"
 #include <QString>
+#include <fstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,7 +73,7 @@ void MainWindow::initWorld() {
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i <= 160; ++i) {
+    for (int i = 1; i <= 160; ++i) {
         x = getSlotCoord(i, "x");
         y = getSlotCoord(i, "y");
 
@@ -133,6 +134,8 @@ void MainWindow::createPath(string cmd) {
             stringstream forCreate;
             forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile SaddleBrown path") << endl;
             doCreate(forCreate);
+
+            return;
         }
     }
 }
@@ -154,7 +157,7 @@ void MainWindow::on_btnStartLevel_clicked() {
     forCreate << string("0 0 enemy blue walker") << endl;
     doCreate(forCreate);
 
-
+    this->save();
 }
 
 void MainWindow::on_btnAddTower_clicked() {    
@@ -244,5 +247,23 @@ void MainWindow::doCreate(stringstream& cmd) {
 }
 
 void MainWindow::load() {
+    // get the file name
+    // read each line and load the object by calling doCreate
+}
 
+void MainWindow::save() {
+    // get a file name to save to
+    char* filename = "saveData.awt";
+
+    ofstream fout;
+    fout.open(filename, ios::out);
+
+    // get the model objects in the game
+    for(Tile* tile : World::getInstance().getTiles()) { // iterate over them and save them to a file
+        tile->save(fout);
+        fout << endl;
+    }
+
+    // close the file after we are done writing it
+    fout.close();
 }
