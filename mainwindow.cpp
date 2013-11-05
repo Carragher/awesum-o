@@ -37,6 +37,8 @@ void MainWindow::timerHit() {
         // for each enemy, update it's position
         for (EnemyGUI* curEnemy : storage::getInstance().getEngui()) {
             curEnemy->getEnemyObj()->updatePosition();
+            curEnemy->updateDirection();
+            curEnemy->setPic();
             curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
         }
     }

@@ -11,14 +11,15 @@ private:
     int id;
     string type;
     static int nextId;
+    string direction;
 
 public:
     // creates a new enemy and sets the important info for it
-    explicit Enemy(int newHp, int newMoveSpeed, int newX, int newY, string newType):
+    explicit Enemy(int newHp, int newMoveSpeed, int newX, int newY, string newType, string newDir):
         hp(newHp),
         moveSpeed(newMoveSpeed),
         x(newX),
-        y(newY), type(newType) {}
+        y(newY), type(newType), direction(newDir) {}
 
     // for the command classes
     Enemy(): x(0), y(0) {
@@ -44,14 +45,16 @@ public:
     int getId() { return this->id; }
     void setType(string newType) {this->type = newType;}
     string getType() {return this->type;}
+    void setDirection(string newDirection){this->direction= newDirection;}
+    string getDirection(){return this->direction;}
     void updatePosition();
 };
 
 class Walker: public Enemy {
 
 public:
-    Walker(int newX, int newY): Enemy(50, 10, newX, newY, "walker") {}
-    Walker(): Enemy(50, 10, 0, 0, "walker") { }//was 10
+    Walker(int newX, int newY): Enemy(50, 10, newX, newY, "walker", "right") {}
+    Walker(): Enemy(50, 10, 0, 0, "walker", "right") { }//was 10
 
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
@@ -60,8 +63,8 @@ public:
 class Sergeant: public Enemy {
 
 public:
-    Sergeant(int newX, int newY): Enemy(100, 5, newX, newY, "sergeant") {}
-    Sergeant(): Enemy(50, 10, 0, 0, "sergeant") { }
+    Sergeant(int newX, int newY): Enemy(100, 5, newX, newY, "sergeant", "right") {}
+    Sergeant(): Enemy(50, 10, 0, 0, "sergeant", "right") { }
      //destroys enemy when hp reaches 0
     //void updatePosition(); // updatets the position
 };
@@ -69,8 +72,8 @@ public:
 class YOLO: public Enemy {
 
 public:
-    YOLO(int newX, int newY): Enemy(25, 20, newX, newY, "YOLO") {}
-    YOLO(): Enemy(25, 20, 0, 0, "YOLO") { }
+    YOLO(int newX, int newY): Enemy(25, 20, newX, newY, "YOLO", "right") {}
+    YOLO(): Enemy(25, 20, 0, 0, "YOLO", "right") { }
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
 };

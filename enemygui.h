@@ -16,7 +16,7 @@ public:
     explicit EnemyGUI(MainWindow*, Enemy*,QWidget*);
 
     void setPic() { this->setPixmap(pic.scaled(50,50));}
-
+    void updateDirection(); //Update image based on enemy direction
     Enemy *getEnemyObj() { return enemy; }
     
 signals:

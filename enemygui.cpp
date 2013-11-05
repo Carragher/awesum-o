@@ -7,16 +7,31 @@ EnemyGUI::EnemyGUI(MainWindow* parent, Enemy* newEn, QWidget *newWorld) : QLabel
     //load appropriate pixmap based on enemy type
     if (enemy->getType() == "walker")
     {
-        pic.load(":/walker.png");
+        pic.load(":/walkerRight.png");
     }
     else if (enemy->getType() == "sergeant")
     {
-        pic.load(":/sergeant.png");
+        pic.load(":/SergeantRight.png");
     }
     else if (enemy->getType() == "YOLO")
     {
-        pic.load(":/YOLO.png");
+        pic.load(":/YOLORight.png");
     }
 
 }
 
+void EnemyGUI::updateDirection()
+{
+    if (enemy->getDirection() == "right")
+    {
+        pic.load(":/walkerRight.png");
+    }
+    else if (enemy->getDirection() == "down")
+    {
+        pic.load(":/walkerDown.png");
+    }
+    else if (enemy->getDirection() == "left")
+    {
+        pic.load(":/walkerLeft.png");
+    }
+}
