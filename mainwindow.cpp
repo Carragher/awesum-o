@@ -36,7 +36,10 @@ void MainWindow::timerHit() {
     // see if there are any enemies
     if (toUpdate->size() > 0) {
         // for each enemy, update it's position
-        for (EnemyGUI* curEnemy : storage::getInstance().getEngui()) {
+        vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
+
+        for (unsigned int a = 0; a < engui->size(); ++a) {
+            EnemyGUI *curEnemy = engui->at(a);
             curEnemy->getEnemyObj()->updatePosition();
             curEnemy->updateDirection();
             curEnemy->setPic();
@@ -127,20 +130,15 @@ void MainWindow::createPath(string cmd) {
     x = getSlotCoord(slot, "x");
     y = getSlotCoord(slot, "y");
 
-    vector<Tile*> *tiles = World::getInstance().getTiles();
+    vector<Entity*> *entities = storage::getInstance().getEntities();
 
-    for (unsigned int j = 0; j < tiles->size(); ++j) {
-        Tile* tile = tiles->at(j);
+    for(unsigned int d = 0; d < entities->size(); ++d) {
+        Entity *entity = entities->at(d);
 
-        if(tile->getX() == x && tile->getY() == y) { // replace the thing!
+        if(entity->getTile()->getX() == x && entity->getTile()->getY() == y) { // replace the thing!
             // get rid of the old tile
-            delete tile;
-            tiles->erase(tiles->begin()+j);
-
-            // do not create a path right now so we can have transparency
-            stringstream forCreate;
-            forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile SaddleBrown path") << endl;
-            doCreate(forCreate);
+            entity->deleteLater();
+            entities->erase(entities->begin()+d);
 
             return;
         }
@@ -227,6 +225,8 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             tile->setMouseTracking(true); // turn mouse tracking on for mouse over stuff
 
+            storage::getInstance().addEntity(tile);
+
             delete createObj;
 
         } else if (type == "enemy") {
@@ -271,7 +271,7 @@ void MainWindow::save() {
     vector<Tile*> *tiles = World::getInstance().getTiles();
 
     // get the model objects in the game
-    for(unsigned int d = 0; tiles->size(); ++d) { // iterate over them and save them to a file
+    for(unsigned int d = 0; d < tiles->size(); ++d) { // iterate over them and save them to a file
         tiles->at(d)->save(fout);
         fout << endl;
     }

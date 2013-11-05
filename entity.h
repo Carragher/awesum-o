@@ -15,13 +15,13 @@ class Entity: public QLabel {
         QPixmap tilePic;
     public:
         explicit Entity(MainWindow*, Tile*, QWidget*);
-
         void setPic(){this->setPixmap(tilePic.scaled(50,50));}
 
         void enterEvent(QEvent *);
         void leaveEvent(QEvent *);
-        void mouseReleaseEvent(QMouseEvent *);
-        
+        void mouseReleaseEvent(QMouseEvent *);        
+
+        Tile *getTile() { return tile; }
 
 };
 

@@ -21,5 +21,6 @@
         <file>YOLODown.png</file>
         <file>YOLOLeft.png</file>
         <file>YOLORight.png</file>
+        <file>empty.png</file>
     </qresource>
 </RCC>
