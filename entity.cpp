@@ -2,29 +2,19 @@
 #include "entity.h"
 #include "world.h"
 
-//Entity::Entity()
-//{
-//    posX = 0;
-//    posY = 0;
-//    enemy.load(":/images/logo.jpeg");
-//}
-
-/*QRectF Entity::boundingRect() const
+Entity::Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld): QLabel(newWorld)
 {
-    return QRect(posX-15, posY-15, 20, 20);
+    this->mouseclick = false;
+    this->win = parent;
+    this->tile = newTile;
+    if (dynamic_cast<pathTile*>(tile)) {
+        tilePic.load(":/tile-1-center.gif");
+    } else if (dynamic_cast<towerTile*>(tile)) {
+        tilePic.load(":/turret-1-base.gif");
+    } else if (dynamic_cast<normalTile*>(tile)) {
+        tilePic.load(":/tile-1-horizontal.gif");
+    }
 }
-
-void Entity::paint(QPainter *painter,
-                  const QStyleOptionGraphicsItem *option,
-                  QWidget *widget)
-{
-    painter->drawPixmap(posX-15, posY-15, 0, 0, enemy);
-}*/
-
-void Entity::setX(int x) {posX = x; }
-
-void Entity::setY(int y) {posY = y; }
-
 
 // if the mouse enters the Entity change the color - these methods can be used for tower placement!
 void Entity::enterEvent(QEvent *ev) {
@@ -58,6 +48,7 @@ void Entity::mouseReleaseEvent(QMouseEvent *ev) {
         // create the tower tile!
 //        this->tile = ;
         this->setStyleSheet("QLabel { background-color : black; border-style:dotted; border-width:1px; border-color: black; }");
+
     }
 }
 

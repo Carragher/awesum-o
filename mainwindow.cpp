@@ -7,6 +7,7 @@
 #include "storage.h"
 #include <QString>
 #include <fstream>
+#include <cassert>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -107,7 +108,7 @@ void MainWindow::loadPath(string pathString) {
     lines.push_back(line);
 
     // load the path(s)
-    for(int d = 0; d < lines.size(); ++d) {
+    for(unsigned int d = 0; d < lines.size(); ++d) {
         createPath(lines.at(d));
     }
 }
@@ -123,7 +124,7 @@ void MainWindow::createPath(string cmd) {
 
     vector<Tile*> tiles = World::getInstance().getTiles();
 
-    for (int j = 0; j < tiles.size(); ++j) {
+    for (unsigned int j = 0; j < tiles.size(); ++j) {
         Tile* tile = tiles.at(j);
 
         if(tile->getX() == x && tile->getY() == y) { // replace the thing!
@@ -213,7 +214,8 @@ void MainWindow::doCreate(stringstream& cmd) {
             Entity *tile = new Entity(this, obj, ui->graphicsView);
             tile->setScaledContents(true);
             tile->setGeometry(obj->getX(), obj->getY(), 50, 50);
-            tile->setStyleSheet(forStyle);
+            tile->setPic();
+            //tile->setStyleSheet(forStyle);
             tile->show();
 
             tile->setMouseTracking(true); // turn mouse tracking on for mouse over stuff
@@ -223,7 +225,7 @@ void MainWindow::doCreate(stringstream& cmd) {
         } else if (type == "enemy") {
 
             Enemy *texas = World::getInstance().getEnemies().back();
-
+            assert(texas->getType() == "walker");
             //test display score
             int test = World::getInstance().getScore();
             QString q = QString::number(test);
@@ -236,8 +238,9 @@ void MainWindow::doCreate(stringstream& cmd) {
             // create the GUI component
             EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
             ranger->setScaledContents(true);
+            ranger->setPic();
             ranger->setGeometry(texas->getX(), texas->getY(), 50, 50);
-            ranger->setStyleSheet(forStyle);
+            //ranger->setStyleSheet(forStyle);
             ranger->show();
 
             storage::getInstance().addEngui(ranger);

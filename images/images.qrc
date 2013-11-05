@@ -25,5 +25,8 @@
         <file>turret-6-cannon.gif</file>
         <file>turret-7-base.gif</file>
         <file>turret-7-cannon.gif</file>
+        <file>Sergeant.png</file>
+        <file>walker.png</file>
+        <file>YOLO.png</file>
     </qresource>
 </RCC>

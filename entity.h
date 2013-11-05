@@ -1,9 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
-#include <QPainter>
 #include <QLabel>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
 #include "mainwindow.h"
 #include "tile.h"
 
@@ -15,26 +12,17 @@ class Entity: public QLabel {
         MainWindow *win;
         Tile *tile;
         bool mouseclick;
-
+        QPixmap tilePic;
     public:
-        explicit Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld):
-                        QLabel(newWorld), win(parent), tile(newTile) {mouseclick = false; }
+        explicit Entity(MainWindow*, Tile*, QWidget*);
 
-        /*QRectF boundingRect() const;
-        void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget);*/
-        void setX (int);
-        void setY (int);
+        void setPic(){this->setPixmap(tilePic.scaled(50,50));}
 
         void enterEvent(QEvent *);
         void leaveEvent(QEvent *);
         void mouseReleaseEvent(QMouseEvent *);
-    
-        QPixmap enemy;
-        int posX, posY;
-    
-    ~Entity(){}
+        
+
 };
 
 
