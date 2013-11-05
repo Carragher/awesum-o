@@ -8,11 +8,11 @@ Entity::Entity(MainWindow *parent, Tile *newTile, QWidget *newWorld): QLabel(new
     this->win = parent;
     this->tile = newTile;
     if (dynamic_cast<pathTile*>(tile)) {
-        tilePic.load(":/tile-1-center.gif");
+        tilePic.load(":/path.gif");
     } else if (dynamic_cast<towerTile*>(tile)) {
-        tilePic.load(":/turret-1-base.gif");
+        tilePic.load(":/basicTowwa.gif");
     } else if (dynamic_cast<normalTile*>(tile)) {
-        tilePic.load(":/tile-1-horizontal.gif");
+        tilePic.load(":/normal.gif");
     }
 }
 
