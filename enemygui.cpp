@@ -17,7 +17,7 @@ EnemyGUI::EnemyGUI(MainWindow* parent, Enemy* newEn, QWidget *newWorld) : QLabel
     {
         pic.load(":/YOLORight.png");
     }
-
+    this->setStyleSheet("background-color: rgba(255, 255, 255, 10);");
 }
 //Change enemy image based on enemy direction
 void EnemyGUI::updateDirection()
@@ -36,6 +36,7 @@ void EnemyGUI::updateDirection()
         {
             pic.load(":/walkerLeft.png");
         }
+
     }
     else if (enemy->getType() == "sergeant")
     {

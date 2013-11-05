@@ -150,6 +150,7 @@ void MainWindow::on_btnLoadLevel_clicked() {
     ui->btnLoadLevel->setEnabled(false);
 }
 
+//Starts the game
 void MainWindow::on_btnStartLevel_clicked() {
     ui->btnStartLevel->setEnabled(false); // disable the buttons othe user can't start more things!
 
