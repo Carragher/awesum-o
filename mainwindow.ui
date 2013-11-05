@@ -86,8 +86,8 @@
    <widget class="QLabel" name="scoreLbl">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>140</y>
+      <x>400</x>
+      <y>110</y>
       <width>66</width>
       <height>17</height>
      </rect>
@@ -100,7 +100,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>160</y>
+      <y>170</y>
       <width>800</width>
       <height>500</height>
      </rect>
@@ -109,6 +109,25 @@
      <string notr="true">background-color: rgb(255, 255, 255);
 border-width:1px; border-color:black;</string>
     </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-60</y>
+       <width>801</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="images/images.qrc">:/background.jpg</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="btnLoadLevel">
     <property name="geometry">

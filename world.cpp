@@ -5,25 +5,25 @@ World World::instance;
 
 //Adds enemy to enemy vector
 void World::addEnemy(Enemy* enemy) {
-    enemies.push_back(enemy);
+    enemies->push_back(enemy);
 }
 
 //Adds tile to tile vector
 void World::addTile(Tile* tile) {
-    tiles.push_back(tile);
+    tiles->push_back(tile);
 }
 
 void World::reset() {
-    for (size_t c = 0; c < tiles.size(); c = c ) {
-        Tile *tile = tiles.at(c);
+    for (size_t c = 0; c < tiles->size(); c = c ) {
+        Tile *tile = tiles->at(c);
 //        delete tiles.at(c);
-        tiles.erase(tiles.begin()+c);
+        tiles->erase(tiles->begin()+c);
         delete tile;
     }
 
-    for (size_t d = 0; d < enemies.size(); d = d ) {
-        delete enemies.at(d);
-        enemies.erase(enemies.begin()+d);
+    for (size_t d = 0; d < enemies->size(); d = d ) {
+        delete enemies->at(d);
+        enemies->erase(enemies->begin()+d);
     }
 
     Tile::resetNextId();

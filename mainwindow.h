@@ -41,6 +41,8 @@ public:
 
     void doCreate(std::stringstream& cmd);
 
+    // set path image
+
     // save and load functinoality
     void save();
     void load();

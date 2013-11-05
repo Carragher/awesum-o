@@ -18,22 +18,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnAddTower->setEnabled(false);
     ui->btnStartLevel->setEnabled(false);
 
+    ui->graphicsView->setStyleSheet("background-image: url(:/images/background.jpg)");
+
     TIMER = new QTimer(this);
 }
 
 MainWindow::~MainWindow() {
+    // TODO : Clean this up!!
     delete ui;
     World::getInstance().reset();
-//    delete scene;
-//    delete enemy;
 }
 
 void MainWindow::timerHit() {
     // get a collection of enemies
-    vector<Enemy*> toUpdate = World::getInstance().getEnemies();
+    vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
 
     // see if there are any enemies
-    if (toUpdate.size() > 0) {
+    if (toUpdate->size() > 0) {
         // for each enemy, update it's position
         for (EnemyGUI* curEnemy : storage::getInstance().getEngui()) {
             curEnemy->getEnemyObj()->updatePosition();
@@ -42,6 +43,8 @@ void MainWindow::timerHit() {
             curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
         }
     }
+
+    // get the towers and run their update methods
 }
 
 // return the correct coordinates for the specified slot
@@ -124,16 +127,17 @@ void MainWindow::createPath(string cmd) {
     x = getSlotCoord(slot, "x");
     y = getSlotCoord(slot, "y");
 
-    vector<Tile*> tiles = World::getInstance().getTiles();
+    vector<Tile*> *tiles = World::getInstance().getTiles();
 
-    for (unsigned int j = 0; j < tiles.size(); ++j) {
-        Tile* tile = tiles.at(j);
+    for (unsigned int j = 0; j < tiles->size(); ++j) {
+        Tile* tile = tiles->at(j);
 
         if(tile->getX() == x && tile->getY() == y) { // replace the thing!
             // get rid of the old tile
             delete tile;
-            tiles.erase(tiles.begin()+j);
+            tiles->erase(tiles->begin()+j);
 
+            // do not create a path right now so we can have transparency
             stringstream forCreate;
             forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile SaddleBrown path") << endl;
             doCreate(forCreate);
@@ -152,7 +156,7 @@ void MainWindow::on_btnLoadLevel_clicked() {
 
 //Starts the game
 void MainWindow::on_btnStartLevel_clicked() {
-    ui->btnStartLevel->setEnabled(false); // disable the buttons othe user can't start more things!
+    ui->btnStartLevel->setEnabled(false); // disable the buttons so the user can't start more things!
 
 
     // load the enemy's here!!
@@ -207,7 +211,7 @@ void MainWindow::doCreate(stringstream& cmd) {
         QString forStyle(style.c_str()); // convert it so the method will accept the variable
 
         if (type == "tile") {
-            Tile *obj = World::getInstance().getTiles().back();
+            Tile *obj = World::getInstance().getTiles()->back();
 
             obj->setX(x);
             obj->setY(y);
@@ -227,7 +231,7 @@ void MainWindow::doCreate(stringstream& cmd) {
 
         } else if (type == "enemy") {
 
-            Enemy *texas = World::getInstance().getEnemies().back();
+            Enemy *texas = World::getInstance().getEnemies()->back();
             assert(texas->getType() == "walker");
             //test display score
             int test = World::getInstance().getScore();
@@ -264,9 +268,11 @@ void MainWindow::save() {
     ofstream fout;
     fout.open(filename, ios::out);
 
+    vector<Tile*> *tiles = World::getInstance().getTiles();
+
     // get the model objects in the game
-    for(Tile* tile : World::getInstance().getTiles()) { // iterate over them and save them to a file
-        tile->save(fout);
+    for(unsigned int d = 0; tiles->size(); ++d) { // iterate over them and save them to a file
+        tiles->at(d)->save(fout);
         fout << endl;
     }
 

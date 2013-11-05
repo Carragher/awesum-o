@@ -10,12 +10,15 @@
 using namespace std;
 
 class World {
-    vector<Tile*> tiles;
-    vector<Enemy*> enemies;
+    vector<Tile*> *tiles;
+    vector<Enemy*> *enemies;
     int score;
 
 public:
-    World() { }
+    World() {
+        tiles = new vector<Tile*>();
+        enemies = new vector<Enemy*>();
+    }
 
     //is the method that adds score when an enemy is killed
     void enemyDeath();
@@ -37,8 +40,8 @@ public:
 //    Tile *getById(int id);
 
     // returns the vector of tiles
-    vector<Tile*>& getTiles() { return tiles; }
-    vector<Enemy*>& getEnemies() { return enemies; }
+    vector<Tile*> *getTiles() { return tiles; }
+    vector<Enemy*> *getEnemies() { return enemies; }
 
     //general create method?
 
