@@ -15,10 +15,7 @@ void World::addTile(Tile* tile) {
 
 void World::addBullet(Bullet* b) {
     bullets->push_back(b);
-
-
 }
-
 
 void World::reset() {
     for (size_t c = 0; c < tiles->size(); c = c ) {

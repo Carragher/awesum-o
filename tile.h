@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include "enemy.h"
 
 class Tile {
     int id;
@@ -56,12 +57,12 @@ public:
     // save the object to a file
     virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " " << std::string(image) << " tile"; }
 
-    virtual void updatePos() { }
+    virtual void update() { }
 };
 
 class normalTile : public Tile {
 public:
-    void updatePos() { }
+    void update() { }
 
     void save(std::ofstream& saveFile) {
         Tile::save(saveFile);
@@ -85,7 +86,7 @@ public:
     void setNextTile(int nextTile) { this->nextTile = nextTile; }
     int getNextTile() { return this->nextTile; }
 
-    void updatePos() { }
+    void update() { }
 
     void save(std::ofstream& saveFile) {
         Tile::save(saveFile);
@@ -99,12 +100,16 @@ class towerTile : public Tile {
     int fireSpeed;
     int damage;
     int range;
+    Enemy* newTarget;
 
 public:
-    towerTile(): Tile() { }
+    towerTile(): Tile() {
+        newTarget = NULL;
+        range = 150;
+    }
 
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
-        Tile(newX, newY, newWidth, newHeight, newPlacable) { }
+        Tile(newX, newY, newWidth, newHeight, newPlacable) { newTarget = NULL; }
 
     void deathUpdate();// this method will destroy a tower when it dies
 
@@ -117,12 +122,20 @@ public:
     void setRange(int range) { this->range = range; }
     int getRange() { return this->range; }
 
-    void updatePos() { }
+    Enemy* getNewTarget() { return newTarget; }
+    void resetNewTarget() { newTarget= NULL; } // make it null so next time we can see if we need to launch a bullet
+
+    void update() { }
+    void launchMaybe();
 
     void save(std::ofstream& saveFile) {
         Tile::save(saveFile);
         saveFile << " tower";
     }
+
+    double getDistance(Enemy* compareTo);
+
+    void launchBullet(Enemy* target);
 };
 
 

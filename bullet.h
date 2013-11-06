@@ -2,6 +2,9 @@
 #define BULLET_H
 #include "enemy.h"
 
+#include <fstream>
+#include <string>
+
 class Bullet {
     int speed;
     int damage;
@@ -13,7 +16,6 @@ class Bullet {
     //Enemy *target;// no need
 
 public:
-
     explicit Bullet(int newSpeed, int newDmg, int newX, int newY):
         speed(newSpeed),
         damage(newDmg),
@@ -27,7 +29,6 @@ public:
 
     Bullet(int, int);
 
-
     void updatePosition();
 
     int getX() {return x;}
@@ -35,6 +36,9 @@ public:
     void setX(int newx) {x = newx;}
     void setY(int newy) {y = newy;}
     int getId() {return id;}
+
+    // save the object to a file
+    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y); }
 
 };
 

@@ -49,7 +49,37 @@ void MainWindow::timerHit() {
 
     // TODO M1 : get the towers and run their update methods
 
+    vector<Tile*> *tiles = World::getInstance().getTiles();
+
+    if (tiles->size() > 0) {
+        vector<Entity*> *entities = storage::getInstance().getEntities();
+
+        for(unsigned int g = 0; g < entities->size(); ++g) {
+            if(dynamic_cast<towerTile*>(entities->at(g)->getTile())) {
+                towerTile* curTile = dynamic_cast<towerTile*>(entities->at(g)->getTile());
+                curTile->launchMaybe();
+                if(curTile->getNewTarget() != NULL) {
+                    // create the bullet here!!
+                    stringstream forCreate;
+                    forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet bullet bullet" << endl;
+                    // do something with the string to set the target
+                    doCreate(forCreate);
+
+                    // reset the target
+                    curTile->resetNewTarget();
+                }
+            }
+        }
+    }
+
     // TODO M1 : get the bullets and run their update methods
+
+    if (World::getInstance().getBullets()->size() > 0) {
+        vector<BulletGUI*> *bullets = storage::getInstance().getBgui();
+        for (unsigned int q = 0; q < bullets->size(); ++q) {
+            bullets->at(q)->getBulletObj()->updatePosition();
+        }
+    }
 }
 
 // return the correct coordinates for the specified slot
@@ -270,7 +300,7 @@ void MainWindow::doCreate(stringstream& cmd) {
             obj->setY(y);
 
             BulletGUI *blt = new BulletGUI(this, obj, ui->graphicsView);
-            blt->setGeometry(obj->getX(), obj->getY(), 50, 50);
+            blt->setGeometry(obj->getX(), obj->getY(), 10, 10);
             blt->show();
 
             storage::getInstance().addBgui(blt);
@@ -298,7 +328,13 @@ void MainWindow::save() {
         fout << endl;
     }
 
-    // TODO : save the path string
+    // save the bullets
+    vector<Bullet*> *bullets = World::getInstance().getBullets();
+
+    for(unsigned int c = 0; c < bullets->size(); ++c) {
+        bullets->at(c)->save(fout);
+        fout << endl;
+    }
 
     // close the file after we are done writing it
     fout.close();

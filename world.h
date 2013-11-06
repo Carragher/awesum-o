@@ -49,9 +49,6 @@ public:
     vector<Enemy*> *getEnemies() { return enemies; }
     vector<Bullet*> *getBullets() {return bullets; }
 
-    //general create method?
-
-
     // Resets world
     void reset();
 
