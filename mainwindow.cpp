@@ -57,16 +57,25 @@ void MainWindow::timerHit() {
         for(unsigned int g = 0; g < entities->size(); ++g) {
             if(dynamic_cast<towerTile*>(entities->at(g)->getTile())) {
                 towerTile* curTile = dynamic_cast<towerTile*>(entities->at(g)->getTile());
-                curTile->launchMaybe();
-                if(curTile->getNewTarget() != NULL) {
-                    // create the bullet here!!
-                    stringstream forCreate;
-                    forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet bullet bullet" << endl;
-                    // do something with the string to set the target
-                    doCreate(forCreate);
 
-                    // reset the target
-                    curTile->resetNewTarget();
+                // check and see if we can launch a new bullet yet!
+                if(curTile->getCurFire() == curTile->getFireSpeed()) {
+
+                    curTile->launchMaybe();
+                    if(curTile->getNewTarget() != NULL) {
+                        // create the bullet here!!
+                        stringstream forCreate;
+                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet bullet bullet" << endl;
+                        // do something with the string to set the target
+                        doCreate(forCreate);
+
+                        // reset the target
+                        curTile->resetNewTarget();
+
+                        curTile->setCurFire(0);
+                    }
+                } else {
+                    curTile->updateCurFire();
                 }
             }
         }
@@ -77,7 +86,12 @@ void MainWindow::timerHit() {
     if (World::getInstance().getBullets()->size() > 0) {
         vector<BulletGUI*> *bullets = storage::getInstance().getBgui();
         for (unsigned int q = 0; q < bullets->size(); ++q) {
+            BulletGUI *curBullet = bullets->at(q);
             bullets->at(q)->getBulletObj()->updatePosition();
+            cout << "Updated bullet " << to_string(curBullet->getBulletObj()->getId()) << endl;
+
+            // update the GUI position of the bullet
+            curBullet->move(curBullet->getBulletObj()->getX(), curBullet->getBulletObj()->getX());
         }
     }
 }

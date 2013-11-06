@@ -98,6 +98,7 @@ public:
 class towerTile : public Tile {
     int health;
     int fireSpeed;
+    int curFire;
     int damage;
     int range;
     Enemy* newTarget;
@@ -106,6 +107,8 @@ public:
     towerTile(): Tile() {
         newTarget = NULL;
         range = 150;
+        fireSpeed = 1000;
+        curFire = 1000;
     }
 
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
@@ -124,6 +127,10 @@ public:
 
     Enemy* getNewTarget() { return newTarget; }
     void resetNewTarget() { newTarget= NULL; } // make it null so next time we can see if we need to launch a bullet
+
+    int getCurFire() { return curFire; }
+    void setCurFire(int newCurFire) { curFire = newCurFire; }
+    void updateCurFire() { ++ curFire; }
 
     void update() { }
     void launchMaybe();
