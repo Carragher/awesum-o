@@ -1,5 +1,6 @@
 #ifndef BULLETGUI_H
 #define BULLETGUI_H
+
 #include <QLabel>
 #include <string>
 #include "bullet.h"
@@ -7,7 +8,7 @@
 using namespace std;
 
 
-class bulletgui : QLabel
+class BulletGUI : public QLabel
 {
     Q_OBJECT
     MainWindow *win;
@@ -15,7 +16,7 @@ class bulletgui : QLabel
     QPixmap *pix;
 
 public:
-    explicit bulletgui(MainWindow*parent, Bullet*newBull, QWidget*);
+    explicit BulletGUI(MainWindow*, Bullet*, QWidget*);
 
     Bullet *getBulletObj() {return bull;}
 

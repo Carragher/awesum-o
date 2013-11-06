@@ -6,6 +6,7 @@
 #include "enemy.h"
 #include "mainwindow.h"
 using namespace std;
+
 class EnemyGUI : public QLabel
 {
     Q_OBJECT

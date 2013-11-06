@@ -14,11 +14,11 @@ class storage {
 private:
         vector<EnemyGUI*> *engui;
         vector<Entity*> *entities;
-        vector<bulletgui*> *bgui;
+        vector<BulletGUI*> *bgui;
         storage(){
             engui = new vector<EnemyGUI*>();
             entities = new vector<Entity*>();
-            bgui = new vector<bulletgui*>();
+            bgui = new vector<BulletGUI*>();
         }
 
 public:
@@ -30,8 +30,8 @@ public:
     void addEntity(Entity* en) { entities->push_back(en); }
     vector<Entity*> *getEntities() { return entities; }
 
-    void addBgui(bulletgui* b) {bgui->push_back(b);}
-    vector<bulletgui*> *getBgui() {return bgui;}
+    void addBgui(BulletGUI* b) {bgui->push_back(b);}
+    vector<BulletGUI*> *getBgui() {return bgui;}
 
 
 private:
