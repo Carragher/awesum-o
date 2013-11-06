@@ -35,6 +35,19 @@ bool CreateCommand::execute() {
             cout << "\t** create failed: unknown type " << type << endl;
             return false;
         }
+    } else if(type == "bullet") {
+        Bullet *obj = World::getInstance().createBullet(type);
+        if(obj != NULL) {
+            World::getInstance().addBullet(obj);
+            id = obj->getId();
+            cout << "\t-> created id" << to_string(id) << endl;
+            return true;
+
+        } else {
+            cout << "\t** create failed: unknown type " << type << endl;
+            return false;
+        }
+
     }
 
     return false;

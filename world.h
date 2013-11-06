@@ -6,18 +6,21 @@
 
 #include "tile.h"
 #include "enemy.h"
+#include "bullet.h"
 
 using namespace std;
 
 class World {
     vector<Tile*> *tiles;
     vector<Enemy*> *enemies;
+    vector<Bullet*> *bullets;
     int score;
 
 public:
     World() {
         tiles = new vector<Tile*>();
         enemies = new vector<Enemy*>();
+        bullets = new vector<Bullet*>();
     }
 
     //is the method that adds score when an enemy is killed
@@ -31,10 +34,12 @@ public:
     // Creates and returns a tile based on the <type>
     Tile *createTile(const string& type);
     Enemy *createEnemy(const string& type);
+    Bullet *createBullet(const string &type);
 
     // adds <obj> to tiles in world
     void addTile(Tile*);
     void addEnemy(Enemy*);
+    void addBullet(Bullet*);
 
     // returns tile with <id>, or NULL if none
 //    Tile *getById(int id);
@@ -42,6 +47,7 @@ public:
     // returns the vector of tiles
     vector<Tile*> *getTiles() { return tiles; }
     vector<Enemy*> *getEnemies() { return enemies; }
+    vector<Bullet*> *getBullets() {return bullets; }
 
     //general create method?
 

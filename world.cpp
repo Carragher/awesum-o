@@ -13,6 +13,13 @@ void World::addTile(Tile* tile) {
     tiles->push_back(tile);
 }
 
+void World::addBullet(Bullet* b) {
+    bullets->push_back(b);
+
+
+}
+
+
 void World::reset() {
     for (size_t c = 0; c < tiles->size(); c = c ) {
         Tile *tile = tiles->at(c);
@@ -62,6 +69,16 @@ Enemy *World::createEnemy(const string &type) {
         return new YOLO;
     else
         return NULL;
+}
+
+Bullet *World::createBullet(const string &type) {
+    if (type.find("bullet") == 0){
+        return new Bullet;
+    } else {
+        return NULL;
+    }
+
+
 }
 
 // destructor

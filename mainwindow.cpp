@@ -8,6 +8,7 @@
 #include <QString>
 #include <fstream>
 #include <cassert>
+#include "bulletgui.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +33,7 @@ MainWindow::~MainWindow() {
 void MainWindow::timerHit() {
     // get a collection of enemies
     vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
+
 
     // see if there are any enemies
     if (toUpdate->size() > 0) {
@@ -251,6 +253,21 @@ void MainWindow::doCreate(stringstream& cmd) {
             ranger->show();
 
             storage::getInstance().addEngui(ranger);
+
+        } else if (type == "bullet") {
+            Bullet *obj = World::getInstance().getBullets()->back();
+
+
+            obj->setX(x);
+            obj->setY(y);
+
+            bulletgui *blt = new bulletgui(this,obj,ui->graphicsView);
+            blt->setGeometry(obj->getX(),obj->getY(),50,50);
+            blt->show();
+
+            storage::getInstance().addBgui(blt);
+
+
 
         }
     }

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     command.cpp \
     enemygui.cpp \
     storage.cpp \
-    bullet.cpp
+    bullet.cpp \
+    bulletgui.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h\
     command.h \
     enemygui.h \
     storage.h \
-    bullet.h
+    bullet.h \
+    bulletgui.h
 
 FORMS    += mainwindow.ui
 
