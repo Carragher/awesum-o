@@ -11,7 +11,7 @@ class Bullet {
     int x;
     int y;
     int id;
-    Enemy *findme;
+    Enemy *target;
     static int nxtId;
 
     //Enemy *target;// no need
@@ -25,20 +25,22 @@ public:
 
     // for the command classes
     Bullet(): x(0), y(0) {
+        speed = 20;
         id = ++nxtId;
-
     }
 
     Bullet(int, int);
 
     void updatePosition();
-    void setOb(int);
-    Enemy* getme() {return this->findme;}
+    Enemy *getTarget() { return target; }
+    void setTarget(int);
     int getX() {return x;}
     int getY() {return y;}
     void setX(int newx) {x = newx;}
     void setY(int newy) {y = newy;}
     int getId() {return id;}
+
+    bool isInTarget();
 
     // save the object to a file
     virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y); }

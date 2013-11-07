@@ -8,6 +8,17 @@ void World::addEnemy(Enemy* enemy) {
     enemies->push_back(enemy);
 }
 
+void World::removeEnemy(int id) {
+    for(unsigned int i = 0; i < enemies->size(); i++ ){
+        Enemy *enm = enemies->at(i);
+        if (enm->getId()== id) {
+            enemies->erase(enemies->begin()+i);
+            delete enm;
+        }
+
+    }
+}
+
 //Adds tile to tile vector
 void World::addTile(Tile* tile) {
     tiles->push_back(tile);

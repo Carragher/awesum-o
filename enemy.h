@@ -31,7 +31,8 @@ public:
         nextId = 0;
     }
 
-    void deathUpdate();
+    int deathUpdate();
+    void hit(int);
 
     void setHp(int hp) { this->hp = hp; }
     int getHp() { return this->hp; }

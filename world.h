@@ -44,6 +44,8 @@ public:
     // returns tile with <id>, or NULL if none
 //    Tile *getById(int id);
 
+    void removeEnemy(int);
+
     // returns the vector of tiles
     vector<Tile*> *getTiles() { return tiles; }
     vector<Enemy*> *getEnemies() { return enemies; }

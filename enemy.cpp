@@ -52,14 +52,18 @@ void Enemy::updatePosition()
     }
 }
 
-void Enemy::deathUpdate(){
+int Enemy::deathUpdate(){
     int checkHP = this->getHp();
-    if (checkHP <= 0)
-    {
-        delete this;
+    if (checkHP <= 0) {
+        return id;
     }
+
+    return -1;
 }
 
+void Enemy::hit(int damage) {
+    hp-=damage;
+}
 
 
 

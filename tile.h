@@ -106,9 +106,9 @@ class towerTile : public Tile {
 public:
     towerTile(): Tile() {
         newTarget = NULL;
-        range = 150;
-        fireSpeed = 1000;
-        curFire = 1000;
+        range = 200;
+        fireSpeed = 50;
+        curFire = 50;
     }
 
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):
@@ -130,7 +130,7 @@ public:
 
     int getCurFire() { return curFire; }
     void setCurFire(int newCurFire) { curFire = newCurFire; }
-    void updateCurFire() { ++ curFire; }
+    void updateCurFire() { ++curFire; }
 
     void update() { }
     void launchMaybe();

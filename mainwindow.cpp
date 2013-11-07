@@ -32,11 +32,11 @@ MainWindow::~MainWindow() {
 void MainWindow::timerHit() {
     // get the collection of enemies
     vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
+    vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
 
     // see if there are any enemies
     if (toUpdate->size() > 0) {
         // for each enemy, update it's position
-        vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
 
         for (unsigned int a = 0; a < engui->size(); ++a) {
             EnemyGUI *curEnemy = engui->at(a);
@@ -59,21 +59,19 @@ void MainWindow::timerHit() {
                 towerTile* curTile = dynamic_cast<towerTile*>(entities->at(g)->getTile());
 
                 // check and see if we can launch a new bullet yet!
-                if(curTile->getCurFire() == curTile->getFireSpeed()) {
+                if(curTile->getCurFire() >= curTile->getFireSpeed()) {
 
                     curTile->launchMaybe();
                     Enemy *e = curTile->getNewTarget();
-                    if(curTile->getNewTarget() != NULL) {
+                    if(e != NULL) {
                         // create the bullet here!!
                         int curid = e->getId();
                         stringstream forCreate;
-                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<"bullet" << endl;
-                        // do something with the string to set the target
+                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<" bullet" << endl;
                         doCreate(forCreate);
 
                         // reset the target
                         curTile->resetNewTarget();
-
                         curTile->setCurFire(0);
                     }
                 } else {
@@ -87,13 +85,32 @@ void MainWindow::timerHit() {
 
     if (World::getInstance().getBullets()->size() > 0) {
         vector<BulletGUI*> *bullets = storage::getInstance().getBgui();
+
         for (unsigned int q = 0; q < bullets->size(); ++q) {
             BulletGUI *curBullet = bullets->at(q);
-            bullets->at(q)->getBulletObj()->updatePosition();
+
+            curBullet->getBulletObj()->updatePosition();
             cout << "Updated bullet " << to_string(curBullet->getBulletObj()->getId()) << endl;
 
             // update the GUI position of the bullet
-            curBullet->move(curBullet->getBulletObj()->getX(), curBullet->getBulletObj()->getX());
+            curBullet->move(curBullet->getBulletObj()->getX(), curBullet->getBulletObj()->getY());
+
+            Bullet *theBullet = curBullet->getBulletObj();
+            // if the bullet is in the target, delete the bullet and decrement the enemy/delete it
+            if(theBullet->isInTarget()) {
+                int id = theBullet->getTarget()->deathUpdate();
+                if(id >= 0) {
+                    for(unsigned int t = 0; t < engui->size(); ++t) {
+                        if(engui->at(t)->getEnemyObj()->getId() == id)
+                            engui->at(t)->deleteLater();
+                            World::getInstance().removeEnemy(id);
+                            engui->erase(engui->begin()+t);
+                    }
+                }
+
+                bullets->erase(bullets->begin()+q);
+                curBullet->deleteLater();
+            }
         }
     }
 }
@@ -314,8 +331,7 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             obj->setX(x);
             obj->setY(y);
-            string::size_type sz;
-            obj->setOb(stoi(image,&sz));
+            obj->setTarget(stoi(image));
 
             BulletGUI *blt = new BulletGUI(this, obj, ui->graphicsView);
             blt->setGeometry(obj->getX(), obj->getY(), 10, 10);
