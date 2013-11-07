@@ -62,10 +62,12 @@ void MainWindow::timerHit() {
                 if(curTile->getCurFire() == curTile->getFireSpeed()) {
 
                     curTile->launchMaybe();
+                    Enemy *e = curTile->getNewTarget();
                     if(curTile->getNewTarget() != NULL) {
                         // create the bullet here!!
+                        int curid = e->getId();
                         stringstream forCreate;
-                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet bullet bullet" << endl;
+                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<"bullet" << endl;
                         // do something with the string to set the target
                         doCreate(forCreate);
 
@@ -312,6 +314,8 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             obj->setX(x);
             obj->setY(y);
+            string::size_type sz;
+            obj->setOb(stoi(image,&sz));
 
             BulletGUI *blt = new BulletGUI(this, obj, ui->graphicsView);
             blt->setGeometry(obj->getX(), obj->getY(), 10, 10);

@@ -11,7 +11,21 @@ Bullet::Bullet(int s, int d)
 {
     this->damage = d;
     this->speed = s;
+
     this->id = this->nxtId;
+
+
+}
+void Bullet::setOb(int tarid) {
+    vector<Enemy*>* evec = World::getInstance().getEnemies();
+    for(unsigned int i = 0; i < evec->size();i++ ){
+        Enemy * enm = evec->at(i);
+        if (enm->getId()== tarid) {
+            this->findme = enm;
+        }
+
+    }
+
 
 
 }
@@ -22,59 +36,33 @@ void Bullet::updatePosition() {
     // get the enemy position and see if the bullet has reached them if so, destroy them
 
     // move toward the toward the enemy
+   // if(this->getme() != NULL){
+        double x1;
+        double x2;
+        double y1;
+        double y2;
+        x1 = this->getX();
+        y1 = this->getY();
+        x2 = this->getme()->getX();
+        y2 = this->getme()->getY();
 
-    double x1;
-    double x2;
-    double y1;
-    double y2;
-    double result;
-    double xmid;
-    double ymid;
-    double penult;
-    double distance = 0;
-    double lastdistance = 0;
-    double loopid;
-    double i = 0;
-    bool firstgo = true;
-    x1 = this->getX();
-    y1 = this->getY();
-    vector<Enemy*>* fixme = World::getInstance().getEnemies();
-    if(fixme->size()>0){
-    for (unsigned int i; i< fixme->size(); i++){
-        Enemy *wan = new Enemy();
-        x2 = wan->getX();
-        y2 = wan->getY();
-        xmid = (x2 -x1);
-        xmid = xmid * xmid;
-        ymid = y2-y1;
-        ymid = ymid * ymid;
-        penult = xmid + ymid;
-        distance = sqrt(penult);
-        if(distance < lastdistance || firstgo == true){
-            lastdistance = distance;
-            loopid = i;
+        if (x1 < x2){
+            this->setX(x1+1);
+        } else {
+            this->setX(x1-1);
         }
-        if (firstgo == true){
-            lastdistance = distance;
-            firstgo = false;
+        if (y1 < y2){
+            this->setY(y1+1);
+        } else {
+            this->setY(y1-1);
         }
 
-        i++;
-    }
-    Enemy *FW = fixme->at(loopid);
-    x2 = FW->getX();
-    y2 = FW->getY();
-    if (x1 < x2){
-        this->setX(x1+1);
-    } else {
-        this->setX(x1-1);
-    }
-    if (y1 < y2){
-        this->setY(y1+1);
-    } else {
-        this->setY(y1-1);
-    }
-    }
+
+
+
+
+   // }
+
 
 }
 

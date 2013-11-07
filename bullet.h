@@ -11,6 +11,7 @@ class Bullet {
     int x;
     int y;
     int id;
+    Enemy *findme;
     static int nxtId;
 
     //Enemy *target;// no need
@@ -25,12 +26,14 @@ public:
     // for the command classes
     Bullet(): x(0), y(0) {
         id = ++nxtId;
+
     }
 
     Bullet(int, int);
 
     void updatePosition();
-
+    void setOb(int);
+    Enemy* getme() {return this->findme;}
     int getX() {return x;}
     int getY() {return y;}
     void setX(int newx) {x = newx;}
