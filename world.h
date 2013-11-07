@@ -21,7 +21,10 @@ public:
         tiles = new vector<Tile*>();
         enemies = new vector<Enemy*>();
         bullets = new vector<Bullet*>();
+        score = 200;
     }
+    void setScore(int s) {score +=s; }
+    int getScore() { return score;}
 
     //is the method that adds score when an enemy is killed
     void enemyDeath();
@@ -29,7 +32,7 @@ public:
     // allows the user to buy a tower and returns a bool to determine if succeessfull
     bool towerBuy(int);
 
-    int getScore() { return score;}
+
 
     // Creates and returns a tile based on the <type>
     Tile *createTile(const string& type);

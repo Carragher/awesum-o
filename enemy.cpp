@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include "world.h"
 
 int Enemy::nextId = 0;
 void Enemy::updatePosition()
@@ -55,7 +56,9 @@ void Enemy::updatePosition()
 int Enemy::deathUpdate(){
     int checkHP = this->getHp();
     if (checkHP <= 0) {
+        World::getInstance().setScore(25);
         return id;
+
     }
 
     return -1;

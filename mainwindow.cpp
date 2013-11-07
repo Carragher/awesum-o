@@ -9,6 +9,7 @@
 #include <fstream>
 #include <cassert>
 #include "bulletgui.h"
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +32,10 @@ MainWindow::~MainWindow() {
 
 void MainWindow::timerHit() {
     // get the collection of enemies
+    int i = World::getInstance().getScore();
+    QString s;
+    s.setNum(i,10);
+    ui->scoreLbl->setText(s);
     vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
     vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
 
@@ -233,6 +238,8 @@ void MainWindow::on_btnStartLevel_clicked() {
     stringstream forCreate;
     forCreate << string("0 0 enemy blue walker") << endl;
     doCreate(forCreate);
+    forCreate << string("0 0 enemy blue walker") << endl;
+    doCreate(forCreate);
 
     this->save(); // save the beginning of the level
 }
@@ -253,9 +260,15 @@ void MainWindow::on_btnAddTower_clicked() {
 
 // create a tower
 void MainWindow::createTower(int x, int y) {
+    if (World::getInstance().getScore() >= 50){
     stringstream forCreate;
     forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile black tower") << endl;
     doCreate(forCreate);
+    World::getInstance().towerBuy(50);
+    QString b;
+    b.setNum(World::getInstance().getScore(),10);
+    ui->scoreLbl->setText(b);
+    }
 }
 
 // checks to see if the user has selected to create towers
