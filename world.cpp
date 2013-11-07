@@ -19,6 +19,18 @@ void World::removeEnemy(int id) {
     }
 }
 
+
+void World::removeBullet(int id) {
+    for(unsigned int i = 0; i < bullets->size(); i++ ){
+        Bullet *blt = bullets->at(i);
+        if (blt->getId()== id) {
+            bullets->erase(bullets->begin()+i);
+            delete blt;
+        }
+
+    }
+}
+
 //Adds tile to tile vector
 void World::addTile(Tile* tile) {
     tiles->push_back(tile);
@@ -87,6 +99,17 @@ Bullet *World::createBullet(const string &type) {
     }
 
 
+}
+
+// get an enemy based on it's id
+Enemy *World::getEnemyById(int id) {
+    for(unsigned int k = 0; k < enemies->size(); ++k) {
+        if(enemies->at(k)->getId() == id) {
+            return enemies->at(k);
+        }
+    }
+
+    return NULL;
 }
 
 // destructor

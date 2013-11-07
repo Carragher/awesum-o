@@ -44,10 +44,13 @@ public:
     void addEnemy(Enemy*);
     void addBullet(Bullet*);
 
+    Enemy *getEnemyById(int id);
+
     // returns tile with <id>, or NULL if none
 //    Tile *getById(int id);
 
     void removeEnemy(int);
+    void removeBullet(int);
 
     // returns the vector of tiles
     vector<Tile*> *getTiles() { return tiles; }

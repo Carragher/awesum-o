@@ -11,7 +11,7 @@ class Bullet {
     int x;
     int y;
     int id;
-    Enemy *target;
+    int targetId;
     static int nxtId;
 
     //Enemy *target;// no need
@@ -32,13 +32,16 @@ public:
     Bullet(int, int);
 
     void updatePosition();
-    Enemy *getTarget() { return target; }
+    int getTargetId() { return targetId; }
     void setTarget(int);
     int getX() {return x;}
     int getY() {return y;}
     void setX(int newx) {x = newx;}
     void setY(int newy) {y = newy;}
     int getId() {return id;}
+
+    void setDamage(int newDamage) { damage = newDamage; }
+    int getDamage() { return damage; }
 
     bool isInTarget();
 

@@ -15,17 +15,18 @@ Bullet::Bullet(int s, int d) {
 }
 
 void Bullet::setTarget(int tarid) {
-    vector<Enemy*>* evec = World::getInstance().getEnemies();
-    for(unsigned int i = 0; i < evec->size();i++ ){
-        Enemy * enm = evec->at(i);
-        if (enm->getId()== tarid) {
-            this->target = enm;
-        }
-
-    }
+    targetId = tarid;
+//    vector<Enemy*>* evec = World::getInstance().getEnemies();
+//    for(unsigned int i = 0; i < evec->size();i++ ){
+//        Enemy * enm = evec->at(i);
+//        if (enm->getId()== tarid) {
+//            this->target = enm;
+//        }
+//    }
 }
 
 void Bullet::updatePosition() {
+    Enemy *target = World::getInstance().getEnemyById(targetId);
     // check and see if the enemy is still alive or has reached the finish line
 
     // get the enemy position and see if the bullet has reached them if so, destroy them
@@ -45,6 +46,7 @@ void Bullet::updatePosition() {
 }
 
 bool Bullet::isInTarget() {
+    Enemy *target = World::getInstance().getEnemyById(targetId);
     if(x >= target->getX() && x <= target->getX() + 50 && y >= target->getY() && y <= target->getY() + 50) {
         target->hit(damage);
         return true;

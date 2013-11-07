@@ -75,6 +75,8 @@ void MainWindow::timerHit() {
                         forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<" bullet" << endl;
                         doCreate(forCreate);
 
+                        World::getInstance().getBullets()->back()->setDamage(curTile->getDamage());
+
                         // reset the target
                         curTile->resetNewTarget();
                         curTile->setCurFire(0);
@@ -91,31 +93,63 @@ void MainWindow::timerHit() {
     if (World::getInstance().getBullets()->size() > 0) {
         vector<BulletGUI*> *bullets = storage::getInstance().getBgui();
 
-        for (unsigned int q = 0; q < bullets->size(); ++q) {
-            BulletGUI *curBullet = bullets->at(q);
+        for (int q = 0; q < bullets->size(); ++q) {
+            BulletGUI *guiBullet = bullets->at(q);
+            Bullet *modelBullet = guiBullet->getBulletObj();
 
-            curBullet->getBulletObj()->updatePosition();
-            cout << "Updated bullet " << to_string(curBullet->getBulletObj()->getId()) << endl;
+            // check and see if the bullet has a live target
+            if(World::getInstance().getEnemyById(modelBullet->getTargetId()) != NULL) {
+                // it has a live target
 
-            // update the GUI position of the bullet
-            curBullet->move(curBullet->getBulletObj()->getX(), curBullet->getBulletObj()->getY());
+                modelBullet->updatePosition();
+                cout << "Updated bullet " << to_string(modelBullet->getId()) << endl;
 
-            Bullet *theBullet = curBullet->getBulletObj();
-            // if the bullet is in the target, delete the bullet and decrement the enemy/delete it
-            if(theBullet->isInTarget()) {
-                int id = theBullet->getTarget()->deathUpdate();
-                if(id >= 0) {
-                    for(unsigned int t = 0; t < engui->size(); ++t) {
-                        if(engui->at(t)->getEnemyObj()->getId() == id)
-                            engui->at(t)->deleteLater();
-                            World::getInstance().removeEnemy(id);
-                            engui->erase(engui->begin()+t);
+                // update the GUI position of the bullet
+                guiBullet->move(modelBullet->getX(), modelBullet->getY());
+
+                //------HANDLE COLLISION-------//
+
+                // check and see if the bullet is in the target (collision has happened)
+                if(modelBullet->isInTarget()) {
+                    Enemy *target = World::getInstance().getEnemyById(modelBullet->getTargetId());
+                    target->hit(modelBullet->getDamage());
+
+                    int id = modelBullet->getTargetId();
+
+                    // check and see if it's dead
+                    if(target->deathUpdate() >= 0) {
+                        for(unsigned int t = 0; t < engui->size(); ++t) {
+                            if(engui->at(t)->getEnemyObj()->getId() == id) {
+                                engui->at(t)->deleteLater();
+                                World::getInstance().removeEnemy(id);
+                                engui->erase(engui->begin()+t);
+                            }
+                        }
                     }
+
+                    bullets->erase(bullets->begin()+q);
+                    delete guiBullet;
+                    --q; // decrement q since we just removed something from it!
+
+                    // delete the model bullet
+                    World::getInstance().removeBullet(modelBullet->getId());
                 }
 
+            } else {
+                // the bullet no longer has a target - get rid of the bullet
+                // TODO: make the bullet exit the screen instead of deleteing it
+
                 bullets->erase(bullets->begin()+q);
-                curBullet->deleteLater();
+                guiBullet->deleteLater();
+                --q; // decrement q since we just removed something from it!
+
+                // delete the model bullet
+                World::getInstance().removeBullet(modelBullet->getId());
+
+                // make sure that we don't skip over anything!!
             }
+
+
         }
     }
 }

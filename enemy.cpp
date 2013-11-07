@@ -54,11 +54,9 @@ void Enemy::updatePosition()
 }
 
 int Enemy::deathUpdate(){
-    int checkHP = this->getHp();
-    if (checkHP <= 0) {
+    if (hp <= 0) {
         World::getInstance().setScore(25);
         return id;
-
     }
 
     return -1;
