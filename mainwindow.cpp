@@ -10,7 +10,7 @@
 #include <cassert>
 #include "bulletgui.h"
 #include <QString>
-
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -419,4 +419,32 @@ void MainWindow::save() {
 
     // close the file after we are done writing it
     fout.close();
+}
+//Create server
+void MainWindow::on_btnServer_clicked()
+{
+    server = new AwesumServer;
+    if (server->getConnection())
+    {
+        server->activateWindow();
+        server->show();
+    }
+    else
+    {
+        QMessageBox::critical(this, "Uh oh", "Could not start socket.");
+    }
+}
+//Connect to existing server
+void MainWindow::on_btnClient_clicked()
+{
+    client = new AwesumeClient;
+    if (server->getConnection())
+    {
+        client->activateWindow();
+        client->show();
+    }
+    else
+    {
+        QMessageBox::critical(this, "Uh oh", "Could not connect.");
+    }
 }

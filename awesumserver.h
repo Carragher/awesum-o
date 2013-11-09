@@ -22,6 +22,8 @@ private slots:
     void dataReceived();
     void clientDisconnected();
 
+    void on_btnDisconnect_clicked();
+
 private:
     Ui::AwesumServer *ui;
     QTcpServer server;

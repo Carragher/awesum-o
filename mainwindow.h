@@ -10,7 +10,8 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-
+#include "awesumserver.h"
+#include "awesumeclient.h"
 namespace Ui {
 class MainWindow;
 }
@@ -20,6 +21,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     bool play;
     QTimer *TIMER;
+    AwesumServer* server;
+    AwesumeClient* client;
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -56,6 +59,8 @@ private slots:
     void on_btnAddTower_clicked();
 
     void on_btnServer_clicked();
+
+    void on_btnClient_clicked();
 
 private:
     Ui::MainWindow *ui;

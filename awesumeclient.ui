@@ -14,7 +14,7 @@
    <string>Awesum Talker</string>
   </property>
   <property name="autoFillBackground">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:rgb(144, 144, 144)</string>
@@ -27,6 +27,9 @@
      <width>113</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color rgb(255, 255, 255)</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="username">
@@ -57,6 +60,12 @@
      <width>381</width>
      <height>71</height>
     </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color rgb(0, 0, 0)</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -99,12 +108,15 @@
    </property>
   </widget>
   <widget class="QTextEdit" name="chatWindow">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>290</x>
-     <y>120</y>
+     <y>130</y>
      <width>381</width>
-     <height>161</height>
+     <height>141</height>
     </rect>
    </property>
   </widget>
@@ -146,7 +158,10 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnSendMsg">
+  <widget class="QPushButton" name="btnSend">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>570</x>
@@ -173,6 +188,9 @@
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="leaderboard">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -180,6 +198,45 @@
      <width>261</width>
      <height>131</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Leaderboard:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>280</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Input:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>110</y>
+     <width>66</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Chat:</string>
    </property>
   </widget>
  </widget>

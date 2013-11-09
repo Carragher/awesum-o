@@ -168,6 +168,32 @@ border-width:1px; border-color:black;</string>
      <string>Add Tower</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnServer">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>330</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create Server</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnClient">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>370</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect Server</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

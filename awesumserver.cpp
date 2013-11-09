@@ -13,13 +13,11 @@ AwesumServer::AwesumServer(QWidget *parent) :
     ui(new Ui::AwesumServer)
 {
     ui->setupUi(this);
+    usrCount = 0;
+    connection = true;
     connect(&server, SIGNAL(newConnection()), this, SLOT(clientConnected()));
     if (!server.listen(QHostAddress::Any, 5000)) {
         connection = false;
-    }
-    else
-    {
-        connection = true;
     }
 }
 
@@ -27,13 +25,13 @@ AwesumServer::~AwesumServer()
 {
     delete ui;
 }
-
+//create log
 void AwesumServer::addToLog(QString msg)
 {
     QDateTime now = QDateTime::currentDateTime();
     ui->txtLog->appendPlainText(now.toString("hh:mm:ss") + " " + msg);
 }
-
+//handle client connection
 void AwesumServer::clientConnected()
 {
     QTcpSocket *sock = server.nextPendingConnection();
@@ -43,7 +41,7 @@ void AwesumServer::clientConnected()
     ui->lblConnected->setText(QString::number(usrCount));
     addToLog("Client connected.");
 }
-
+//handle information received
 void AwesumServer::dataReceived()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
@@ -76,7 +74,7 @@ void AwesumServer::dataReceived()
         }
     }
 }
-
+//handle client disconnection
 void AwesumServer::clientDisconnected()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
@@ -84,4 +82,10 @@ void AwesumServer::clientDisconnected()
     --usrCount;
     ui->lblConnected->setText(QString::number(usrCount));
     addToLog("Client disconnected.");
+}
+//handle server disconnection
+void AwesumServer::on_btnDisconnect_clicked()
+{
+    server.close();
+    this->close();
 }
