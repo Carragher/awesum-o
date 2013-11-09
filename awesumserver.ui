@@ -173,7 +173,7 @@
   </widget>
   <widget class="QPlainTextEdit" name="txtLog">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -283,7 +283,7 @@
   </widget>
   <widget class="QPlainTextEdit" name="leaderboard">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

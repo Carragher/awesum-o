@@ -109,7 +109,7 @@
   </widget>
   <widget class="QTextEdit" name="chatWindow">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -189,14 +189,14 @@
   </widget>
   <widget class="QPlainTextEdit" name="leaderboard">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>270</y>
      <width>261</width>
-     <height>131</height>
+     <height>101</height>
     </rect>
    </property>
   </widget>
