@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     enemygui.cpp \
     storage.cpp \
     bullet.cpp \
-    bulletgui.cpp
+    bulletgui.cpp \
+    awesumeclient.cpp \
+    awesumserver.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
@@ -35,9 +37,13 @@ HEADERS  += mainwindow.h\
     enemygui.h \
     storage.h \
     bullet.h \
-    bulletgui.h
+    bulletgui.h \
+    awesumeclient.h \
+    awesumserver.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    awesumeclient.ui \
+    awesumserver.ui
 
 RESOURCES += \
     images/images.qrc

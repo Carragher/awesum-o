@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,7 +20,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     bool play;
     QTimer *TIMER;
-    
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
@@ -54,6 +54,8 @@ private slots:
     void on_btnStartLevel_clicked();
 
     void on_btnAddTower_clicked();
+
+    void on_btnServer_clicked();
 
 private:
     Ui::MainWindow *ui;

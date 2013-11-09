@@ -22,5 +22,7 @@
         <file>YOLOLeft.png</file>
         <file>YOLORight.png</file>
         <file>empty.png</file>
+        <file>client.png</file>
+        <file>server.png</file>
     </qresource>
 </RCC>
