@@ -43,6 +43,9 @@ void MainWindow::timerHit() {
     vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
     vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
 
+    //endgame screen
+
+
     // see if there are any enemies
     if (toUpdate->size() > 0) {
         //check to see if the enemys are out of bounds
@@ -488,4 +491,10 @@ void MainWindow::on_btnClient_clicked()
     {
         QMessageBox::critical(this, "Uh oh", "Could not connect.");
     }
+}
+
+void MainWindow::on_helpBtn_toggled(bool checked)
+{
+
+
 }

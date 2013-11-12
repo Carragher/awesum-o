@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     bullet.cpp \
     bulletgui.cpp \
     awesumeclient.cpp \
-    awesumserver.cpp
+    awesumserver.cpp \
+    helpform.cpp
 
 HEADERS  += mainwindow.h\
     tile.h \
@@ -39,11 +40,13 @@ HEADERS  += mainwindow.h\
     bullet.h \
     bulletgui.h \
     awesumeclient.h \
-    awesumserver.h
+    awesumserver.h \
+    helpform.h
 
 FORMS    += mainwindow.ui \
     awesumeclient.ui \
-    awesumserver.ui
+    awesumserver.ui \
+    helpform.ui
 
 RESOURCES += \
     images/images.qrc

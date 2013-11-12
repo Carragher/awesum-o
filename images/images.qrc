@@ -24,5 +24,6 @@
         <file>empty.png</file>
         <file>client.png</file>
         <file>server.png</file>
+        <file>helper.png</file>
     </qresource>
 </RCC>
