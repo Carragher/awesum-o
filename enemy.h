@@ -74,7 +74,7 @@ class YOLO: public Enemy {
 
 public:
     YOLO(int newX, int newY): Enemy(25, 20, newX, newY, "YOLO", "right") {}
-    YOLO(): Enemy(25, 20, 0, 0, "YOLO", "right") { }
+    YOLO(): Enemy(25, 25, 0, 0, "YOLO", "right") { }
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
 };

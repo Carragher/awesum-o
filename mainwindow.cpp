@@ -160,6 +160,17 @@ void MainWindow::timerHit() {
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
+    } else if ((cr % 50) == 0 && booltester == true) {
+        stringstream forCreate;
+        forCreate << string("0 0 enemy blue yolo") << endl;
+        doCreate(forCreate);
+        storage::getInstance().incCreator();
+
+    } else if((cr % 75) == 0 && booltester == true){
+        stringstream forCreate;
+        forCreate << string("0 0 enemy blue sergeant") << endl;
+        doCreate(forCreate);
+        storage::getInstance().incCreator();
     } else {
         storage::getInstance().incCreator();
     }
@@ -365,12 +376,12 @@ void MainWindow::doCreate(stringstream& cmd) {
         } else if (type == "enemy") {
 
             Enemy *texas = World::getInstance().getEnemies()->back();
-            assert(texas->getType() == "walker");
+            /* assert(texas->getType() == "walker");
             //test display score
             int test = World::getInstance().getScore();
             QString q = QString::number(test);
             World::getInstance().enemyDeath();
-            ui->scoreLbl->setText(q);
+            ui->scoreLbl->setText(q); */
 
             // no need to set x or y since they start at 0
 
