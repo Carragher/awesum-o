@@ -45,6 +45,21 @@ void MainWindow::timerHit() {
 
     // see if there are any enemies
     if (toUpdate->size() > 0) {
+        //check to see if the enemys are out of bounds
+        for (unsigned int forloop = 0; forloop < engui->size();++forloop){
+            EnemyGUI *deathTest = engui->at(forloop);
+            int yTest = deathTest->getEnemyObj()->getY();
+            if (yTest >= 500) {
+                int deadId = deathTest->getEnemyObj()->getId();
+                engui->at(forloop)->deleteLater();
+                World::getInstance().removeEnemy(deadId);
+                engui->erase(engui->begin()+forloop);
+                World::getInstance().decLives();
+
+            }
+
+
+        }
         // for each enemy, update it's position
 
         for (unsigned int a = 0; a < engui->size(); ++a) {
