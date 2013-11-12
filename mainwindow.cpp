@@ -33,6 +33,7 @@ MainWindow::~MainWindow() {
 void MainWindow::timerHit() {
     // get the collection of enemies
     int i = World::getInstance().getScore();
+    int cr = storage::getInstance().getWavecreator();
     QString s;
     s.setNum(i,10);
     ui->scoreLbl->setText(s);
@@ -152,6 +153,17 @@ void MainWindow::timerHit() {
 
         }
     }
+    bool booltester = storage::getInstance().getStarted();
+    if ((cr % 100) == 0 && booltester == true) {
+        stringstream forCreate;
+        forCreate << string("0 0 enemy blue walker") << endl;
+        doCreate(forCreate);
+        storage::getInstance().incCreator();
+
+    } else {
+        storage::getInstance().incCreator();
+    }
+
 }
 
 // return the correct coordinates for the specified slot
@@ -266,14 +278,14 @@ void MainWindow::on_btnLoadLevel_clicked() {
 void MainWindow::on_btnStartLevel_clicked() {
     // disable the buttons so the user can't start more things!
     ui->btnStartLevel->setEnabled(false);
+    storage::getInstance().setStarted();
 
     // load the enemies here!!
 
     stringstream forCreate;
     forCreate << string("0 0 enemy blue walker") << endl;
     doCreate(forCreate);
-    forCreate << string("0 0 enemy blue walker") << endl;
-    doCreate(forCreate);
+
 
     this->save(); // save the beginning of the level
 }

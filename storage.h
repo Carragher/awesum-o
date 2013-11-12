@@ -12,13 +12,17 @@ using namespace std;
 
 class storage {
 private:
+        int waveCreator;
         vector<EnemyGUI*> *engui;
         vector<Entity*> *entities;
         vector<BulletGUI*> *bgui;
+        bool isStarted;
         storage(){
             engui = new vector<EnemyGUI*>();
             entities = new vector<Entity*>();
             bgui = new vector<BulletGUI*>();
+            waveCreator = 0;
+            isStarted = false;
         }
 
 public:
@@ -32,6 +36,12 @@ public:
 
     void addBgui(BulletGUI* b) {bgui->push_back(b);}
     vector<BulletGUI*> *getBgui() {return bgui;}
+
+    int getWavecreator() {return waveCreator;}
+    void incCreator() {waveCreator++;}
+
+    bool getStarted() {return isStarted;}
+    void setStarted() {isStarted = true;}
 
 
 private:
