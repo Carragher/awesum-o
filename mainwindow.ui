@@ -86,14 +86,14 @@
    <widget class="QLabel" name="scoreLbl">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>110</y>
+      <x>290</x>
+      <y>120</y>
       <width>66</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>SCORE</string>
+     <string/>
     </property>
    </widget>
    <widget class="QWidget" name="graphicsView" native="true">
@@ -192,6 +192,45 @@ border-width:1px; border-color:black;</string>
     </property>
     <property name="text">
      <string>Connect Server</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>90</y>
+      <width>41</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lives:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>120</y>
+      <width>41</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Score:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lifeLabel">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>90</y>
+      <width>66</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

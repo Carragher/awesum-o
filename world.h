@@ -15,6 +15,7 @@ class World {
     vector<Enemy*> *enemies;
     vector<Bullet*> *bullets;
     int score;
+    int lives;
 
 public:
     World() {
@@ -22,9 +23,13 @@ public:
         enemies = new vector<Enemy*>();
         bullets = new vector<Bullet*>();
         score = 200;
+        lives = 20;
     }
     void setScore(int s) {score +=s; }
     int getScore() { return score;}
+
+    void decLives() {lives--;}
+    int getLives() {return lives;}
 
     //is the method that adds score when an enemy is killed
     void enemyDeath();

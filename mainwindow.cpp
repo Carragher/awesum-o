@@ -33,10 +33,13 @@ MainWindow::~MainWindow() {
 void MainWindow::timerHit() {
     // get the collection of enemies
     int i = World::getInstance().getScore();
+    int lf = World::getInstance().getLives();
     int cr = storage::getInstance().getWavecreator();
     QString s;
     s.setNum(i,10);
     ui->scoreLbl->setText(s);
+    s.setNum(lf,10);
+    ui->lifeLabel->setText(s);
     vector<Enemy*> *toUpdate = World::getInstance().getEnemies();
     vector<EnemyGUI*> *engui = storage::getInstance().getEngui();
 
@@ -50,7 +53,7 @@ void MainWindow::timerHit() {
             curEnemy->updateDirection();
             curEnemy->setPic();
             curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
-        }
+                    }
     }
 
     // TODO M1 : get the towers and run their update methods

@@ -19,7 +19,7 @@ public:
         hp(newHp),
         moveSpeed(newMoveSpeed),
         x(newX),
-        y(newY), type(newType), direction(newDir) {}
+        y(newY), type(newType), direction(newDir), id(++nextId) {}
 
     // for the command classes
     Enemy(): x(0), y(0) {
@@ -32,6 +32,7 @@ public:
     }
 
     int deathUpdate();
+    int die();
     void hit(int);
 
     void setHp(int hp) { this->hp = hp; }

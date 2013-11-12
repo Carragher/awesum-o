@@ -12,6 +12,11 @@ void Enemy::updatePosition()
     bool state1 = false;//right down
     bool state2 = false;//left
     bool state3 = false;//left down
+    bool state4 = false;// unit has left the board
+
+    if (newY >= 500) {
+        state4 = true;
+    }
 
     if (newX != 750 && (newY % 200 == 0 || newY == 0)){
         state0 = true;
@@ -51,6 +56,10 @@ void Enemy::updatePosition()
         this->setY(newY);
         this->setDirection("down");
     }
+    if (state4){
+
+        World::getInstance().decLives();
+    }
 }
 
 int Enemy::deathUpdate(){
@@ -60,6 +69,10 @@ int Enemy::deathUpdate(){
     }
 
     return -1;
+}
+int Enemy::die() {
+    return id;
+
 }
 
 void Enemy::hit(int damage) {
