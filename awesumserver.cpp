@@ -19,11 +19,20 @@ AwesumServer::AwesumServer(QWidget *parent) :
     if (!server.listen(QHostAddress::Any, 5000)) {
         connection = false;
     }
+    SCORE = new QTimer(this);
 }
 
 AwesumServer::~AwesumServer()
 {
     delete ui;
+}
+//display leaderboard
+void AwesumServer::timerHit()
+{
+    int score = World::getInstance().getScore();
+    QString s;
+    s.setNum(score,10);
+    ui->leaderboard->setPlainText(usr + ": " + s);
 }
 //create log
 void AwesumServer::addToLog(QString msg)
@@ -40,6 +49,9 @@ void AwesumServer::clientConnected()
     ++usrCount;
     ui->lblConnected->setText(QString::number(usrCount));
     addToLog("Client connected.");
+    SCORE->setInterval(100);
+    connect(SCORE, &QTimer::timeout, this, &AwesumServer::timerHit);
+    SCORE->start();
 }
 //handle information received
 void AwesumServer::dataReceived()
@@ -56,6 +68,7 @@ void AwesumServer::dataReceived()
 
         if (str.startsWith("*USER ")) {
             sock->write("+OK\n");
+            usr = str;
         } else if (str.startsWith("*PASS ")) {
             if (str.endsWith(" 12345")) {
                 sock->write("+OK\n");

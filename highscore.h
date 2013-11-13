@@ -6,15 +6,8 @@
 using namespace std;
 class highscore
 {
-    int score;
-    string name;
-
 public:
-    highscore(int, string);
-
-    string toString();
-
-
+    virtual void updateScore(int s) = 0;
 };
 
 #endif // HIGHSCORE_H

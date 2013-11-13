@@ -78,12 +78,24 @@ AwesumeClient::AwesumeClient(QWidget *parent) :
     ui(new Ui::AwesumeClient)
 {
     ui->setupUi(this);
+    SCORE = new QTimer(this);
+
 }
 
 AwesumeClient::~AwesumeClient()
 {
     delete ui;
 }
+//Display leaderboard scores
+void AwesumeClient::timerHit()
+{
+    int score = World::getInstance().getScore();
+    QString s;
+    s.setNum(score,10);
+    QString usr = ui->username->text();
+    ui->leaderboard->setPlainText(usr + ": " + s);
+}
+
 //get user information and pass into thread
 void AwesumeClient::on_btnConnect_clicked()
 {
@@ -94,6 +106,10 @@ void AwesumeClient::on_btnConnect_clicked()
     thread = new ConnectThread(hostname, user, password);
     connect(thread, SIGNAL(finished()), this, SLOT(connectFinished()));
     thread->start();
+
+    SCORE->setInterval(100);
+    connect(SCORE, &QTimer::timeout, this, &AwesumeClient::timerHit);
+    SCORE->start();
 }
 //display chat information
 void AwesumeClient::dataReceived() {
