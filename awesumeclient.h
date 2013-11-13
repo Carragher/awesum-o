@@ -14,12 +14,13 @@ private:
     bool success;
     QString hostname, usr, pwd, errorMsg;
 public:
-    ConnectThread(QString initH, QString initU, QString initP): hostname(initH),
-        usr(initU), pwd(initP){}
+    ConnectThread(QString initH, QString initU, QString initP):
+        hostname(initH), usr(initU), pwd(initP){}
     void run();
     bool getResult() {return success; }
     QString getMsg() {return errorMsg; }
     QTcpSocket* getSocket() {return socket;}
+    QString getUsr() {return usr;}
 };
 
 namespace Ui {
@@ -49,6 +50,7 @@ private:
     QTcpSocket *socket;
 
     ConnectThread *thread;
+    QString usr, msg;
     bool success;
 };
 

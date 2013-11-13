@@ -116,19 +116,19 @@ void AwesumeClient::dataReceived() {
 
     while (socket->canReadLine()) {
         QString str = socket->readLine();
-        QString username = "unknown";
-        QString msg;
 
         // get username, text
         int colonPos = str.indexOf(':');
         if (colonPos >= 0) {
-            username = str.left(colonPos);
+            usr = str.left(colonPos);
             msg = str.mid(colonPos + 1);
-        } else {
+        } /*else {
             msg = str;
+        }*/
+        if(!(usr.trimmed().isEmpty() && msg.trimmed().isEmpty()))
+        {
+            ui->chatWindow->insertHtml("<b>" + usr + "</b>: " + msg + "<br><br>");
         }
-
-        ui->chatWindow->insertHtml("<b>" + username + "</b>: " + msg + "<br><br>");
     }
 
 }
@@ -143,10 +143,10 @@ void AwesumeClient::serverDisconnected()
 //send user chat input
 void AwesumeClient::on_btnSend_clicked()
 {
-    QString username = ui->username->text();
+    QString username = thread->getUsr();
     QString msg;
     if (username.size() > 0) {
-        msg = username + ":" + ui->msgWindow->toPlainText() + "\n";
+        msg = username + ": " + ui->msgWindow->toPlainText() + "\n";
     } else {
         msg = ui->msgWindow->toPlainText() + "\n";
     }

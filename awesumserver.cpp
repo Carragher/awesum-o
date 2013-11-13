@@ -5,7 +5,7 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include <QString>
-
+#include <cassert>
 //Server source code courtesy of Mr. Stephen Schaub from Cps 111 Lab 7 assignment
 
 AwesumServer::AwesumServer(QWidget *parent) :
@@ -29,11 +29,21 @@ AwesumServer::~AwesumServer()
 //display leaderboard
 void AwesumServer::timerHit()
 {
-    int score = World::getInstance().getScore();
-    QString s;
-    s.setNum(score,10);
-    ui->leaderboard->setPlainText(usr + ": " + s);
+    ui->leaderboard->setPlainText("");
+    for(player *p : players)
+    {
+        p->updateScore();
+        ui->leaderboard->appendPlainText(p->name + ": " + p->score);
+    }
 }
+void AwesumServer::createUsers(QString usr)
+{
+    World* w = new World();
+    *w = World::getInstance();
+    player* p = new player(w, usr);
+    players.push_back(p);
+}
+
 //create log
 void AwesumServer::addToLog(QString msg)
 {
@@ -49,6 +59,7 @@ void AwesumServer::clientConnected()
     ++usrCount;
     ui->lblConnected->setText(QString::number(usrCount));
     addToLog("Client connected.");
+
     SCORE->setInterval(100);
     connect(SCORE, &QTimer::timeout, this, &AwesumServer::timerHit);
     SCORE->start();
@@ -66,7 +77,7 @@ void AwesumServer::dataReceived()
 
         if (str.startsWith("*USER ")) {
             sock->write("+OK\n");
-            usr = str;
+            createUsers(str);
         } else if (str.startsWith("*PASS ")) {
             if (str.endsWith(" 12345")) {
                 sock->write("+OK\n");
