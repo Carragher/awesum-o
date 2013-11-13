@@ -64,8 +64,6 @@ void AwesumServer::dataReceived()
 
         addToLog("-> " + str);
 
-        sleep(2); // artificial delay
-
         if (str.startsWith("*USER ")) {
             sock->write("+OK\n");
             usr = str;
