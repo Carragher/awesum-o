@@ -5,6 +5,8 @@
 #include <QTcpSocket>
 #include <QThread>
 #include <QString>
+#include <QTimer>
+#include "world.h"
 class ConnectThread : public QThread
 {
 private:
@@ -27,10 +29,12 @@ class AwesumeClient;
 class AwesumeClient : public QDialog
 {
     Q_OBJECT
+    QTimer* SCORE;
 public:
     explicit AwesumeClient(QWidget *parent = 0);
     ~AwesumeClient();
     bool getConnection(){return success;}
+    void timerHit();
 private slots:
     void on_btnConnect_clicked();
     void dataReceived();

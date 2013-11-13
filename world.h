@@ -18,7 +18,7 @@ class World {
     int lives;
 
 public:
-    World() {
+    World(){
         tiles = new vector<Tile*>();
         enemies = new vector<Enemy*>();
         bullets = new vector<Bullet*>();
@@ -36,8 +36,6 @@ public:
 
     // allows the user to buy a tower and returns a bool to determine if succeessfull
     bool towerBuy(int);
-
-
 
     // Creates and returns a tile based on the <type>
     Tile *createTile(const string& type);
