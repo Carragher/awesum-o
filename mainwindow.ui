@@ -245,6 +245,9 @@ border-width:1px; border-color:black;</string>
     <property name="text">
      <string>Help</string>
     </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

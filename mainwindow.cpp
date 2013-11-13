@@ -11,6 +11,7 @@
 #include "bulletgui.h"
 #include <QString>
 #include <QMessageBox>
+#include "helpform.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -495,6 +496,9 @@ void MainWindow::on_btnClient_clicked()
 
 void MainWindow::on_helpBtn_toggled(bool checked)
 {
+    helpForm *helpform1 = new helpForm();
+
+    helpform1->show();
 
 
 }
