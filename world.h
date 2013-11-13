@@ -23,7 +23,7 @@ public:
         enemies = new vector<Enemy*>();
         bullets = new vector<Bullet*>();
         score = 200;
-        lives = 20;
+        lives = 0;
     }
     void setScore(int s) {score +=s; }
     int getScore() { return score;}

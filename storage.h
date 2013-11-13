@@ -17,16 +17,25 @@ private:
         vector<Entity*> *entities;
         vector<BulletGUI*> *bgui;
         bool isStarted;
+        bool end;
+        bool FG;
         storage(){
             engui = new vector<EnemyGUI*>();
             entities = new vector<Entity*>();
             bgui = new vector<BulletGUI*>();
             waveCreator = 0;
             isStarted = false;
+            FG = true;
+            end = false;
         }
 
 public:
     //storage();
+    void setFG(bool f) {FG = f;}
+    bool getFG() {return FG;}
+
+    void setEnd(bool e) {end = e;  }
+    bool getEnd(){return end;}
 
     void addEngui(EnemyGUI* en) { engui->push_back(en);}
     vector<EnemyGUI*> *getEngui() { return engui; }

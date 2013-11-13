@@ -25,5 +25,6 @@
         <file>client.png</file>
         <file>server.png</file>
         <file>helper.png</file>
+        <file>gameover.png</file>
     </qresource>
 </RCC>
