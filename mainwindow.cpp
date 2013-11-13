@@ -12,6 +12,7 @@
 #include <QString>
 #include <QMessageBox>
 #include "helpform.h"
+#include "gameover.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -33,9 +34,21 @@ MainWindow::~MainWindow() {
 
 void MainWindow::timerHit() {
     // get the collection of enemies
+
     int i = World::getInstance().getScore();
     int lf = World::getInstance().getLives();
     int cr = storage::getInstance().getWavecreator();
+    bool firstGo = storage::getInstance().getFG();
+    if (lf == 0 && firstGo) {
+        storage::getInstance().setEnd(true);
+
+    }
+    if (lf == 0 && storage::getInstance().getEnd() && firstGo){
+        gameOver *over = new gameOver();
+        over->show();
+        storage::getInstance().setFG(false);
+
+    }
     QString s;
     s.setNum(i,10);
     ui->scoreLbl->setText(s);
@@ -176,7 +189,13 @@ void MainWindow::timerHit() {
         }
     }
     bool booltester = storage::getInstance().getStarted();
-    if ((cr % 100) == 0 && booltester == true) {
+    int k = 100;
+    bool endTest2 = storage::getInstance().getEnd();
+    if (endTest2){
+        k = 1;
+
+    }
+    if ((cr % k) == 0 && booltester == true) {
         stringstream forCreate;
         forCreate << string("0 0 enemy blue walker") << endl;
         doCreate(forCreate);
@@ -497,8 +516,12 @@ void MainWindow::on_btnClient_clicked()
 void MainWindow::on_helpBtn_toggled(bool checked)
 {
     helpForm *helpform1 = new helpForm();
+    if (checked) {
 
-    helpform1->show();
 
+        helpform1->show();
+    } else {
+        helpform1->deleteLater();
+    }
 
 }
