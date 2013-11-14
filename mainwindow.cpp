@@ -567,3 +567,21 @@ void MainWindow::on_btnLoad_clicked() {
 
     // load the file
 }
+
+void MainWindow::on_diff1BTN_toggled(bool checked)
+{
+    if (checked){
+
+        //SET LOGIC for easy difficulty changes the modulo in time hit
+    }
+}
+
+void MainWindow::on_diff2BTN_toggled(bool checked)
+{
+    //SET LOGIC for NOrmal difficulty changes the modulo in time hit
+}
+
+void MainWindow::on_diff3BTN_toggled(bool checked)
+{
+    //SET LOGIC for HARD difficulty changes the modulo in time hit
+}

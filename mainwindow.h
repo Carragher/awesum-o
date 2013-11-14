@@ -68,6 +68,12 @@ private slots:
 
     void on_btnLoad_clicked();
 
+    void on_diff1BTN_toggled(bool checked);
+
+    void on_diff2BTN_toggled(bool checked);
+
+    void on_diff3BTN_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
 //    QGraphicsScene *scene;

@@ -16,6 +16,9 @@ class World {
     vector<Bullet*> *bullets;
     int score;
     int lives;
+    int diff1;
+    int diff2;
+    int diff3;
 
 public:
     World(){
@@ -24,7 +27,15 @@ public:
         bullets = new vector<Bullet*>();
         score = 200;
         lives = 20;
+        diff1 = 15;
+        diff2 = 10;
+        diff3 = 1;
     }
+
+    int getDiff1() {return diff1; }
+    int getDiff2() {return diff2;}
+    int getDiff3() {return diff3;}
+
     void setScore(int s) {score +=s; }
     int getScore() { return score;}
 
