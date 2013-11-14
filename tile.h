@@ -55,7 +55,7 @@ public:
     std::string getImage() { return this->image; }
 
     // save the object to a file
-    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " " << std::string(image) << " tile"; }
+    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " tile"; }
 
     virtual void update() { }
 };

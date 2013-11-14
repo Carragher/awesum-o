@@ -1,5 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+#include <fstream>
 #include <string>
 using namespace std;
 class Enemy {
@@ -31,6 +32,10 @@ public:
         nextId = 0;
     }
 
+    static void setNextId(int newId) {
+        nextId = newId;
+    }
+
     int deathUpdate();
     int die();
     void hit(int);
@@ -50,6 +55,10 @@ public:
     void setDirection(string newDirection){this->direction= newDirection;}
     string getDirection(){return this->direction;}
     void updatePosition();
+
+    // save the object to a file
+    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " enemy"; }
+
 };
 
 class Walker: public Enemy {
@@ -60,6 +69,11 @@ public:
 
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
+
+    void save(std::ofstream& saveFile) {
+        Enemy::save(saveFile);
+        saveFile << " walker " << to_string(this->getId());
+    }
 };
 
 class Sergeant: public Enemy {
@@ -69,6 +83,11 @@ public:
     Sergeant(): Enemy(50, 10, 0, 0, "sergeant", "right") { }
      //destroys enemy when hp reaches 0
     //void updatePosition(); // updatets the position
+
+    void save(std::ofstream& saveFile) {
+        Enemy::save(saveFile);
+        saveFile << " sergeant " << to_string(this->getId());
+    }
 };
 
 class YOLO: public Enemy {
@@ -78,6 +97,11 @@ public:
     YOLO(): Enemy(25, 25, 0, 0, "YOLO", "right") { }
      //destroys enemy when hp reaches 0
    // void updatePosition(); // updatets the position
+
+    void save(std::ofstream& saveFile) {
+        Enemy::save(saveFile);
+        saveFile << " yolo " << to_string(this->getId());
+    }
 };
 
 

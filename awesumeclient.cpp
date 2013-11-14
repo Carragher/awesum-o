@@ -137,10 +137,11 @@ void AwesumeClient::dataReceived() {
         } /*else {
             msg = str;
         }*/
-        if(!(usr.trimmed().isEmpty() && msg.trimmed().isEmpty()))
-        {
-            ui->chatWindow->insertHtml("<b>" + usr + "</b>: " + msg + "<br><br>");
-        }
+
+    }
+    if(!(usr.trimmed().isEmpty() && msg.trimmed().isEmpty()))
+    {
+        ui->chatWindow->insertHtml("<b>" + usr + "</b>: " + msg + "<br><br>");
     }
 
 }

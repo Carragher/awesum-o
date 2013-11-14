@@ -29,8 +29,8 @@ class CreateCommand: public Command {
     int id; // id for the new object
 
 public:
-    CreateCommand(string initType, string initImage):
-        type(initType), image(initImage) { }
+    CreateCommand(string initType):
+        type(initType) { }
 
     // creates a WorldObject using data in instance variables
     bool execute();

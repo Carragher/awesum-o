@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include "helpform.h"
 #include "gameover.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -107,7 +108,7 @@ void MainWindow::timerHit() {
                         // create the bullet here!!
                         int curid = e->getId();
                         stringstream forCreate;
-                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<" bullet" << endl;
+                        forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid << " -1" << endl;
                         doCreate(forCreate);
 
                         World::getInstance().getBullets()->back()->setDamage(curTile->getDamage());
@@ -196,19 +197,19 @@ void MainWindow::timerHit() {
     }
     if ((cr % k) == 0 && booltester == true) {
         stringstream forCreate;
-        forCreate << string("0 0 enemy blue walker") << endl;
+        forCreate << string("0 0 enemy walker -1") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
     } else if ((cr % 25) == 0 && booltester == true) {
         stringstream forCreate;
-        forCreate << string("0 0 enemy blue yolo") << endl;
+        forCreate << string("0 0 enemy yolo -1") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
     } else if((cr % 35) == 0 && booltester == true){
         stringstream forCreate;
-        forCreate << string("0 0 enemy blue sergeant") << endl;
+        forCreate << string("0 0 enemy sergeant -1") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
     } else {
@@ -254,7 +255,7 @@ void MainWindow::initWorld() {
         y = getSlotCoord(i, "y");
 
         stringstream forCreate;
-        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile green tile") << endl;
+        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tile -1") << endl;
 
         doCreate(forCreate);
 
@@ -334,11 +335,11 @@ void MainWindow::on_btnStartLevel_clicked() {
     // load the enemies here!!
 
     stringstream forCreate;
-    forCreate << string("0 0 enemy blue walker") << endl;
+    forCreate << string("0 0 enemy walker -1") << endl;
     doCreate(forCreate);
 
 
-    this->save(); // save the beginning of the level
+//    this->save(); // save the beginning of the level
 }
 
 // enable the buying of a tower
@@ -359,7 +360,7 @@ void MainWindow::on_btnAddTower_clicked() {
 void MainWindow::createTower(int x, int y) {
     if (World::getInstance().getScore() >= 125){
     stringstream forCreate;
-    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile black tower") << endl;
+    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tower -1") << endl;
     doCreate(forCreate);
     World::getInstance().towerBuy(125);
     QString b;
@@ -375,29 +376,36 @@ bool MainWindow::getCanCreateTower() {
 
 // creates an object in the model and it's corresponding GUI object
 void MainWindow::doCreate(stringstream& cmd) {
-    string type, specific, image;
+    string type, specific, id;
     int x, y;
     cmd >> x;
     cmd >> y;
     cmd >> type;
-    cmd >> image;
     cmd >> specific;
+    cmd >> id;
 
     if (cmd) {
         // create the object in the model
-        CreateCommand *createObj = new CreateCommand(specific, image);
-        createObj->execute();
+        if(type == "bullet") {
+            CreateCommand *createObj = new CreateCommand("bullet");
+            createObj->execute();
+            delete createObj;
+        } else {
+            CreateCommand *createObj = new CreateCommand(specific);
+            createObj->execute();
+            delete createObj;
+        }
 
         // build the string for the style
-        string style("QLabel { background-color : " + image + "; border-style:dotted; border-width:1px; border-color: black; }");
-        QString forStyle(style.c_str()); // convert it so the method will accept the variable
+//        string style("QLabel { background-color : " + image + "; border-style:dotted; border-width:1px; border-color: black; }");
+//        QString forStyle(style.c_str()); // convert it so the method will accept the variable
 
         if (type == "tile") {
             Tile *obj = World::getInstance().getTiles()->back();
 
             obj->setX(x);
             obj->setY(y);
-            obj->setImage(image);
+//            obj->setImage(image);
 
             // create the GUI component
             Entity *tile = new Entity(this, obj, ui->graphicsView);
@@ -411,8 +419,6 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             storage::getInstance().addEntity(tile);
 
-            delete createObj;
-
         } else if (type == "enemy") {
 
             Enemy *texas = World::getInstance().getEnemies()->back();
@@ -425,6 +431,10 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             // no need to set x or y since they start at 0
 
+            if(stoi(id) != -1) {
+                texas->setId(stoi(id));
+                Enemy::setNextId(stoi(id) + 1);
+            }
 
             // create the GUI component
             EnemyGUI *ranger = new EnemyGUI(this, texas, ui->graphicsView);
@@ -441,7 +451,7 @@ void MainWindow::doCreate(stringstream& cmd) {
 
             obj->setX(x);
             obj->setY(y);
-            obj->setTarget(stoi(image));
+            obj->setTarget(stoi(specific));
 
             BulletGUI *blt = new BulletGUI(this, obj, ui->graphicsView);
             blt->setGeometry(obj->getX(), obj->getY(), 10, 10);
@@ -469,7 +479,7 @@ void MainWindow::save() {
     // get the model objects in the game
     for(unsigned int d = 0; d < tiles->size(); ++d) { // iterate over them and save them to a file
         tiles->at(d)->save(fout);
-        fout << endl;
+        fout << " -1" << endl;
     }
 
     // save the bullets
@@ -477,6 +487,15 @@ void MainWindow::save() {
 
     for(unsigned int c = 0; c < bullets->size(); ++c) {
         bullets->at(c)->save(fout);
+        fout << " -1" << endl;
+    }
+
+
+    // save the enemies
+    vector<Enemy*> *enemies = World::getInstance().getEnemies();
+
+    for(unsigned int g = 0; g< enemies->size(); ++g) {
+        enemies->at(g)->save(fout);
         fout << endl;
     }
 
@@ -523,4 +542,28 @@ void MainWindow::on_helpBtn_toggled(bool checked)
         helpform1->deleteLater();
     }
 
+}
+
+void MainWindow::on_btnSave_clicked()
+{
+    // call save method
+    this->save();
+}
+
+void MainWindow::on_btnLoad_clicked() {
+
+    ifstream infile("saveData.awt");
+
+    string line;
+    while(getline(infile, line)) {
+        stringstream ss(line);
+        doCreate(ss);
+    }
+
+    // reset the world
+
+
+    // load a path?
+
+    // load the file
 }

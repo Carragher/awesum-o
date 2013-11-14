@@ -46,7 +46,7 @@ public:
     bool isInTarget();
 
     // save the object to a file
-    virtual void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y); }
+    void save(std::ofstream& saveFile) { saveFile << std::to_string(x) << " " << std::to_string(y) << " bullet " << to_string(targetId); }
 
 };
 

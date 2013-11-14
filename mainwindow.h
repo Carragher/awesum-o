@@ -64,6 +64,10 @@ private slots:
 
     void on_helpBtn_toggled(bool checked);
 
+    void on_btnSave_clicked();
+
+    void on_btnLoad_clicked();
+
 private:
     Ui::MainWindow *ui;
 //    QGraphicsScene *scene;

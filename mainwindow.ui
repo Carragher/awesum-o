@@ -134,12 +134,12 @@ border-width:1px; border-color:black;</string>
      <rect>
       <x>60</x>
       <y>170</y>
-      <width>98</width>
+      <width>111</width>
       <height>27</height>
      </rect>
     </property>
     <property name="text">
-     <string>Load Level</string>
+     <string>Initalize World</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnStartLevel">
@@ -147,7 +147,7 @@ border-width:1px; border-color:black;</string>
      <rect>
       <x>60</x>
       <y>200</y>
-      <width>96</width>
+      <width>111</width>
       <height>27</height>
      </rect>
     </property>
@@ -160,7 +160,7 @@ border-width:1px; border-color:black;</string>
      <rect>
       <x>60</x>
       <y>230</y>
-      <width>98</width>
+      <width>111</width>
       <height>27</height>
      </rect>
     </property>
@@ -171,8 +171,8 @@ border-width:1px; border-color:black;</string>
    <widget class="QPushButton" name="btnServer">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>330</y>
+      <x>60</x>
+      <y>270</y>
       <width>111</width>
       <height>27</height>
      </rect>
@@ -184,8 +184,8 @@ border-width:1px; border-color:black;</string>
    <widget class="QPushButton" name="btnClient">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>370</y>
+      <x>60</x>
+      <y>300</y>
       <width>111</width>
       <height>27</height>
      </rect>
@@ -247,6 +247,32 @@ border-width:1px; border-color:black;</string>
     </property>
     <property name="checkable">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSave">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>340</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnLoad">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>370</y>
+      <width>111</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load</string>
     </property>
    </widget>
   </widget>
