@@ -40,7 +40,7 @@ bool CreateCommand::execute() {
         if(obj != NULL) {
             World::getInstance().addBullet(obj);
             id = obj->getId();
-            cout << "\t-> created id" << to_string(id) << endl;
+            cout << "\t-> created id " << to_string(id) << endl;
             return true;
 
         } else {

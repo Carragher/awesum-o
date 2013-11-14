@@ -85,7 +85,7 @@ void MainWindow::timerHit() {
             curEnemy->updateDirection();
             curEnemy->setPic();
             curEnemy->move(curEnemy->getEnemyObj()->getX(), curEnemy->getEnemyObj()->getY());
-                    }
+        }
     }
 
     // TODO M1 : get the towers and run their update methods
@@ -339,33 +339,33 @@ void MainWindow::on_btnStartLevel_clicked() {
     doCreate(forCreate);
 
 
-//    this->save(); // save the beginning of the level
+    //    this->save(); // save the beginning of the level
 }
 
 // enable the buying of a tower
 void MainWindow::on_btnAddTower_clicked() {    
 
-//    int ifScore = World::getInstance().getScore();
-//    if (ifScore > 43){
-//    World::getInstance().towerBuy(43);
-//    int test = World::getInstance().getScore();
-//    QString q = QString::number(test);
-//    ui->scoreLbl->setText(q);
-//    }
-//    World::getInstance().towerBuy(10);
+    //    int ifScore = World::getInstance().getScore();
+    //    if (ifScore > 43){
+    //    World::getInstance().towerBuy(43);
+    //    int test = World::getInstance().getScore();
+    //    QString q = QString::number(test);
+    //    ui->scoreLbl->setText(q);
+    //    }
+    //    World::getInstance().towerBuy(10);
 
 }
 
 // create a tower
 void MainWindow::createTower(int x, int y) {
     if (World::getInstance().getScore() >= 125){
-    stringstream forCreate;
-    forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tower -1") << endl;
-    doCreate(forCreate);
-    World::getInstance().towerBuy(125);
-    QString b;
-    b.setNum(World::getInstance().getScore(),10);
-    ui->scoreLbl->setText(b);
+        stringstream forCreate;
+        forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile tower -1") << endl;
+        doCreate(forCreate);
+        World::getInstance().towerBuy(125);
+        QString b;
+        b.setNum(World::getInstance().getScore(),10);
+        ui->scoreLbl->setText(b);
     }
 }
 
@@ -383,6 +383,12 @@ void MainWindow::doCreate(stringstream& cmd) {
     cmd >> type;
     cmd >> specific;
     cmd >> id;
+    bool tyletestfix = false;
+
+
+
+
+
 
     if (cmd) {
         // create the object in the model
@@ -391,33 +397,65 @@ void MainWindow::doCreate(stringstream& cmd) {
             createObj->execute();
             delete createObj;
         } else {
-            CreateCommand *createObj = new CreateCommand(specific);
-            createObj->execute();
-            delete createObj;
+            if(type == "tile") {
+                if (y % 100 != 0 && y != 0)
+                {
+                    if(!(y == 50 && x == 750))
+                    {
+                        if(!(y == 150 && x == 0))
+                        {
+                            if(!(y == 250 && x == 750))
+                            {
+                                if(!(y== 350 && x ==0))
+                                {
+                                    if (!(y==450 && x ==750))
+                                    {
+                                        if (!(y==550 && x == 750)){
+                                            CreateCommand *createObj = new CreateCommand(specific);
+                                            createObj->execute();
+                                            delete createObj;
+                                            tyletestfix = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            } else {
+                CreateCommand *createObj = new CreateCommand(specific);
+                createObj->execute();
+                delete createObj;
+            }
+
         }
 
         // build the string for the style
-//        string style("QLabel { background-color : " + image + "; border-style:dotted; border-width:1px; border-color: black; }");
-//        QString forStyle(style.c_str()); // convert it so the method will accept the variable
+        //        string style("QLabel { background-color : " + image + "; border-style:dotted; border-width:1px; border-color: black; }");
+        //        QString forStyle(style.c_str()); // convert it so the method will accept the variable
 
         if (type == "tile") {
-            Tile *obj = World::getInstance().getTiles()->back();
+            if (tyletestfix){
+                Tile *obj = World::getInstance().getTiles()->back();
 
-            obj->setX(x);
-            obj->setY(y);
-//            obj->setImage(image);
+                obj->setX(x);
+                obj->setY(y);
+                //            obj->setImage(image);
 
-            // create the GUI component
-            Entity *tile = new Entity(this, obj, ui->graphicsView);
-            tile->setScaledContents(true);
-            tile->setGeometry(obj->getX(), obj->getY(), 50, 50);
-            tile->setPic();
-            //tile->setStyleSheet(forStyle);
-            tile->show();
+                // create the GUI component
+                Entity *tile = new Entity(this, obj, ui->graphicsView);
+                tile->setScaledContents(true);
+                tile->setGeometry(obj->getX(), obj->getY(), 50, 50);
+                tile->setPic();
+                //tile->setStyleSheet(forStyle);
+                tile->show();
 
-            tile->setMouseTracking(true); // turn mouse tracking on for mouse over stuff
+                tile->setMouseTracking(true); // turn mouse tracking on for mouse over stuff
 
-            storage::getInstance().addEntity(tile);
+                storage::getInstance().addEntity(tile);
+            }
 
         } else if (type == "enemy") {
 
@@ -460,6 +498,7 @@ void MainWindow::doCreate(stringstream& cmd) {
             storage::getInstance().addBgui(blt);
         }
     }
+
 }
 
 void MainWindow::load() {

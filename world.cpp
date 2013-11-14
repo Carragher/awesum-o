@@ -53,6 +53,11 @@ void World::reset() {
         enemies->erase(enemies->begin()+d);
     }
 
+    for (size_t e = 0; e< bullets->size(); e = e) {
+        delete bullets->at(e);
+        bullets->erase(bullets->begin()+e);
+    }
+
     Tile::resetNextId();
     Enemy::resetNextId();
 }
