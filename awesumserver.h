@@ -13,24 +13,13 @@ class AwesumServer : public QDialog
 {
     Q_OBJECT
     QTimer* SCORE;
-struct player
-{
-    World* world;
-    QString name;
-    int score;
-    player(World* w, QString n):
-        world(w), name(n) {}
-    void updateScore() {score = world->getScore();}
-};
 
 public:
     explicit AwesumServer(QWidget *parent = 0);
     ~AwesumServer();
     void addToLog(QString msg);
-    vector<player*> players;
     bool getConnection(){return connection;}
     void timerHit();
-    void createUsers(QString);
 private slots:
     void clientConnected();
     void dataReceived();

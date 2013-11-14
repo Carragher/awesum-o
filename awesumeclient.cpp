@@ -92,8 +92,8 @@ void AwesumeClient::timerHit()
     int score = World::getInstance().getScore();
     QString s;
     s.setNum(score,10);
-    QString usr = ui->username->text();
-    ui->leaderboard->setPlainText(usr + ": " + s);
+    QString usr = ("SCORE: " +  ui->username->text() + "   " + s);
+    socket->write(usr.toStdString().c_str());
 }
 
 //get user information and pass into thread
@@ -128,15 +128,19 @@ void AwesumeClient::dataReceived() {
 
     while (socket->canReadLine()) {
         QString str = socket->readLine();
-
-        // get username, text
-        int colonPos = str.indexOf(':');
-        if (colonPos >= 0) {
-            usr = str.left(colonPos);
-            msg = str.mid(colonPos + 1);
-        } /*else {
-            msg = str;
-        }*/
+        if (str.startsWith("SCORE: "))
+        {
+            ui->leaderboard->appendPlainText(str);
+        }
+        else
+        {
+            // get username, text
+            int colonPos = str.indexOf(':');
+            if (colonPos >= 0) {
+                usr = str.left(colonPos);
+                msg = str.mid(colonPos + 1);
+            }
+        }
 
     }
     if(!(usr.trimmed().isEmpty() && msg.trimmed().isEmpty()))
