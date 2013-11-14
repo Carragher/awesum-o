@@ -110,7 +110,7 @@ void MainWindow::timerHit() {
                         forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<" bullet" << endl;
                         doCreate(forCreate);
 
-                        World::getInstance().getBullets()->back()->setDamage(/*curTile->getDamage()*/1);
+                        World::getInstance().getBullets()->back()->setDamage(curTile->getDamage());
 
                         // reset the target
                         curTile->resetNewTarget();
@@ -188,7 +188,7 @@ void MainWindow::timerHit() {
         }
     }
     bool booltester = storage::getInstance().getStarted();
-    int k = 100;
+    int k = 10;
     bool endTest2 = storage::getInstance().getEnd();
     if (endTest2){
         k = 1;
@@ -200,13 +200,13 @@ void MainWindow::timerHit() {
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
-    } else if ((cr % 50) == 0 && booltester == true) {
+    } else if ((cr % 25) == 0 && booltester == true) {
         stringstream forCreate;
         forCreate << string("0 0 enemy blue yolo") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
-    } else if((cr % 75) == 0 && booltester == true){
+    } else if((cr % 40) == 0 && booltester == true){
         stringstream forCreate;
         forCreate << string("0 0 enemy blue sergeant") << endl;
         doCreate(forCreate);
@@ -215,7 +215,7 @@ void MainWindow::timerHit() {
         storage::getInstance().incCreator();
     }
 
-}
+}//end of timerHit
 
 // return the correct coordinates for the specified slot
 int MainWindow::getSlotCoord(int slotNum, string coordType) {
@@ -357,11 +357,11 @@ void MainWindow::on_btnAddTower_clicked() {
 
 // create a tower
 void MainWindow::createTower(int x, int y) {
-    if (World::getInstance().getScore() >= 50){
+    if (World::getInstance().getScore() >= 200){
     stringstream forCreate;
     forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile black tower") << endl;
     doCreate(forCreate);
-    World::getInstance().towerBuy(50);
+    World::getInstance().towerBuy(200);
     QString b;
     b.setNum(World::getInstance().getScore(),10);
     ui->scoreLbl->setText(b);

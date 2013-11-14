@@ -109,6 +109,7 @@ public:
         range = 200;
         fireSpeed = 50;
         curFire = 50;
+        damage = 15;
     }
 
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):

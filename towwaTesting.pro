@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     world.cpp \
     entity.cpp \
     enemy.cpp \
-    highscore.cpp \
     command.cpp \
     enemygui.cpp \
     storage.cpp \
@@ -34,7 +33,6 @@ HEADERS  += mainwindow.h\
     world.h \
     entity.h \
     enemy.h \
-    highscore.h \
     command.h \
     enemygui.h \
     storage.h \
