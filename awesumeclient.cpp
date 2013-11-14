@@ -99,13 +99,25 @@ void AwesumeClient::timerHit()
 //get user information and pass into thread
 void AwesumeClient::on_btnConnect_clicked()
 {
-    QString hostname = ui->hostname->text();
-    QString user = ui->username->text();
-    QString password = ui->password->text();
+    if (ui->btnConnect->text() == "Connect")
+    {
+        QString hostname = ui->hostname->text();
+        QString user = ui->username->text();
+        QString password = ui->password->text();
 
-    thread = new ConnectThread(hostname, user, password);
-    connect(thread, SIGNAL(finished()), this, SLOT(connectFinished()));
-    thread->start();
+        thread = new ConnectThread(hostname, user, password);
+        connect(thread, SIGNAL(finished()), this, SLOT(connectFinished()));
+        thread->start();
+        ui->btnConnect->setText("Disconnect");
+    }
+    else if (ui->btnConnect->text() == "Disconnect")
+    {
+        serverDisconnected();
+        ui->btnConnect->setText("Connect");
+        ui->hostname->clear();
+        ui->username->clear();
+        ui->password->clear();
+    }
 
     SCORE->setInterval(100);
     connect(SCORE, &QTimer::timeout, this, &AwesumeClient::timerHit);

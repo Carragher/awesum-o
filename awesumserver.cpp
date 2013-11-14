@@ -33,7 +33,9 @@ void AwesumServer::timerHit()
     for(player *p : players)
     {
         p->updateScore();
-        ui->leaderboard->appendPlainText(p->name + ": " + p->score);
+        QString s;
+        s.setNum(p->score, 10);
+        ui->leaderboard->appendPlainText(p->name + ": " + s);
     }
 }
 void AwesumServer::createUsers(QString usr)
