@@ -22,6 +22,16 @@ public:
     QTcpSocket* getSocket() {return socket;}
     QString getUsr() {return usr;}
 };
+class ScoreThread : public QThread
+{
+private:
+    QTcpSocket *score;
+    QString usr;
+public:
+    ScoreThread(QString name) : usr(name){}
+    void run();
+    QTcpSocket* getScoreSocket() {return score;}
+};
 
 namespace Ui {
 class AwesumeClient;
@@ -40,16 +50,17 @@ private slots:
     void on_btnConnect_clicked();
     void dataReceived();
     void serverDisconnected();
-
+    void scoreDataReceived();
     void on_btnSend_clicked();
     void connectFinished();
+    void scoreFinished();
 
 private:
     Ui::AwesumeClient *ui;
 
     QTcpSocket *socket;
-
     ConnectThread *thread;
+    ScoreThread *scrThread;
     QString usr, msg;
     bool success;
 };

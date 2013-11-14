@@ -71,6 +71,15 @@ void ConnectThread::run()
     }
 
     socket->moveToThread(QApplication::instance()->thread());
+}//Conect Thread
+
+void ScoreThread::run()
+{
+    int scr = World::getInstance().getScore();
+    QString s;
+    s.setNum(scr, 10);
+    QString user = ("SCORE-" +  usr + ": " + s);
+    score->write(user.toStdString().c_str());
 }
 
 AwesumeClient::AwesumeClient(QWidget *parent) :
@@ -89,11 +98,11 @@ AwesumeClient::~AwesumeClient()
 //Display leaderboard scores
 void AwesumeClient::timerHit()
 {
-    int score = World::getInstance().getScore();
+    /*int score = World::getInstance().getScore();
     QString s;
     s.setNum(score,10);
     QString usr = ("SCORE: " +  ui->username->text() + "   " + s);
-    socket->write(usr.toStdString().c_str());
+    socket->write(usr.toStdString().c_str());*/
 }
 
 //get user information and pass into thread
@@ -108,6 +117,10 @@ void AwesumeClient::on_btnConnect_clicked()
         thread = new ConnectThread(hostname, user, password);
         connect(thread, SIGNAL(finished()), this, SLOT(connectFinished()));
         thread->start();
+
+        scrThread = new ScoreThread(user);
+        connect(thread, SIGNAL(finished()), this, SLOT(scoreFinished()));
+        scrThread->start();
         ui->btnConnect->setText("Disconnect");
     }
     else if (ui->btnConnect->text() == "Disconnect")
@@ -127,27 +140,19 @@ void AwesumeClient::on_btnConnect_clicked()
 void AwesumeClient::dataReceived() {
 
     while (socket->canReadLine()) {
-        QString str = socket->readLine();
-        if (str.startsWith("SCORE: "))
-        {
-            ui->leaderboard->appendPlainText(str);
-        }
-        else
-        {
+       QString str = socket->readLine();
             // get username, text
             int colonPos = str.indexOf(':');
             if (colonPos >= 0) {
                 usr = str.left(colonPos);
                 msg = str.mid(colonPos + 1);
             }
-        }
 
     }
     if(!(usr.trimmed().isEmpty() && msg.trimmed().isEmpty()))
     {
         ui->chatWindow->insertHtml("<b>" + usr + "</b>: " + msg + "<br><br>");
     }
-
 }
 //handle disconnection from server
 void AwesumeClient::serverDisconnected()
@@ -156,6 +161,21 @@ void AwesumeClient::serverDisconnected()
      ui->btnSend->setEnabled(false);
 
      socket->deleteLater();
+}
+void AwesumeClient::scoreDataRecieved()
+{
+    QString player;
+    QString score;
+    while (socket->canReadLine())
+    {
+        QString str = socket->readLine();
+        int hyphenPos = str.indexOf('-');
+        int colonPos = str.indexOf(':');
+        if (hyphenPos >= 0)
+        {
+            //
+        }
+    }
 }
 //send user chat input
 void AwesumeClient::on_btnSend_clicked()
@@ -192,4 +212,10 @@ void AwesumeClient::connectFinished()
         QMessageBox::warning(this, "Uh oh", errorMsg);
     }
 
+}
+void AwesumeClient::scoreFinished()
+{
+    socket = scrThread->getScoreSocket();
+    connect(scrThread, SIGNAL(readyRead()), this, SLOT(scoreDataReceived()));
+    connect(scrThread, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
 }
