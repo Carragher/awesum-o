@@ -107,9 +107,9 @@ public:
     towerTile(): Tile() {
         newTarget = NULL;
         range = 200;
-        fireSpeed = 50;
-        curFire = 50;
-        damage = 15;
+        fireSpeed = 25;
+        curFire = 25;
+        damage = 20;
     }
 
     towerTile(int newX, int newY, int newWidth, int newHeight, bool newPlacable):

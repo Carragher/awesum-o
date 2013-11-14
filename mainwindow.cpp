@@ -206,7 +206,7 @@ void MainWindow::timerHit() {
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
-    } else if((cr % 40) == 0 && booltester == true){
+    } else if((cr % 35) == 0 && booltester == true){
         stringstream forCreate;
         forCreate << string("0 0 enemy blue sergeant") << endl;
         doCreate(forCreate);
@@ -357,11 +357,11 @@ void MainWindow::on_btnAddTower_clicked() {
 
 // create a tower
 void MainWindow::createTower(int x, int y) {
-    if (World::getInstance().getScore() >= 200){
+    if (World::getInstance().getScore() >= 125){
     stringstream forCreate;
     forCreate << to_string(x) << string(" ") << to_string(y) << string(" tile black tower") << endl;
     doCreate(forCreate);
-    World::getInstance().towerBuy(200);
+    World::getInstance().towerBuy(125);
     QString b;
     b.setNum(World::getInstance().getScore(),10);
     ui->scoreLbl->setText(b);
