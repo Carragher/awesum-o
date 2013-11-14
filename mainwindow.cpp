@@ -110,7 +110,7 @@ void MainWindow::timerHit() {
                         forCreate << to_string(curTile->getX()) << " " << to_string(curTile->getY()) << " bullet " << curid <<" bullet" << endl;
                         doCreate(forCreate);
 
-                        World::getInstance().getBullets()->back()->setDamage(curTile->getDamage());
+                        World::getInstance().getBullets()->back()->setDamage(/*curTile->getDamage()*/1);
 
                         // reset the target
                         curTile->resetNewTarget();
