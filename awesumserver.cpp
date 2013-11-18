@@ -30,6 +30,13 @@ AwesumServer::~AwesumServer()
 void AwesumServer::timerHit()
 {
     ui->leaderboard->setPlainText("");
+    for (player *p : players)
+    {
+        p->updateScore();
+        QString s;
+        s.setNum(p->score, 10);
+        ui->leaderboard->appendPlainText(p->usr + ": " + s);
+    }
 }
 
 //create log
@@ -38,6 +45,12 @@ void AwesumServer::addToLog(QString msg)
     QDateTime now = QDateTime::currentDateTime();
     ui->txtLog->appendPlainText(now.toString("hh:mm:ss") + " " + msg);
 }
+void AwesumServer::CreatePlayer(QString usr)
+{
+    player = new Player(usr, World::getInstance());
+    players.push_back(player);
+}
+
 //handle client connection
 void AwesumServer::clientConnected()
 {
@@ -57,22 +70,7 @@ void AwesumServer::dataReceived()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
 
-    /*while (sock->canReadLine())//keep score socket separated from other sockets
-    {
-        QString str = sock->readLine().trimmed();
-        if (str.startsWith("SCORE: "))
-        {
-            for (QObject *obj : server.children()) {
-                QTcpSocket *scoreSock = dynamic_cast<QTcpSocket*>(obj);
-                if (scoreSock != NULL) {
-                    str += "\n";
-                    scoreSock->write(str.toLatin1()); //Send scoreboard to clients
-                }
-            }
-        } else { break; }
-    }*/
-
-    //addToLog("Received data from socket ");
+    addToLog("Received data from socket ");
     while (sock->canReadLine()) {
         QString str = sock->readLine().trimmed();
 
@@ -80,20 +78,12 @@ void AwesumServer::dataReceived()
 
         if (str.startsWith("*USER ")) {
             sock->write("+OK\n");
+            CreatePlayer(str);
         } else if (str.startsWith("*PASS ")) {
             if (str.endsWith(" 12345")) {
                 sock->write("+OK\n");
             } else {
                 sock->write("-ERR\n");
-            }
-        } else if (str.startsWith("SCORE: "))
-        {
-            for (QObject *obj : server.children()) {
-                QTcpSocket *scoreSock = dynamic_cast<QTcpSocket*>(obj);
-                if (scoreSock != NULL) {
-                    str += "\n";
-                    scoreSock->write(str.toLatin1()); //Send scoreboard to clients
-                }
             }
         } else {
             // send data to all connected clients
