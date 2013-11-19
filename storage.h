@@ -52,6 +52,8 @@ public:
     bool getStarted() {return isStarted;}
     void setStarted() {isStarted = true;}
 
+    void reset();
+
 
 private:
         static storage instance;

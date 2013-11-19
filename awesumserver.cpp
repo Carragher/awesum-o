@@ -45,10 +45,10 @@ void AwesumServer::addToLog(QString msg)
     QDateTime now = QDateTime::currentDateTime();
     ui->txtLog->appendPlainText(now.toString("hh:mm:ss") + " " + msg);
 }
-void AwesumServer::CreatePlayer(QString usr)
-{
-    player = new Player(usr, World::getInstance());
-    players.push_back(player);
+
+void AwesumServer::CreatePlayer(QString usr) {
+//    player = new player(usr, World::getInstance());
+//    players.push_back(player);
 }
 
 //handle client connection

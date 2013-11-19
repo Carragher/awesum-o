@@ -250,6 +250,9 @@ border-width:1px; border-color:black;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnSave">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -263,6 +266,9 @@ border-width:1px; border-color:black;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnLoad">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>

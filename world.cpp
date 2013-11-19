@@ -41,6 +41,7 @@ void World::addBullet(Bullet* b) {
 }
 
 void World::reset() {
+    // delete all the tiles
     for (size_t c = 0; c < tiles->size(); c = c ) {
         Tile *tile = tiles->at(c);
 //        delete tiles.at(c);
@@ -48,11 +49,13 @@ void World::reset() {
         delete tile;
     }
 
+    // delete all the enemies
     for (size_t d = 0; d < enemies->size(); d = d ) {
         delete enemies->at(d);
         enemies->erase(enemies->begin()+d);
     }
 
+    // delete all the bullets
     for (size_t e = 0; e< bullets->size(); e = e) {
         delete bullets->at(e);
         bullets->erase(bullets->begin()+e);

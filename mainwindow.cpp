@@ -44,6 +44,9 @@ void MainWindow::timerHit() {
 
     }
     if (lf == 0 && storage::getInstance().getEnd() && firstGo){
+        // disable save and load
+        ui->btnSave->setEnabled(false);
+        ui->btnLoad->setEnabled(false);
         gameOver *over = new gameOver();
         over->show();
         storage::getInstance().setFG(false);
@@ -338,8 +341,8 @@ void MainWindow::on_btnStartLevel_clicked() {
     forCreate << string("0 0 enemy walker -1") << endl;
     doCreate(forCreate);
 
-
-    //    this->save(); // save the beginning of the level
+    ui->btnLoad->setEnabled(true);
+    ui->btnSave->setEnabled(true);
 }
 
 // enable the buying of a tower
@@ -384,11 +387,6 @@ void MainWindow::doCreate(stringstream& cmd) {
     cmd >> specific;
     cmd >> id;
     bool tyletestfix = false;
-
-
-
-
-
 
     if (cmd) {
         // create the object in the model
@@ -460,14 +458,10 @@ void MainWindow::doCreate(stringstream& cmd) {
         } else if (type == "enemy") {
 
             Enemy *texas = World::getInstance().getEnemies()->back();
-            /* assert(texas->getType() == "walker");
-            //test display score
-            int test = World::getInstance().getScore();
-            QString q = QString::number(test);
-            World::getInstance().enemyDeath();
-            ui->scoreLbl->setText(q); */
 
-            // no need to set x or y since they start at 0
+            // no need to set x or y since they start at 0 except when loading!
+            texas->setX(x);
+            texas->setY(y);
 
             if(stoi(id) != -1) {
                 texas->setId(stoi(id));
@@ -502,8 +496,27 @@ void MainWindow::doCreate(stringstream& cmd) {
 }
 
 void MainWindow::load() {
-    // get the file name
-    // read each line and load the object by calling doCreate
+    // delete all the labels.
+    storage::getInstance().reset();
+
+    // reset the world
+    World::getInstance().reset();
+
+    ifstream infile("saveData.awt");
+
+    string line;
+    int score, lives;
+
+    infile >> score >> lives;
+
+    World::getInstance().initScore(score);
+
+    World::getInstance().setLives(lives);
+
+    while(getline(infile, line)) {
+        stringstream ss(line);
+        doCreate(ss);
+    }
 }
 
 void MainWindow::save() {
@@ -512,6 +525,8 @@ void MainWindow::save() {
 
     ofstream fout;
     fout.open(filename, ios::out);
+
+    fout << World::getInstance().getScore() << " " << World::getInstance().getLives() << endl;
 
     vector<Tile*> *tiles = World::getInstance().getTiles();
 
@@ -555,6 +570,7 @@ void MainWindow::on_btnServer_clicked()
         QMessageBox::critical(this, "Uh oh", "Could not start socket.");
     }
 }
+
 //Connect to existing server
 void MainWindow::on_btnClient_clicked()
 {
@@ -590,21 +606,7 @@ void MainWindow::on_btnSave_clicked()
 }
 
 void MainWindow::on_btnLoad_clicked() {
-
-    ifstream infile("saveData.awt");
-
-    string line;
-    while(getline(infile, line)) {
-        stringstream ss(line);
-        doCreate(ss);
-    }
-
-    // reset the world
-
-
-    // load a path?
-
-    // load the file
+    this->load();
 }
 
 void MainWindow::on_diff1BTN_toggled(bool checked)
