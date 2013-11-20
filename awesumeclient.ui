@@ -119,6 +119,9 @@
      <height>141</height>
     </rect>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
@@ -198,6 +201,9 @@
      <width>261</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
