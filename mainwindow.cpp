@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 MainWindow::~MainWindow() {
+    storage::getInstance().reset();
     delete ui;
     World::getInstance().reset();
 }
@@ -47,6 +48,7 @@ void MainWindow::timerHit() {
         // disable save and load
         ui->btnSave->setEnabled(false);
         ui->btnLoad->setEnabled(false);
+
         gameOver *over = new gameOver();
         over->show();
         storage::getInstance().setFG(false);
@@ -346,17 +348,7 @@ void MainWindow::on_btnStartLevel_clicked() {
 }
 
 // enable the buying of a tower
-void MainWindow::on_btnAddTower_clicked() {    
-
-    //    int ifScore = World::getInstance().getScore();
-    //    if (ifScore > 43){
-    //    World::getInstance().towerBuy(43);
-    //    int test = World::getInstance().getScore();
-    //    QString q = QString::number(test);
-    //    ui->scoreLbl->setText(q);
-    //    }
-    //    World::getInstance().towerBuy(10);
-
+void MainWindow::on_btnAddTower_clicked() {
 }
 
 // create a tower
@@ -496,26 +488,38 @@ void MainWindow::doCreate(stringstream& cmd) {
 }
 
 void MainWindow::load() {
-    // delete all the labels.
-    storage::getInstance().reset();
-
-    // reset the world
-    World::getInstance().reset();
-
     ifstream infile("saveData.awt");
 
-    string line;
-    int score, lives;
+    // see if the file exists
+    if(infile.good()) {
 
-    infile >> score >> lives;
+        // delete all the labels.
+        storage::getInstance().reset();
 
-    World::getInstance().initScore(score);
+        // reset the world
+        World::getInstance().reset();
 
-    World::getInstance().setLives(lives);
 
-    while(getline(infile, line)) {
-        stringstream ss(line);
-        doCreate(ss);
+
+        string line;
+        int score, lives;
+
+        infile >> score >> lives;
+
+        World::getInstance().initScore(score);
+
+        World::getInstance().setLives(lives);
+
+        while(getline(infile, line)) {
+            stringstream ss(line);
+            doCreate(ss);
+        }
+
+    } else {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Error!");
+        msgBox.setText("Save file does not exist. You must first create a save before loading.");
+        msgBox.exec();
     }
 }
 
@@ -556,6 +560,7 @@ void MainWindow::save() {
     // close the file after we are done writing it
     fout.close();
 }
+
 //Create server
 void MainWindow::on_btnServer_clicked()
 {

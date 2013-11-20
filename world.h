@@ -37,11 +37,11 @@ public:
     int getDiff3() {return diff3;}
 
     void setScore(int s) {score +=s; }
-    int initScore(int s) { this->score = s; }
+    void initScore(int s) { this->score = s; }
     int getScore() { return score;}
 
     void decLives() {lives--;}
-    int setLives(int l) {this->lives = l;}
+    void setLives(int l) {this->lives = l;}
     int getLives() {return lives;}
 
     //is the method that adds score when an enemy is killed
