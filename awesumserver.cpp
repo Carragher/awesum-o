@@ -47,8 +47,8 @@ void AwesumServer::addToLog(QString msg)
 }
 
 void AwesumServer::CreatePlayer(QString usr) {
-//    player = new player(usr, World::getInstance());
-//    players.push_back(player);
+    player *plyr = new player(usr, &World::getInstance());
+    players.push_back(plyr);
 }
 
 //handle client connection

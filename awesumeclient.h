@@ -45,10 +45,8 @@ private slots:
 
 private:
     Ui::AwesumeClient *ui;
-
     QTcpSocket *socket;
     ConnectThread *thread;
-    QString usr, msg;
     bool success;
 };
 

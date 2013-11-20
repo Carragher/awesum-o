@@ -92,8 +92,7 @@ void AwesumeClient::timerHit()
     int score = World::getInstance().getScore();
     QString s;
     s.setNum(score,10);
-    QString usr = ("SCORE: " +  ui->username->text() + "   " + s);
-    socket->write(usr.toStdString().c_str());
+    ui->leaderboard->setPlainText(thread->getUsr() + ": " + s);
 }
 
 //get user information and pass into thread
@@ -108,6 +107,8 @@ void AwesumeClient::on_btnConnect_clicked()
         thread = new ConnectThread(hostname, user, password);
         connect(thread, SIGNAL(finished()), this, SLOT(connectFinished()));
         thread->start();
+
+        ui->btnConnect->setText("Disconnect");
     }
     else if (ui->btnConnect->text() == "Disconnect")
     {
@@ -124,7 +125,7 @@ void AwesumeClient::on_btnConnect_clicked()
 }
 //display chat information
 void AwesumeClient::dataReceived() {
-
+    QString usr, msg;
     while (socket->canReadLine()) {
        QString str = socket->readLine();
             // get username, text
