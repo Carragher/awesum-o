@@ -130,6 +130,9 @@ border-width:1px; border-color:black;</string>
     </widget>
    </widget>
    <widget class="QPushButton" name="btnLoadLevel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -141,8 +144,14 @@ border-width:1px; border-color:black;</string>
     <property name="text">
      <string>Initalize World</string>
     </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="btnStartLevel">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -156,6 +165,9 @@ border-width:1px; border-color:black;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnAddTower">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -236,8 +248,8 @@ border-width:1px; border-color:black;</string>
    <widget class="QPushButton" name="helpBtn">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>580</y>
+      <x>60</x>
+      <y>570</y>
       <width>111</width>
       <height>27</height>
      </rect>
@@ -291,7 +303,7 @@ border-width:1px; border-color:black;</string>
      </rect>
     </property>
     <property name="text">
-     <string>EASY</string>
+     <string>EASY/CHEAT</string>
     </property>
     <property name="checkable">
      <bool>true</bool>

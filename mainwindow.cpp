@@ -40,6 +40,11 @@ void MainWindow::timerHit() {
     int lf = World::getInstance().getLives();
     int cr = storage::getInstance().getWavecreator();
     bool firstGo = storage::getInstance().getFG();
+    bool cheatset = storage::getInstance().getCheat();
+    if (cheatset == true) {
+        World::getInstance().setLives(9999999999);
+
+    }
     if (lf == 0 && firstGo) {
         storage::getInstance().setEnd(true);
 
@@ -200,19 +205,19 @@ void MainWindow::timerHit() {
         k = 1;
 
     }
-    if ((cr % k) == 0 && booltester == true) {
+    if ((cr % (k * storage::getInstance().getDiff())) == 0 && booltester == true) {
         stringstream forCreate;
         forCreate << string("0 0 enemy walker -1") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
-    } else if ((cr % 25) == 0 && booltester == true) {
+    } else if ((cr % (15 * storage::getInstance().getDiff())) == 0 && booltester == true) {
         stringstream forCreate;
         forCreate << string("0 0 enemy yolo -1") << endl;
         doCreate(forCreate);
         storage::getInstance().incCreator();
 
-    } else if((cr % 35) == 0 && booltester == true){
+    } else if((cr % (25 * storage::getInstance().getDiff())) == 0 && booltester == true){
         stringstream forCreate;
         forCreate << string("0 0 enemy sergeant -1") << endl;
         doCreate(forCreate);
@@ -249,7 +254,7 @@ int MainWindow::getSlotCoord(int slotNum, string coordType) {
 // initialize the world by loading all the normal tiles and setting up the timers.
 void MainWindow::initWorld() {
 
-    TIMER->setInterval(100);
+    TIMER->setInterval(40);
     connect(TIMER, &QTimer::timeout, this, &MainWindow::timerHit);
 
     int x = 0;
@@ -617,17 +622,40 @@ void MainWindow::on_btnLoad_clicked() {
 void MainWindow::on_diff1BTN_toggled(bool checked)
 {
     if (checked){
-
-        //SET LOGIC for easy difficulty changes the modulo in time hit
+        ui->diff2BTN->setChecked(false);
+        ui->diff3BTN->setChecked(false);
+        storage::getInstance().setDiff(3);
+        World::getInstance().setPrecheat(World::getInstance().getLives());
+        storage::getInstance().setCheatadj(true);
+       // ui->btnAddTower->setEnabled(true);
+        //ui->btnStartLevel->setEnabled(true);
+        ui->btnLoadLevel->setEnabled(true);
+    } else {
+        World::getInstance().setLives(World::getInstance().getPrecheat());
+        storage::getInstance().setCheatadj(false);
     }
 }
 
 void MainWindow::on_diff2BTN_toggled(bool checked)
 {
-    //SET LOGIC for NOrmal difficulty changes the modulo in time hit
+    if (checked){
+        ui->diff1BTN->setChecked(false);
+        ui->diff3BTN->setChecked(false);
+        storage::getInstance().setDiff(2);
+       // ui->btnAddTower->setEnabled(true);
+       // ui->btnStartLevel->setEnabled(true);
+        ui->btnLoadLevel->setEnabled(true);
+    }
 }
 
 void MainWindow::on_diff3BTN_toggled(bool checked)
 {
-    //SET LOGIC for HARD difficulty changes the modulo in time hit
+    if (checked){
+        ui->diff2BTN->setChecked(false);
+        ui->diff1BTN->setChecked(false);
+        storage::getInstance().setDiff(1);
+       // ui->btnAddTower->setEnabled(true);
+        //ui->btnStartLevel->setEnabled(true);
+        ui->btnLoadLevel->setEnabled(true);
+    }
 }

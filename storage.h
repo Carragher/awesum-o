@@ -19,6 +19,8 @@ private:
         bool isStarted;
         bool end;
         bool FG;
+        int difficultyAdjust;
+        bool lifeAdjust;
         storage(){
             engui = new vector<EnemyGUI*>();
             entities = new vector<Entity*>();
@@ -27,10 +29,19 @@ private:
             isStarted = false;
             FG = true;
             end = false;
+            difficultyAdjust = 1;
+            lifeAdjust = false;
         }
 
 public:
-    //storage();
+
+
+    void setCheatadj(bool b) {lifeAdjust = b; }
+    bool getCheat() {return lifeAdjust;}
+
+    void setDiff(int i) {difficultyAdjust = i; }
+    int getDiff() {return difficultyAdjust; }
+
     void setFG(bool f) {FG = f;}
     bool getFG() {return FG;}
 
