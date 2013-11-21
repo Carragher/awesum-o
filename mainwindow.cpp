@@ -35,6 +35,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::timerHit() {
     // get the collection of enemies
+    ui->btnLoadLevel->setEnabled(false);
 
     int i = World::getInstance().getScore();
     int lf = World::getInstance().getLives();
